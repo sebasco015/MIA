@@ -1,0 +1,60 @@
+/*-Navengacion subtitulos-*/
+
+#facturacion_div{
+    height: 800px;
+}
+
+#facturacion_divruta{
+    display: flex;
+    margin-bottom: -15px;
+    align-items: center;
+    margin: 10px;
+    display: flex;
+    gap: 7px;
+}
+
+#facturacion_iconos{
+    height: 20px;
+    width: 20px;
+}
+
+#facturacion_textrutas{
+    font-size: 18px;
+}
+
+#facturacion_linkinicio{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+}
+/*-Conteido de pagina-*/
+
+#facturacion_form{
+    width: fit-content;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin-top: 60px;
+    gap: 30px;
+}
+
+#facturacion_divinfomacion{
+    display: flex;
+    width: 320px;
+    height: 80px;
+    align-items: center;
+}
+
+#facturacion_inputstext{
+    width: 260px;
+}
+
+#facturacion_inputs{
+    width: 350px;
+}
+
+#facturacion_table{
+    width: fit-content;
+    margin: 0 auto; 
+    margin-top: 50px;
+}
