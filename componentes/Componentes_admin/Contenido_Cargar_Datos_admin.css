@@ -1,0 +1,56 @@
+/*-Navengacion subtitulos-*/
+
+#datos_div{
+    height: 800px;
+}
+
+#datos_divruta{
+    display: flex;
+    margin-bottom: -15px;
+    align-items: center;
+    margin: 10px;
+    display: flex;
+    gap: 7px;
+}
+
+#datos_iconos{
+    height: 20px;
+    width: 20px;
+}
+
+#datos_textrutas{
+    font-size: 18px;
+}
+
+#datos_linkinicio{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+}
+/*-Conteido de pagina-*/
+
+#datos_formulario{
+    width: 450px;
+    margin: auto;
+    /*display: grid;
+    grid-template-columns: 50% 50%;*/
+    margin-top: 20px;
+    /*gap: 30px;*/
+}
+
+#datos_divinfomacion{
+    display: flex;
+    width: 450px;
+    height: 80px;
+    align-items: center;
+}
+
+#datos_inputstext{
+ width: 200px;
+}
+
+#datos_boton{
+    width: fit-content;
+    margin: auto;
+    margin-top: 50px;
+}
