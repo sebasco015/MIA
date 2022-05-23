@@ -1,0 +1,35 @@
+/*-Navengacion subtitulos-*/
+#sistema_div{
+    height: 800px;
+}
+
+#sistema_divruta{
+    display: flex;
+    margin-bottom: -15px;
+    align-items: center;
+    margin: 10px;
+    display: flex;
+    gap: 7px;
+}
+
+#sistema_iconos{
+    height: 20px;
+    width: 20px;
+}
+
+#sistema_textrutas{
+    font-size: 18px;
+}
+
+#sistema_linkinicio{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+}
+/*-Conteido de pagina-*/
+
+#sistema_parrafos{
+    margin: 50px;
+    margin-top: 150px;
+}
+
