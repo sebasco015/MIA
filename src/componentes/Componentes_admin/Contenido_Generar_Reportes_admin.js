@@ -1,8 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './Contenido_Generar_Reportes_admin.css'
+import DataTable from 'react-data-table-component';
+import DataTableExtensions from 'react-data-table-component-extensions';
+import 'react-data-table-component-extensions/dist/index.css';
+import { get } from "jquery";
 
 export default class Contenido_Generar_Reportes_admin extends React.Component {
+     tableData = {
+         columns : [
+            {
+                name: 'Title',
+                selector: 'title',
+                sortable:true,
+            },
+            {
+                name: 'year',
+                selector: 'year',
+                sortable:true,
+            },
+        ],
+
+        data : [
+            {
+                id:1,
+                title:'holaperrp',
+                year: '1999',
+            },
+            {
+                id:2,
+                title:'perrrohpta',
+                year: '1989',
+            },
+        ]
+    }
+    radiobutton = [];
+
+    cambioradiobuton(e){
+        this.radiobutton.push(e.target.value)
+        console.log(this.radiobutton)
+        
+    }
     render() {
         return (
             <div id="reportes_div">
@@ -24,12 +62,12 @@ export default class Contenido_Generar_Reportes_admin extends React.Component {
                     </div>
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Reporte Grupos Poblacionales:</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Internos</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Indigenas</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Afroamericanos</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Victimas Del Conflicto Armado</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />NEE(Población Necesidades Especiales)</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Ninguna De Las Anteriores</label>
+                        <label id="label_checks"><input type="checkbox" id="checks" value='internos' onChange={this.cambioradiobuton}/>Internos</label>
+                        <label id="label_checks"><input type="checkbox" id="checks" value='indigenas' onChange={this.cambioradiobuton}/>Indigenas</label>
+                        <label id="label_checks"><input type="checkbox" id="checks" value='afroamericanos'onChange={this.cambioradiobuton}/>Afroamericanos</label>
+                        <label id="label_checks"><input type="checkbox" id="checks"value='victimasCA' onChange={this.cambioradiobuton} />Victimas Del Conflicto Armado</label>
+                        <label id="label_checks"><input type="checkbox" id="checks" value='NEE' onChange={this.cambioradiobuton}/>NEE(Población Necesidades Especiales)</label>
+                        <label id="label_checks"><input type="checkbox" id="checks"value='Na' onChange={this.cambioradiobuton}/>Ninguna De Las Anteriores</label>
                     </div>
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Tipo Reporte:*</label>
@@ -87,8 +125,20 @@ export default class Contenido_Generar_Reportes_admin extends React.Component {
                 <div id="busc">
                     <button type="submit" className="btn btn-danger">Generar Reporte</button>
                 </div>
-
+            
+                 <DataTableExtensions
+      {...this.tableData}
+    >
+      <DataTable
+        header
+        defaultSortField="id"
+        defaultSortAsc={false}
+        pagination
+        highlightOnHover
+      />
+    </DataTableExtensions>
 
             </div>
         )
-    }
+    }
+}
