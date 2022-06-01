@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import './Contenido_Generar_Reportes_admin.css'
-import DataTable from 'react-data-table-component';
-import DataTableExtensions from 'react-data-table-component-extensions';
-import 'react-data-table-component-extensions/dist/index.css';
-import { get } from "jquery";
 
 export default class Contenido_Generar_Reportes_admin extends React.Component {
      tableData = {
@@ -125,18 +121,6 @@ export default class Contenido_Generar_Reportes_admin extends React.Component {
                 <div id="busc">
                     <button type="submit" className="btn btn-danger">Generar Reporte</button>
                 </div>
-            
-                 <DataTableExtensions
-      {...this.tableData}
-    >
-      <DataTable
-        header
-        defaultSortField="id"
-        defaultSortAsc={false}
-        pagination
-        highlightOnHover
-      />
-    </DataTableExtensions>
 
             </div>
         )

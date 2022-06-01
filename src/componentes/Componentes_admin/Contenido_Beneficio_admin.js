@@ -13,7 +13,7 @@ export default class Contenido_Beneficio_admin extends Component {
             <div id='beneficio_div'>
                 <div id='beneficio_divruta'>
                     <img id="beneficio_iconos" src='/img/icono_inicio.png' alt='' />
-                    <Link id="beneficio_linkinicio" to="/Inicio_admin">Inicio/</Link>
+                    <Link id="beneficio_linkinicio" to="/InicioAdmin">Inicio/</Link>
                     <img id="beneficio_iconos" src='/img/icono_estudiantes.png' alt='' />
                     <label id='beneficio_textrutas'>Beneficio/</label>
                     <label id='beneficio_textrutas'>Registro Beneficio</label>
