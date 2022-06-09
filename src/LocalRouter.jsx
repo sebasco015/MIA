@@ -7,15 +7,18 @@ import Login from "./pages/Login";
 import InicioAdmin from "./pages/pages_admin/InicioAdmin";
 import SistemaAdmin from "./pages/pages_admin/SistemaAdmin";
 import ArchivosAdmin from "./pages/pages_admin/ArchivosAdmin";
+import CambiarClaveAdmin from './pages/pages_admin/CambiarClaveAdmin';
+import CargarDatosAdmin from './pages/pages_admin/CargarDatosAdmin'
 
-import ComponentExample from "./ComponentExample";
 
 const LocalRouter = () => {
   return useRoutes([
     { path: "/", element: <Login/> },
     { path: "inicio_admin", element: <InicioAdmin /> },
     { path: '/sistema_admin', element: <SistemaAdmin /> },
-    { path: '/archivos_admin', element: <ArchivosAdmin /> }
+    { path: '/archivos_admin', element: <ArchivosAdmin /> },
+    { path: '/cambiar_clave_admin', element: <CambiarClaveAdmin /> },
+    { path: '/cargar_datos_admin', element: <CargarDatosAdmin /> }
   ]);
 };
 

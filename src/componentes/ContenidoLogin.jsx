@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
 import Input from "react-validation/build/input";
 import axios from 'axios';
 
-import './contenidoLogin.css'
-import '../pages/pages_admin/InicioAdmin'
-import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../redux/slice";
 import {validateRol} from "../helpers/validateRoles";
+import env from '../env.json';
+
+import './contenidoLogin.css';
+import '../pages/pages_admin/InicioAdmin';
 
 const ContenidoLogin = () => {
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const ContenidoLogin = () => {
     try {
       const data = { usernameOrEmail: usernameOrEmail, password: password };
 
-      const res = await axios.post('http://localhost:8080/api/auth/iniciarSesion/', data);
+      const res = await axios.post(`${env.host}/auth/iniciarSesion`, data);
       dispatch(setUser({
         tokeDeAcceso: res.data.tokeDeAcceso,
         tipoRol: res.data.unUsuario.roles[0].nombre,
