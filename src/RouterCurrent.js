@@ -6,8 +6,8 @@ import Login from './pages/Login'
 import InicioAdmin from './pages/pages_admin/InicioAdmin'
 import SistemaAdmin from './pages/pages_admin/SistemaAdmin'
 import ArchivosAdmin from './pages/pages_admin/ArchivosAdmin'
-import Cambiar_Clave_admin from './pages/pages_admin/Cambiar_Clave_admin'
-import Cargar_Datos_admin from './pages/pages_admin/Cargar_Datos_admin'
+import CambiarClaveAdmin from './pages/pages_admin/CambiarClaveAdmin'
+import Cargar_Datos_admin from './pages/pages_admin/CargarDatosAdmin'
 import Roles_admin from './pages/pages_admin/Roles_admin'
 import Usuarios_admin from './pages/pages_admin/Usuarios_admin'
 import Beneficio_admin from './pages/pages_admin/Beneficio_admin'
@@ -52,7 +52,7 @@ const App = () => {
           <Route exact path='/inicio_admin' element={<InicioAdmin />} />
           <Route exact path='/sistema_admin' element={<SistemaAdmin />} />
           <Route exact path='/archivos_admin' element={<ArchivosAdmin />} />
-          <Route exact path='/cambiar_Clave_admin' element={<Cambiar_Clave_admin />} />
+          <Route exact path='/cambiar_Clave_admin' element={<CambiarClaveAdmin />} />
           <Route exact path='/cargar_Datos_admin' element={<Cargar_Datos_admin />} />
           <Route exact path='/roles_admin' element={<Roles_admin />} />
           <Route exact path='/usuarios_admin' element={<Usuarios_admin />} />
