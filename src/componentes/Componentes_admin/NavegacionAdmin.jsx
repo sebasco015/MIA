@@ -46,10 +46,9 @@ const NavegacionAdmin = () => {
                         </div>
                         <ul id='desple'>
                             <li id='boxli'><Link className='menu_link' to="/cambiar_clave_admin">Cambiar Clave</Link></li>
-                            <li id='boxli'><Link className='menu_link' to="/Cargar_Datos_admin">Cargar Datos</Link></li>
-                            <li id='boxli'><Link className='menu_link' to="/Roles_admin">Roles</Link></li>
-                            <li id='boxli'><Link className='menu_link' to="/Usuarios_admin">Usuarios</Link></li>
-                            <li id='boxli'><Link className='menu_link' to="/Huella_Estudiante_Nuevo_admin">Huella Estudiante Nuevo</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/cargar_datos_admin">Cargar Datos</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/usuarios_admin">Usuarios</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/huella_estudiante_nuevo_admin">Huella Estudiante Nuevo</Link></li>
                         </ul>
                     </li>
                     <li id='item'>
@@ -58,7 +57,7 @@ const NavegacionAdmin = () => {
                             <img id='imgflecha' src="/img/flecha_abajo.png" alt="" />
                         </div>
                         <ul id='desple'>
-                            <li id='boxli'><Link className='menu_link' to="/Beneficio_admin">Registro de Beneficio</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/beneficio_admin">Registro de Beneficio</Link></li>
                         </ul>
                     </li>
                     <li id='item'>

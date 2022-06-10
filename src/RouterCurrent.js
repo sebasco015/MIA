@@ -9,9 +9,9 @@ import ArchivosAdmin from './pages/pages_admin/ArchivosAdmin'
 import CambiarClaveAdmin from './pages/pages_admin/CambiarClaveAdmin'
 import Cargar_Datos_admin from './pages/pages_admin/CargarDatosAdmin'
 import Roles_admin from './pages/pages_admin/Roles_admin'
-import Usuarios_admin from './pages/pages_admin/Usuarios_admin'
-import Beneficio_admin from './pages/pages_admin/Beneficio_admin'
-import Huella_Estudiante_Nuevo_admin from './pages/pages_admin/Huella_Estudiante_Nuevo_admin'
+import Usuarios_admin from './pages/pages_admin/UsuariosAdmin'
+import BeneficioAdmin from './pages/pages_admin/BeneficioAdmin'
+import Huella_Estudiante_Nuevo_admin from './pages/pages_admin/HuellaEstudianteNuevoAdmin'
 import Instituciones_admin from './pages/pages_admin/Instituciones_admin'
 import Buscar_Estudiante_admin from './pages/pages_admin/Buscar_Estudiante_admin'
 import Generar_Reportes_admin from './pages/pages_admin/Generar_Reportes_admin'
@@ -56,7 +56,7 @@ const App = () => {
           <Route exact path='/cargar_Datos_admin' element={<Cargar_Datos_admin />} />
           <Route exact path='/roles_admin' element={<Roles_admin />} />
           <Route exact path='/usuarios_admin' element={<Usuarios_admin />} />
-          <Route exact path='/beneficio_admin' element={<Beneficio_admin />} />
+          <Route exact path='/beneficio_admin' element={<BeneficioAdmin />} />
           <Route exact path='/huella_Estudiante_Nuevo_admin' element={<Huella_Estudiante_Nuevo_admin />} />
           <Route exact path='/instituciones_admin' element={<Instituciones_admin />} />
           <Route exact path='/buscar_Estudiante_admin' element={<Buscar_Estudiante_admin />} />
