@@ -8,7 +8,10 @@ import InicioAdmin from "./pages/pages_admin/InicioAdmin";
 import SistemaAdmin from "./pages/pages_admin/SistemaAdmin";
 import ArchivosAdmin from "./pages/pages_admin/ArchivosAdmin";
 import CambiarClaveAdmin from './pages/pages_admin/CambiarClaveAdmin';
-import CargarDatosAdmin from './pages/pages_admin/CargarDatosAdmin'
+import CargarDatosAdmin from './pages/pages_admin/CargarDatosAdmin';
+import UsuariosAdmin from './pages/pages_admin/UsuariosAdmin';
+import HuellaEstudianteNuevoAdmin from './pages/pages_admin/HuellaEstudianteNuevoAdmin';
+import BeneficioAdmin from './pages/pages_admin/BeneficioAdmin';
 
 
 const LocalRouter = () => {
@@ -18,7 +21,10 @@ const LocalRouter = () => {
     { path: '/sistema_admin', element: <SistemaAdmin /> },
     { path: '/archivos_admin', element: <ArchivosAdmin /> },
     { path: '/cambiar_clave_admin', element: <CambiarClaveAdmin /> },
-    { path: '/cargar_datos_admin', element: <CargarDatosAdmin /> }
+    { path: '/cargar_datos_admin', element: <CargarDatosAdmin /> },
+    { path: '/usuarios_admin', element: <UsuariosAdmin /> },
+    { path: 'huella_estudiante_nuevo_admin', element: <HuellaEstudianteNuevoAdmin /> },
+    { path: '/beneficio_admin', element: <BeneficioAdmin /> }
   ]);
 };
 
