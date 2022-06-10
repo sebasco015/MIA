@@ -13,7 +13,7 @@ import Usuarios_admin from './pages/pages_admin/UsuariosAdmin'
 import BeneficioAdmin from './pages/pages_admin/BeneficioAdmin'
 import Huella_Estudiante_Nuevo_admin from './pages/pages_admin/HuellaEstudianteNuevoAdmin'
 import Instituciones_admin from './pages/pages_admin/Instituciones_admin'
-import Buscar_Estudiante_admin from './pages/pages_admin/Buscar_Estudiante_admin'
+import BuscarEstudianteAdmin from './pages/pages_admin/BuscarEstudianteAdmin'
 import Generar_Reportes_admin from './pages/pages_admin/Generar_Reportes_admin'
 import Facturacion_admin from './pages/pages_admin/Facturacion_admin'
 //Imports Contratista
@@ -59,7 +59,7 @@ const App = () => {
           <Route exact path='/beneficio_admin' element={<BeneficioAdmin />} />
           <Route exact path='/huella_Estudiante_Nuevo_admin' element={<Huella_Estudiante_Nuevo_admin />} />
           <Route exact path='/instituciones_admin' element={<Instituciones_admin />} />
-          <Route exact path='/buscar_Estudiante_admin' element={<Buscar_Estudiante_admin />} />
+          <Route exact path='/buscar_Estudiante_admin' element={<BuscarEstudianteAdmin />} />
           <Route exact path='/generar_Reportes_admin' element={<Generar_Reportes_admin />} />
           <Route exact path='/facturacion_admin' element={<Facturacion_admin />} />
           {/*Rutas Contratista */}
