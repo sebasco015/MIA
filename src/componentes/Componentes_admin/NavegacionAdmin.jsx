@@ -76,7 +76,7 @@ const NavegacionAdmin = () => {
                             <img id='imgflecha' src="/img/flecha_abajo.png" alt="" />
                         </div>
                         <ul id='desple'>
-                            <li id='boxli'><Link className='menu_link' to="/Buscar_Estudiante_admin">Buscar Estudiante</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/buscar_estudiante_admin">Buscar Estudiante</Link></li>
                         </ul>
                     </li>
                     <li id='item'>
