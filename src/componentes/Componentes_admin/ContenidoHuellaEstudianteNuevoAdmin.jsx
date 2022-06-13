@@ -367,13 +367,17 @@ const ContenidoHuellaEstudianteNuevoAdmin = () => {
         </div>
         <div>
           <label>Genero:*</label>
-          <input
+          <select
             type="text"
             id="huella_inputs"
-            className='form-control'
+            className='form-select'
+            aria-label="Default select example"
             placeholder="Genero:*"
-            onChange={ e => setGenero(e.target.value) }
-          />
+            onChange={ e => setGenero(e.target.value) }>
+              <option>Selecccione un Genero</option>
+              <option value="M">Masculino</option>
+              <option value="F">Femenino</option>
+          </select>
         </div>
         <div>
           <label>Grado:*</label>
