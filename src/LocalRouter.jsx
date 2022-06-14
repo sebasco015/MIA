@@ -12,6 +12,7 @@ import CargarDatosAdmin from './pages/pages_admin/CargarDatosAdmin';
 import UsuariosAdmin from './pages/pages_admin/UsuariosAdmin';
 import HuellaEstudianteNuevoAdmin from './pages/pages_admin/HuellaEstudianteNuevoAdmin';
 import BeneficioAdmin from './pages/pages_admin/BeneficioAdmin';
+import ContratistaAdmin from './pages/pages_admin/ContratistaAdmin';
 import BuscarEstudianteAdmin from "./pages/pages_admin/BuscarEstudianteAdmin";
 import InstitucionesAdmin from "./pages/pages_admin/InstitucionesAdmin";
 import GenerarReportesAdmin from "./pages/pages_admin/GenerarReportesAdmin";
@@ -29,6 +30,7 @@ const LocalRouter = () => {
     { path: '/usuarios_admin', element: <UsuariosAdmin /> },
     { path: 'huella_estudiante_nuevo_admin', element: <HuellaEstudianteNuevoAdmin /> },
     { path: '/beneficio_admin', element: <BeneficioAdmin /> },
+    { path: '/contratista_admin', element: <ContratistaAdmin /> },
     { path: 'Instituciones_admin', element: <InstitucionesAdmin /> },
     { path: '/buscar_estudiante_admin', element: <BuscarEstudianteAdmin /> },
     { path: '/Generar_Reportes_admin', element: <GenerarReportesAdmin /> },
