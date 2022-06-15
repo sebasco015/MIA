@@ -1,7 +1,7 @@
 import './Contenido_Instituciones_admin.css'
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

@@ -1,7 +1,6 @@
-import {useEffect, useRef, useState,} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from "react-router-dom";
 import axios from 'axios';
-
 import env from '../../env.json';
 import './contenidoHuellaEstudianteNuevoAdmin.css'
 

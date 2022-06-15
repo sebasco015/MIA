@@ -28,12 +28,25 @@
     color: black;
 }
 /*-Conteido de pagina-*/
+#buscar_form{
+    width: fit-content;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    margin-top: 60px;
+    gap: 30px;
+}
 
 #usuarios_tabla{  
   width: fit-content;
   margin: 0 auto; 
-  margin-top: 90px;
+  margin-top: 50px;
   width: 900px;
   height: auto;
+}
+
+#button{
+    background-color: white;
+    text-decoration: none;
 }
 

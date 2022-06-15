@@ -1,7 +1,7 @@
-import './Contenido_Buscar_Estudiante_admin.css'
+import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -83,6 +83,7 @@ const ContenidoBuscarEstudianteAdmin = () => {
                             <th scope="col">Fecha de Registro</th>
                             <th scope="col">Tipo Beneficio</th>
                             <th scope="col">Estado Beneficio</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,6 +101,7 @@ const ContenidoBuscarEstudianteAdmin = () => {
                                     <td>{estudiante.fechaActual}</td>
                                     <td>{estudiante.tipoBeneficio.nombre}</td>
                                     <td>{estudiante.estado}</td>
+                                    
                                 </tr>
                             ))}
                     </tbody>

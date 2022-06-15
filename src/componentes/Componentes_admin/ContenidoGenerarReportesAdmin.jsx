@@ -16,7 +16,7 @@ const ContenidoGenerarReportesAdmin = () => {
             <div id="reportes_div">
                 <div id='reportes_divruta'>
                     <img id="reportes_iconos" src='/img/icono_inicio.png' alt='' />
-                    <Link id="reportes_linkinicio" to="/Inicio">Inicio/</Link>
+                    <Link id="reportes_linkinicio" to="/inicio_admin">Inicio/</Link>
                     <img id="reportes_iconos" src='/img/icono_reportes.png' alt='' />
                     <label id='reportes_textrutas'>Reportes/</label>
                     <label id='reportes_textrutas'>Generar Reportes</label>

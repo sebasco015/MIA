@@ -11,8 +11,9 @@ import CambiarClaveAdmin from './pages/pages_admin/CambiarClaveAdmin';
 import CargarDatosAdmin from './pages/pages_admin/CargarDatosAdmin';
 import UsuariosAdmin from './pages/pages_admin/UsuariosAdmin';
 import HuellaEstudianteNuevoAdmin from './pages/pages_admin/HuellaEstudianteNuevoAdmin';
-import BeneficioAdmin from './pages/pages_admin/BeneficioAdmin';
-import ContratistaAdmin from './pages/pages_admin/ContratistaAdmin';
+import CrearUsuarioAdmin from './pages/pages_admin/CrearUsuarioAdmin';
+import BuscarContratistaAdmin from './pages/pages_admin/BuscarContratistaAdmin';
+import CrearContratistaAdmin from "./pages/pages_admin/CrearContratistaAdmin";
 import BuscarEstudianteAdmin from "./pages/pages_admin/BuscarEstudianteAdmin";
 import InstitucionesAdmin from "./pages/pages_admin/InstitucionesAdmin";
 import GenerarReportesAdmin from "./pages/pages_admin/GenerarReportesAdmin";
@@ -29,8 +30,9 @@ const LocalRouter = () => {
     { path: '/cargar_datos_admin', element: <CargarDatosAdmin /> },
     { path: '/usuarios_admin', element: <UsuariosAdmin /> },
     { path: 'huella_estudiante_nuevo_admin', element: <HuellaEstudianteNuevoAdmin /> },
-    { path: '/beneficio_admin', element: <BeneficioAdmin /> },
-    { path: '/contratista_admin', element: <ContratistaAdmin /> },
+    { path: '/crear_usuario_admin', element: <CrearUsuarioAdmin /> },
+    { path: '/buscar_contratista_admin', element: <BuscarContratistaAdmin /> },
+    { path: '/crear_contratista_admin', element: <CrearContratistaAdmin /> },
     { path: 'Instituciones_admin', element: <InstitucionesAdmin /> },
     { path: '/buscar_estudiante_admin', element: <BuscarEstudianteAdmin /> },
     { path: '/Generar_Reportes_admin', element: <GenerarReportesAdmin /> },

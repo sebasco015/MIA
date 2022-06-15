@@ -48,7 +48,7 @@ const NavegacionAdmin = () => {
                             <li id='boxli'><Link className='menu_link' to="/cambiar_clave_admin">Cambiar Clave</Link></li>
                             <li id='boxli'><Link className='menu_link' to="/cargar_datos_admin">Cargar Datos</Link></li>
                             <li id='boxli'><Link className='menu_link' to="/usuarios_admin">Usuarios</Link></li>
-                            <li id='boxli'><Link className='menu_link' to="/beneficios_admin">Crear Usuarios</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/crear_usuario_admin">Crear Usuarios</Link></li>
                             <li id='boxli'><Link className='menu_link' to="/huella_estudiante_nuevo_admin">Huella Estudiante Nuevo</Link></li>
                         </ul>
                     </li>
@@ -58,8 +58,8 @@ const NavegacionAdmin = () => {
                             <img id='imgflecha' src="/img/flecha_abajo.png" alt="" />
                         </div>
                         <ul id='desple'>
-                            <li id='boxli'><Link className='menu_link' to="/contratista_admin">Registro de Contratistas</Link></li>
-                            <li id='boxli'><Link className='menu_link' to="/contratista_admin">Contratistas</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/crear_contratista_admin">Registro de Contratistas</Link></li>
+                            <li id='boxli'><Link className='menu_link' to="/buscar_contratista_admin">Contratistas</Link></li>
                         </ul>
                     </li>
                     <li id='item'>

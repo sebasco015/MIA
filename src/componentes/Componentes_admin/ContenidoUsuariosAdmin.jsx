@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import './contenidoUsuariosAdmin.css'
 import axios from "axios";
 import env from '../../env.json';
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const ContenidoUsuariosAdmin = () => {
 
@@ -36,7 +38,28 @@ const ContenidoUsuariosAdmin = () => {
         <label id='usuarios_textrutas'>Administrador/</label>
         <label id='usuarios_textrutas'>Usuarios</label>
       </div>
-
+      <div id="buscar_form">
+                <div id="buscar_divinfomacion" className="containerInput">
+                   <button
+                      id="button"
+                      type="button"
+                      className="btn btn-primary btn-block">
+                      <Link to="/crear_usuario_admin">
+                      Crear
+                      </Link>
+                    </button>
+                    <input
+                        className="form-control inputBuscar"
+                        //value={busqueda}
+                        placeholder="Busqueda por Nombre o Numero de Documento"
+                        //onChange={handleChange}
+                    />
+                    <button className="btn btn-success">
+                        <FontAwesomeIcon icon={faSearch} />
+                    </button>
+                </div>
+            </div>
+      <div className="table-responsive">
       <table id="usuarios_tabla" className="table table-striped">
         <thead>
         <tr>
@@ -44,6 +67,7 @@ const ContenidoUsuariosAdmin = () => {
           <th id="usuarios_th" scope="col">Apellido</th>
           <th id="usuarios_th" scope="col">Rol</th>
           <th id="usuarios_th" scope="col">Estado</th>
+          <th id="usuarios_th" scope="col">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -57,6 +81,7 @@ const ContenidoUsuariosAdmin = () => {
         ))}
         </tbody>
       </table>
+      </div>
     </div>
   )
 }
