@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2022 a las 17:53:24
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.2
+-- Tiempo de generación: 15-06-2022 a las 21:35:24
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,7 +42,8 @@ CREATE TABLE `beneficiario` (
 --
 
 INSERT INTO `beneficiario` (`id_beneficiaro`, `contador_beneficios`, `ben_estado`, `ben_fecha_actual`, `ben_fecha_modificacion`, `id_tipo_beneficio`, `id_estudiante`) VALUES
-(1, 'gdg', 'Activo', '2022-05-09', '2022-05-09', 2, 1);
+(1, 'gdg', 'Activo', '2022-05-09', '2022-05-09', 2, 1),
+(2, 'asd', 'Activo', '2022-06-10', '2022-06-10', 2, 12707);
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,9 @@ CREATE TABLE `estudiante` (
 --
 
 INSERT INTO `estudiante` (`id_estudiante`, `est_acudiente`, `est_apellido1`, `est_apellido2`, `est_direccion_recidencia`, `reco_facial`, `fecha_creacio`, `est_fecha_nacimiento`, `est_genero`, `est_grado`, `reco_huella`, `est_municipio_recidencia`, `est_nacimiento_departamento`, `est_nacimiento_municipio`, `est_nombre1`, `est_nombre2`, `est_numero_documento`, `est_telefono`, `est_telefono_acudiente`, `id_director`, `id_pais`, `id_municipio`, `id_tipo_documento`, `id_tipo_discapacidad`, `id_etnia`, `id_institucion`, `id_jornada`, `id_sede`) VALUES
-(1, 'carmelina', 'perez', 'perez', 'calle 45', NULL, '2022-05-09', '12-03-2001', 'Masculino', 'Séptimo', NULL, 'Neiva', 'Huila', 'Neiva', 'Camilo', 'Alfredo', 105278578278, '32157856785', '32832784287', 3, 1, 1, 1, 1, 1, 1, 1, 1);
+(1, 'carmelina', 'perez', 'perez', 'calle 45', NULL, '2022-05-09', '12-03-2001', 'Masculino', 'Séptimo', NULL, 'Neiva', 'Huila', 'Neiva', 'Camilo', 'Alfredo', 105278578278, '32157856785', '32832784287', 3, 1, 1, 1, 1, 1, 1, 1, 1),
+(12707, 'khgj', 'jhg', 'jgj', 'jhg', NULL, '2022-06-10', NULL, NULL, 'Octavo', NULL, 'Neiva', 'Huila', 'Neiva', 'Andres', 'santiago', 25532342, '7643654', '5435466546', 3, 1, 1, 1, 1, 1, 1, 1, 1),
+(12709, 'dsdsad', 'conde ', 'bastidas', 'hfdgdf', NULL, '2022-06-13', 'hfdgfdg', 'M', 'octavo', NULL, 'ALGECIRAS', 'Huila', 'AGRADO', 'andres', 'fernando', 124214, '654654', '754654', 3, 1, 132, 2, 1, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -218,12 +221,43 @@ CREATE TABLE `municipio` (
 --
 
 INSERT INTO `municipio` (`id_municipio`, `mun_codigo`, `nombre`, `id_departamento`) VALUES
-(1, 1, 'Neiva', 1),
-(2, 2, 'Rivera', 1),
-(3, 3, 'Garzón', 1),
-(4, 1, 'Ibague', 2),
-(5, 4, 'Aipe', 1),
-(6, 2, 'Venadillo', 2);
+(1, 1, 'NEIVA', 1),
+(6, 2, 'ACEVEDO', 1),
+(13, 3, 'AGRADO', 1),
+(16, 4, 'AIPE', 1),
+(20, 37, 'ALGECIRAS', 1),
+(26, 5, 'ALTAMIRA', 1),
+(78, 6, 'BARAYA', 1),
+(132, 7, 'CAMPOALEGRE', 1),
+(206, 8, 'COLOMBIA', 1),
+(244, 9, 'ELIAS', 1),
+(298, 10, 'GARZON', 1),
+(306, 11, 'GIGANTE', 1),
+(319, 12, 'GUADALUPE', 1),
+(349, 13, 'HOBO', 1),
+(357, 14, 'IQUIRA', 1),
+(359, 15, 'ISNOS', 1),
+(378, 16, 'LA ARGENTINA', 1),
+(396, 17, 'LA PLATA', 1),
+(483, 18, 'NATAGA', 1),
+(503, 19, 'OPORAPA', 1),
+(518, 20, 'PAICOL', 1),
+(524, 21, 'PALERMO', 1),
+(530, 22, 'PALESTINA', 1),
+(548, 23, 'PITAL', 1),
+(551, 24, 'PITALITO', 1),
+(615, 25, 'RIVERA', 1),
+(660, 26, 'SALADOBLANCO', 1),
+(668, 27, 'SAN AGUSTIN', 1),
+(676, 28, 'SANTA MARIA', 1),
+(770, 29, 'SUAZA', 1),
+(791, 30, 'TARQUI', 1),
+(797, 31, 'TESALIA', 1),
+(799, 32, 'TELLO', 1),
+(801, 33, 'TERUEL', 1),
+(807, 34, 'TIMANA', 1),
+(872, 35, 'VILLAVIEJA', 1),
+(885, 36, 'YAGUARA', 1);
 
 -- --------------------------------------------------------
 
@@ -272,9 +306,9 @@ CREATE TABLE `persona` (
 
 INSERT INTO `persona` (`id_persona`, `per_apellido`, `per_barrio`, `per_direccion`, `per_estado`, `per_fecha_creacion`, `per_fecha_modificacion`, `per_fecha_nacimiento`, `per_nombre`, `per_numero_documento`, `per_telefono`, `id_municipio_lugar_nacimimiento`, `id_tipo_dumento`) VALUES
 (1, 'Basto', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:37:25 COT 2022', 'Mon May 09 14:37:25 COT 2022', '15-07-95', 'Santiago', '1005827144', '3205842358', 1, 2),
-(2, 'Garzon', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:40:56 COT 2022', 'Mon May 09 14:40:56 COT 2022', '15-07-2000', 'Felipe', '10058758444', '35875686558', 2, 2),
-(3, 'Basto', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:44:31 COT 2022', 'Mon May 09 14:44:31 COT 2022', '25-07-2001', 'Ever', '12070780744', '37825452558', 3, 2),
-(4, 'Garzon', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:51:42 COT 2022', 'Mon May 09 14:51:42 COT 2022', '25-07-2001', 'Felipe', '12070780744', '37825452558', 3, 2);
+(2, 'Garzon', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:40:56 COT 2022', 'Mon May 09 14:40:56 COT 2022', '15-07-2000', 'Felipe', '10058758444', '35875686558', 6, 2),
+(3, 'Basto', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:44:31 COT 2022', 'Mon May 09 14:44:31 COT 2022', '25-07-2001', 'Ever', '12070780744', '37825452558', 13, 2),
+(4, 'Garzon', 'centro sur', 'cr 2 sur # 12 -30', 'A', 'Mon May 09 14:51:42 COT 2022', 'Mon May 09 14:51:42 COT 2022', '25-07-2001', 'Felipe', '12070780744', '37825452558', 13, 2);
 
 -- --------------------------------------------------------
 
@@ -584,7 +618,7 @@ ALTER TABLE `usuario_roles`
 -- AUTO_INCREMENT de la tabla `beneficiario`
 --
 ALTER TABLE `beneficiario`
-  MODIFY `id_beneficiaro` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_beneficiaro` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
@@ -596,7 +630,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `estudiante`
 --
 ALTER TABLE `estudiante`
-  MODIFY `id_estudiante` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_estudiante` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12710;
 
 --
 -- AUTO_INCREMENT de la tabla `etnia`
@@ -632,7 +666,7 @@ ALTER TABLE `jornada`
 -- AUTO_INCREMENT de la tabla `municipio`
 --
 ALTER TABLE `municipio`
-  MODIFY `id_municipio` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_municipio` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=886;
 
 --
 -- AUTO_INCREMENT de la tabla `pais`

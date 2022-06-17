@@ -85,7 +85,6 @@ const ContenidoCrearContratistaAdmin = () => {
       useEffect(() => {
         (async () => {
           await obtenerNit();
-          
           await obtenerZona();
         } )();
       }, []);
@@ -108,6 +107,9 @@ const ContenidoCrearContratistaAdmin = () => {
             id="huella_inputs"
             onChange={e => setUnaZona(e.target.value)}>
                 <option>Seleccione una zona</option>
+                {zona && zona.map(zone =>
+              <option key={zone.idZona} value={zone.idZona}>{zone.nombre}</option>
+            )}
             </select>
         </div>
         <div>
@@ -126,10 +128,12 @@ const ContenidoCrearContratistaAdmin = () => {
             className="form-select"
             aria-label='default select example'
             id="huella_inputs"
-            onChange={e => setNit(e.target.value)}
+            onChange={e => setUnNit(e.target.value)}
           >
             <option>Seleccione un nit de contratista</option>
-             
+            {zona && zona.map(zone =>
+              <option key={zone.idZona} value={zone.idZona}>{zone.nombre}</option>
+            )}
           </select>      
         </div>
         <div>

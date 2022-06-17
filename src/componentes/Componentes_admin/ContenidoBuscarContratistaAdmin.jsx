@@ -8,12 +8,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ContenidoBuscarContratistaAdmin = () => {
 
-    //const [contratista, setContratista] = useState([]);
-    //const [tablaContratista, setTablaContratista] = useState([]);
-    //const [busqueda, setBusqueda] = useState("");
+    const [contratistas, setContratista] = useState([]);
+    const [tablaContratista, setTablaContratista] = useState([]);
+    const [busqueda, setBusqueda] = useState("");
 
-   /* const peticionGet = async () => {
-        await axios.get("http://localhost:8080/api/beneficiario/listar")
+   const peticionGet = async () => {
+        await axios.get("http://localhost:8080/api/contratista/listar")
             .then(response => {
                 setContratista(response.data);
                 setTablaContratista(response.data);
@@ -30,38 +30,37 @@ const ContenidoBuscarContratistaAdmin = () => {
 
     const filtrar = (terminoBusqueda) => {
         var resultadosBusqueda = tablaContratista.filter((elemento) => {
-            if (elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.nombreZona.nombreZona.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unaZona.zona.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unNit.nit.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+            if (elemento.nit.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.idZona.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.representanteLegal.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ) {
                 return elemento;
             }
         });
-        setUsuarios(resultadosBusqueda);
+        setContratista(resultadosBusqueda);
     }
 
 
     useEffect(() => {
         peticionGet();
     }, [])
-*/
+
     return (
         <div id="buscar_div">
             <div id='buscar_divruta'>
                 <img id="buscar_iconos" src='/img/icono_inicio.png' alt='' />
                 <Link id="buscar_linkinicio" to="/Inicio">Inicio/</Link>
                 <img id="buscar_iconos" src='/img/icono_estudiantes.png' alt='' />
-                <label id='buscar_textrutas'>Estudiantes/</label>
-                <label id='buscar_textrutas'>Buscar Estudiantes</label>
+                <label id='buscar_textrutas'>Contratita/</label>
+                <label id='buscar_textrutas'>Buscar Contratista</label>
             </div>
             <div id="buscar_form">
                 <div id="buscar_divinfomacion" className="containerInput">
                     <input
                         className="form-control inputBuscar"
-                        //value={busqueda}
+                        value={busqueda}
                         placeholder="Busqueda por Nombre o Numero de Documento"
-                        //onChange={handleChange}
+                        onChange={handleChange}
                     />
                     <button className="btn btn-success">
                         <FontAwesomeIcon icon={faSearch} />
@@ -78,8 +77,6 @@ const ContenidoBuscarContratistaAdmin = () => {
                             <th scope="col">Representante Legal</th>
                             <th scope="col">Cedula</th>
                             <th scope="col">N° Contrato</th>
-                            <th scope="col">Fehca Suscripcion</th>
-                            <th scope="col">Fehca Incio</th>
                             <th scope="col">Cant. Complemento</th>
                             <th scope="col">Costo Complemento</th>
                             <th scope="col">Cant. Almuerzo</th>
@@ -90,22 +87,24 @@ const ContenidoBuscarContratistaAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/*usuarios &&
-                            usuarios.map((contratista) => (
-                                <tr key={contratista.unContratista.idContratista}>
-                                    <td>{contratista.unContratista.unTipoDocumento.nombre}</td>
-                                    <td>{contratista.unContratista.numeroDocumento}</td>
-                                    <td>{contratista.unContratista.nombre1 + " " + estudiante.unEstudiante.nombre2}</td>
-                                    <td>{contratista.unContratista.apellido1 + " " + estudiante.unEstudiante.apellido2}</td>
-                                    <td>{contratista.unContratista.fechaNacimiento}</td>
-                                    <td>{contratista.unContratista.unaInstitucion.nombre}</td>
-                                    <td>{contratista.unContratista.unaSede.nombre}</td>
-                                    <td>{contratista.unContratista.grado}</td>
-                                    <td>{contratista.fechaActual}</td>
-                                    <td>{contratista.tipoBeneficio.nombre}</td>
-                                    <td>{contratista.estado}</td>
+                        {contratistas &&
+                            contratistas.map((contratista) => (
+                                <tr key={contratista.nit}>
+                                    <td>{contratista.idZona.nombre}</td>
+                                    <td>{contratista.nombreZona}</td>
+                                    <td>{contratista.nit}</td>
+                                    <td>{contratista.representanteLegal}</td>
+                                    <td>{contratista.numeroDocumento}</td>
+                                    <td>{contratista.numeroContrato}</td>
+                                    <td>{contratista.cantidadComplemento}</td>
+                                    <td>{contratista.costoComplemento}</td>
+                                    <td>{contratista.cantidadAlmuerzo}</td>
+                                    <td>{contratista.costoAlmuerzo}</td>
+                                    <td>{contratista.cantidadesDiarias}</td>
+                                    <td>{contratista.diasAtender}</td>
+                                    
                                 </tr>
-                            ))*/}
+                            ))}
                     </tbody>
                 </table>
             </div>

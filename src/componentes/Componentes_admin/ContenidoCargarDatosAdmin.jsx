@@ -25,17 +25,10 @@ const ContenidoCambiarClaveAdmin = () => {
             <option>.pdf</option>
           </select>
         </div>
-        <div id="datos_divinfomacion">
-          <label htmlFor="exampleInputEmail1" id="datos_inputstext" >Año Lectivo:* </label>
-          <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="2022" />
-        </div>
+        
         <div id="datos_divinfomacion">
           <label htmlFor="exampleInputEmail1" id="datos_inputstext" >Archivo:*</label>
           <input id="cargue_archivo" type="file" className="form-control" aria-describedby="emailHelp" />
-        </div>
-        <div id="datos_divinfomacion">
-          <label htmlFor="exampleInputPassword1" id="datos_inputstext" >Fecha Cargue:*</label>
-          <input type="date" className="form-control" placeholder="Repetir Contraseña Nueva" />
         </div>
       </form>
       <div id="datos_boton">

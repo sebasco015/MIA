@@ -1,9 +1,51 @@
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import './ContenidoGenerarReportesAdmin.css'
+import axios from "axios";
+import env from '../../env.json';
 
 const ContenidoGenerarReportesAdmin = () => {
-  
+   
+    const [municipio, setMunicipio] = useState([]);
+    const [institucion, setInstitucion] = useState([]);
+    const [sede, setSede] = useState([]);
+   const [unMunicipio, setUnmunicipio] = useState(''); 
+
+    const obtenerMunicipios = async () =>{
+        try {
+             const response = await axios.get(`${env.host}/municipios/listar`)
+                setMunicipio(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const obtenerInstituciones = async () => {
+        try {
+          const response = await axios.get(`${env.host}/institucion`);
+          setInstitucion(response.data);
+        } catch (err) {
+          console.log(err);
+        }
+      };
+    
+      const obtenerSedes = async () => {
+        try {
+          const response = await axios.get(`${env.host}/sede/listar`);
+          setSede(response.data);
+        } catch (err) {
+          console.log(err)
+        }
+      };
+
+
+    useEffect(() => {
+        (async () => {
+            await obtenerMunicipios();
+            await obtenerInstituciones();
+            await obtenerSedes();
+        })()
+    }, [])
    const radiobutton = [];
 
    const cambioradiobuton =(e) =>{
@@ -21,6 +63,7 @@ const ContenidoGenerarReportesAdmin = () => {
                     <label id='reportes_textrutas'>Reportes/</label>
                     <label id='reportes_textrutas'>Generar Reportes</label>
                 </div>
+               
                 <div id="reportes_form">
                     <div id="reportes_divinfomacion">
                         <label id="reportes_inputstext">Fecha Inicial:*</label>
@@ -41,9 +84,19 @@ const ContenidoGenerarReportesAdmin = () => {
                     </div>
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Tipo Reporte:*</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Formato Men-Planilla</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Zona(Rural o Urbana)</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Municipio</label>
+                        <label id="label_checks"><input type="checkbox" id="checks" value='formatoMenPlanilla' onChange={cambioradiobuton}/>Formato Men-Planilla</label>
+                        <label id="label_checks">Selecccione Area:</label>
+                        <select class="selectpicker" title="Selecccione Area" multiple>
+                            <option value="rural">Rural</option>
+                            <option value="urbana">Urbana</option>
+                        </select>
+                        <label id="label_checks">Municipio</label>
+                        <select class="selectpicker" title="Selecccione Municipio/s" multiple>
+                        { municipio && municipio.map(municipios =>
+                         <option key={municipios.nombre} value={municipios.nombre}>{municipios.nombre}</option>
+                        )}
+                        </select>
+                        
                         <label id="label_checks"><input type="checkbox" id="checks" />Sede Educativa</label>
                         <label id="label_checks"><input type="checkbox" id="checks" />Sexo(F o M)</label>
                         <label id="label_checks"><input type="checkbox" id="checks" />Consolidado Mensual Planilla</label>
@@ -67,6 +120,7 @@ const ContenidoGenerarReportesAdmin = () => {
                         <label id="label_checks"><input type="checkbox" id="checks" />Otra</label>
                     </div>
                 </div>
+               
                 <div>
                     <div id="iconos_ger">
                         <div>

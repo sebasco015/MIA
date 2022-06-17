@@ -26,7 +26,7 @@ const ContenidoCrearUsuarioAdmin = () => {
 
   const obtenerRol= async () => {
     try {
-      const response = await axios.get(`${env.host}/roles`);	
+      const response = await axios.get(`${env.host}/rol/listar`);	
       setRol(response.data);
     } catch (err) {
       console.log(err);
@@ -110,7 +110,7 @@ const ContenidoCrearUsuarioAdmin = () => {
         <div>
           <label>Email:</label>
           <input
-            type="text"
+            type="email"
             id="huella_inputs"
             className="form-control"
             placeholder="Email:*"
@@ -188,7 +188,7 @@ const ContenidoCrearUsuarioAdmin = () => {
         <div>
           <label>Fecha Nacimiento:</label>
           <input
-            type="text"
+            type="date"
             id="huella_inputs"
             className="form-control"
             placeholder="Fecha Nacimiento:*"

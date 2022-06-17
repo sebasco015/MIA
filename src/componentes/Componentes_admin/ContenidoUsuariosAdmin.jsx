@@ -77,6 +77,11 @@ const ContenidoUsuariosAdmin = () => {
             <td>{instituciones.unaPersona.apellido}</td>
             <td>{instituciones.roles}</td>
             <td>{instituciones.unaPersona.estado}</td>
+            <td>
+              <a className="link_menu" href="editar_usuario_admin">Editar </a>
+               |
+              <a className="link_menu" href="eliminar_usuario_admin"> Eliminar</a>
+              </td>
           </tr>
         ))}
         </tbody>
