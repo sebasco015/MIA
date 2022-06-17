@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-06-2022 a las 21:35:24
+-- Tiempo de generación: 17-06-2022 a las 00:15:31
 -- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 8.1.6
+-- Versión de PHP: 8.0.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bd_sga`
 --
+CREATE DATABASE IF NOT EXISTS `bd_sga` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bd_sga`;
 
 -- --------------------------------------------------------
 
@@ -44,6 +46,39 @@ CREATE TABLE `beneficiario` (
 INSERT INTO `beneficiario` (`id_beneficiaro`, `contador_beneficios`, `ben_estado`, `ben_fecha_actual`, `ben_fecha_modificacion`, `id_tipo_beneficio`, `id_estudiante`) VALUES
 (1, 'gdg', 'Activo', '2022-05-09', '2022-05-09', 2, 1),
 (2, 'asd', 'Activo', '2022-06-10', '2022-06-10', 2, 12707);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contratista`
+--
+
+CREATE TABLE `contratista` (
+  `nit` bigint(20) NOT NULL,
+  `cantidad_almuerzo` int(11) NOT NULL,
+  `cantidad_complemento` int(11) NOT NULL,
+  `cantidades_diarias` int(11) NOT NULL,
+  `costo_almuerzo` int(11) NOT NULL,
+  `costo_complemento` int(11) NOT NULL,
+  `dias_atender` int(11) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_suscripcion` date NOT NULL,
+  `numero_contrato` int(11) NOT NULL,
+  `numero_documento` int(11) NOT NULL,
+  `representante_legal` varchar(30) NOT NULL,
+  `id_zona` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `contratista`
+--
+
+INSERT INTO `contratista` (`nit`, `cantidad_almuerzo`, `cantidad_complemento`, `cantidades_diarias`, `costo_almuerzo`, `costo_complemento`, `dias_atender`, `fecha_inicio`, `fecha_suscripcion`, `numero_contrato`, `numero_documento`, `representante_legal`, `id_zona`) VALUES
+(1080, 3, 3, 3, 3, 3, 3, '2022-06-01', '2022-06-15', 3, 2323, 'harolo', 3),
+(1223, 3, 3, 3, 3, 3, 3, '2022-06-01', '2022-06-15', 3, 2323, 'harolo', 3),
+(78999, 3, 3, 3, 3, 3, 3, '2022-06-01', '2022-06-15', 3, 2323, 'harolo', 3),
+(2382456, 3, 3, 3, 3, 3, 3, '2022-09-17', '2022-08-13', 3, 2323, 'liliana', 1),
+(1000000000, 3, 3, 3, 3, 3, 3, '2022-06-01', '2022-06-15', 3, 2323, 'juan', 2);
 
 -- --------------------------------------------------------
 
@@ -100,17 +135,18 @@ CREATE TABLE `estudiante` (
   `id_etnia` bigint(20) DEFAULT NULL,
   `id_institucion` bigint(20) DEFAULT NULL,
   `id_jornada` bigint(20) DEFAULT NULL,
-  `id_sede` bigint(20) DEFAULT NULL
+  `id_sede` bigint(20) DEFAULT NULL,
+  `id_beneficio` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `estudiante`
 --
 
-INSERT INTO `estudiante` (`id_estudiante`, `est_acudiente`, `est_apellido1`, `est_apellido2`, `est_direccion_recidencia`, `reco_facial`, `fecha_creacio`, `est_fecha_nacimiento`, `est_genero`, `est_grado`, `reco_huella`, `est_municipio_recidencia`, `est_nacimiento_departamento`, `est_nacimiento_municipio`, `est_nombre1`, `est_nombre2`, `est_numero_documento`, `est_telefono`, `est_telefono_acudiente`, `id_director`, `id_pais`, `id_municipio`, `id_tipo_documento`, `id_tipo_discapacidad`, `id_etnia`, `id_institucion`, `id_jornada`, `id_sede`) VALUES
-(1, 'carmelina', 'perez', 'perez', 'calle 45', NULL, '2022-05-09', '12-03-2001', 'Masculino', 'Séptimo', NULL, 'Neiva', 'Huila', 'Neiva', 'Camilo', 'Alfredo', 105278578278, '32157856785', '32832784287', 3, 1, 1, 1, 1, 1, 1, 1, 1),
-(12707, 'khgj', 'jhg', 'jgj', 'jhg', NULL, '2022-06-10', NULL, NULL, 'Octavo', NULL, 'Neiva', 'Huila', 'Neiva', 'Andres', 'santiago', 25532342, '7643654', '5435466546', 3, 1, 1, 1, 1, 1, 1, 1, 1),
-(12709, 'dsdsad', 'conde ', 'bastidas', 'hfdgdf', NULL, '2022-06-13', 'hfdgfdg', 'M', 'octavo', NULL, 'ALGECIRAS', 'Huila', 'AGRADO', 'andres', 'fernando', 124214, '654654', '754654', 3, 1, 132, 2, 1, 1, 1, 1, 1);
+INSERT INTO `estudiante` (`id_estudiante`, `est_acudiente`, `est_apellido1`, `est_apellido2`, `est_direccion_recidencia`, `reco_facial`, `fecha_creacio`, `est_fecha_nacimiento`, `est_genero`, `est_grado`, `reco_huella`, `est_municipio_recidencia`, `est_nacimiento_departamento`, `est_nacimiento_municipio`, `est_nombre1`, `est_nombre2`, `est_numero_documento`, `est_telefono`, `est_telefono_acudiente`, `id_director`, `id_pais`, `id_municipio`, `id_tipo_documento`, `id_tipo_discapacidad`, `id_etnia`, `id_institucion`, `id_jornada`, `id_sede`, `id_beneficio`) VALUES
+(1, 'carmelina', 'perez', 'perez', 'calle 45', NULL, '2022-05-09', '12-03-2001', 'Masculino', 'Séptimo', NULL, 'Neiva', 'Huila', 'Neiva', 'Camilo', 'Alfredo', 105278578278, '32157856785', '32832784287', 3, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(12707, 'khgj', 'jhg', 'jgj', 'jhg', NULL, '2022-06-10', NULL, NULL, 'Octavo', NULL, 'Neiva', 'Huila', 'Neiva', 'Andres', 'santiago', 25532342, '7643654', '5435466546', 3, 1, 1, 1, 1, 1, 1, 1, 1, 2),
+(12709, 'dsdsad', 'conde ', 'bastidas', 'hfdgdf', NULL, '2022-06-13', 'hfdgfdg', 'M', 'octavo', NULL, 'ALGECIRAS', 'Huila', 'AGRADO', 'andres', 'fernando', 124214, '654654', '754654', 3, 1, 132, 2, 1, 1, 1, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -143,6 +179,23 @@ CREATE TABLE `facial` (
   `id_facial` bigint(20) NOT NULL,
   `img_facial` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `hibernate_sequence`
+--
+
+CREATE TABLE `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `hibernate_sequence`
+--
+
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+(4);
 
 -- --------------------------------------------------------
 
@@ -213,51 +266,52 @@ CREATE TABLE `municipio` (
   `id_municipio` bigint(20) NOT NULL,
   `mun_codigo` int(11) DEFAULT NULL,
   `nombre` varchar(50) DEFAULT NULL,
-  `id_departamento` bigint(20) DEFAULT NULL
+  `id_departamento` bigint(20) DEFAULT NULL,
+  `id_zona` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `municipio`
 --
 
-INSERT INTO `municipio` (`id_municipio`, `mun_codigo`, `nombre`, `id_departamento`) VALUES
-(1, 1, 'NEIVA', 1),
-(6, 2, 'ACEVEDO', 1),
-(13, 3, 'AGRADO', 1),
-(16, 4, 'AIPE', 1),
-(20, 37, 'ALGECIRAS', 1),
-(26, 5, 'ALTAMIRA', 1),
-(78, 6, 'BARAYA', 1),
-(132, 7, 'CAMPOALEGRE', 1),
-(206, 8, 'COLOMBIA', 1),
-(244, 9, 'ELIAS', 1),
-(298, 10, 'GARZON', 1),
-(306, 11, 'GIGANTE', 1),
-(319, 12, 'GUADALUPE', 1),
-(349, 13, 'HOBO', 1),
-(357, 14, 'IQUIRA', 1),
-(359, 15, 'ISNOS', 1),
-(378, 16, 'LA ARGENTINA', 1),
-(396, 17, 'LA PLATA', 1),
-(483, 18, 'NATAGA', 1),
-(503, 19, 'OPORAPA', 1),
-(518, 20, 'PAICOL', 1),
-(524, 21, 'PALERMO', 1),
-(530, 22, 'PALESTINA', 1),
-(548, 23, 'PITAL', 1),
-(551, 24, 'PITALITO', 1),
-(615, 25, 'RIVERA', 1),
-(660, 26, 'SALADOBLANCO', 1),
-(668, 27, 'SAN AGUSTIN', 1),
-(676, 28, 'SANTA MARIA', 1),
-(770, 29, 'SUAZA', 1),
-(791, 30, 'TARQUI', 1),
-(797, 31, 'TESALIA', 1),
-(799, 32, 'TELLO', 1),
-(801, 33, 'TERUEL', 1),
-(807, 34, 'TIMANA', 1),
-(872, 35, 'VILLAVIEJA', 1),
-(885, 36, 'YAGUARA', 1);
+INSERT INTO `municipio` (`id_municipio`, `mun_codigo`, `nombre`, `id_departamento`, `id_zona`) VALUES
+(1, 1, 'NEIVA', 1, 1),
+(6, 2, 'ACEVEDO', 1, 2),
+(13, 3, 'AGRADO', 1, 2),
+(16, 4, 'AIPE', 1, 5),
+(20, 37, 'ALGECIRAS', 1, 3),
+(26, 5, 'ALTAMIRA', 1, 1),
+(78, 6, 'BARAYA', 1, 5),
+(132, 7, 'CAMPOALEGRE', 1, 5),
+(206, 8, 'COLOMBIA', 1, 5),
+(244, 9, 'ELIAS', 1, 1),
+(298, 10, 'GARZON', 1, 3),
+(306, 11, 'GIGANTE', 1, 3),
+(319, 12, 'GUADALUPE', 1, 2),
+(349, 13, 'HOBO', 1, 3),
+(357, 14, 'IQUIRA', 1, 4),
+(359, 15, 'ISNOS', 1, 1),
+(378, 16, 'LA ARGENTINA', 1, 4),
+(396, 17, 'LA PLATA', 1, 4),
+(483, 18, 'NATAGA', 1, 4),
+(503, 19, 'OPORAPA', 1, 1),
+(518, 20, 'PAICOL', 1, 4),
+(524, 21, 'PALERMO', 1, 5),
+(530, 22, 'PALESTINA', 1, 1),
+(548, 23, 'PITAL', 1, 2),
+(551, 24, 'PITALITO', 1, 1),
+(615, 25, 'RIVERA', 1, NULL),
+(660, 26, 'SALADOBLANCO', 1, NULL),
+(668, 27, 'SAN AGUSTIN', 1, NULL),
+(676, 28, 'SANTA MARIA', 1, NULL),
+(770, 29, 'SUAZA', 1, NULL),
+(791, 30, 'TARQUI', 1, NULL),
+(797, 31, 'TESALIA', 1, NULL),
+(799, 32, 'TELLO', 1, NULL),
+(801, 33, 'TERUEL', 1, NULL),
+(807, 34, 'TIMANA', 1, NULL),
+(872, 35, 'VILLAVIEJA', 1, NULL),
+(885, 36, 'YAGUARA', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -464,6 +518,28 @@ INSERT INTO `usuario_roles` (`usuario_id`, `rol_id`) VALUES
 (3, 2),
 (4, 2);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `zonas`
+--
+
+CREATE TABLE `zonas` (
+  `id` bigint(20) NOT NULL,
+  `nombre` varchar(60) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `zonas`
+--
+
+INSERT INTO `zonas` (`id`, `nombre`) VALUES
+(1, 'zona1'),
+(2, 'zona2'),
+(3, 'zona3'),
+(4, 'zona4'),
+(5, 'zona5');
+
 --
 -- Índices para tablas volcadas
 --
@@ -475,6 +551,13 @@ ALTER TABLE `beneficiario`
   ADD PRIMARY KEY (`id_beneficiaro`),
   ADD KEY `FK8quohatp74ypwmh1oru7paij9` (`id_tipo_beneficio`),
   ADD KEY `FKd2bupurnmjn5ucqef3txcc8oi` (`id_estudiante`);
+
+--
+-- Indices de la tabla `contratista`
+--
+ALTER TABLE `contratista`
+  ADD PRIMARY KEY (`nit`),
+  ADD KEY `FKp77cyonjds9rsbyboq1a4e2iu` (`id_zona`);
 
 --
 -- Indices de la tabla `departamento`
@@ -497,7 +580,8 @@ ALTER TABLE `estudiante`
   ADD KEY `FKpwj9lclscff5tdts7cxlqsg96` (`id_etnia`),
   ADD KEY `FK8p67lxfrc9ybioav22k06tux` (`id_institucion`),
   ADD KEY `FKm59q8v4bwnwmdbgr9webrdro7` (`id_jornada`),
-  ADD KEY `FKql4cj8o74rw0glipgef5uodfa` (`id_sede`);
+  ADD KEY `FKql4cj8o74rw0glipgef5uodfa` (`id_sede`),
+  ADD KEY `FK9b7v92be30qvwf4q4hevu9tdt` (`id_beneficio`);
 
 --
 -- Indices de la tabla `etnia`
@@ -540,7 +624,8 @@ ALTER TABLE `jornada`
 --
 ALTER TABLE `municipio`
   ADD PRIMARY KEY (`id_municipio`),
-  ADD KEY `FKe1way3pa23l5j480h48x5tp65` (`id_departamento`);
+  ADD KEY `FKe1way3pa23l5j480h48x5tp65` (`id_departamento`),
+  ADD KEY `FKbr69bkglfbfumrfwysx2q2v1y` (`id_zona`);
 
 --
 -- Indices de la tabla `pais`
@@ -609,6 +694,12 @@ ALTER TABLE `usuarios`
 ALTER TABLE `usuario_roles`
   ADD PRIMARY KEY (`usuario_id`,`rol_id`),
   ADD KEY `FKbt9i9yrb9ug88xnh82n9m60pr` (`rol_id`);
+
+--
+-- Indices de la tabla `zonas`
+--
+ALTER TABLE `zonas`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -717,6 +808,12 @@ ALTER TABLE `usuarios`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `zonas`
+--
+ALTER TABLE `zonas`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -726,6 +823,12 @@ ALTER TABLE `usuarios`
 ALTER TABLE `beneficiario`
   ADD CONSTRAINT `FK8quohatp74ypwmh1oru7paij9` FOREIGN KEY (`id_tipo_beneficio`) REFERENCES `tipo_beneficio` (`id_tipo_beneficio`),
   ADD CONSTRAINT `FKd2bupurnmjn5ucqef3txcc8oi` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiante` (`id_estudiante`);
+
+--
+-- Filtros para la tabla `contratista`
+--
+ALTER TABLE `contratista`
+  ADD CONSTRAINT `FKp77cyonjds9rsbyboq1a4e2iu` FOREIGN KEY (`id_zona`) REFERENCES `zonas` (`id`);
 
 --
 -- Filtros para la tabla `departamento`
@@ -738,6 +841,7 @@ ALTER TABLE `departamento`
 --
 ALTER TABLE `estudiante`
   ADD CONSTRAINT `FK8p67lxfrc9ybioav22k06tux` FOREIGN KEY (`id_institucion`) REFERENCES `institucion` (`id_institucion`),
+  ADD CONSTRAINT `FK9b7v92be30qvwf4q4hevu9tdt` FOREIGN KEY (`id_beneficio`) REFERENCES `tipo_beneficio` (`id_tipo_beneficio`),
   ADD CONSTRAINT `FKh579kilil2e6nhr3ykvif6f2q` FOREIGN KEY (`id_tipo_documento`) REFERENCES `tipo_documento` (`id_tipo_documento`),
   ADD CONSTRAINT `FKm59q8v4bwnwmdbgr9webrdro7` FOREIGN KEY (`id_jornada`) REFERENCES `jornada` (`id_jornada`),
   ADD CONSTRAINT `FKnhu9x8pxlaeyhgaxvrxh6q2yh` FOREIGN KEY (`id_director`) REFERENCES `usuarios` (`id`),
@@ -759,6 +863,7 @@ ALTER TABLE `institucion`
 -- Filtros para la tabla `municipio`
 --
 ALTER TABLE `municipio`
+  ADD CONSTRAINT `FKbr69bkglfbfumrfwysx2q2v1y` FOREIGN KEY (`id_zona`) REFERENCES `zonas` (`id`),
   ADD CONSTRAINT `FKe1way3pa23l5j480h48x5tp65` FOREIGN KEY (`id_departamento`) REFERENCES `departamento` (`id_deparmento`);
 
 --
