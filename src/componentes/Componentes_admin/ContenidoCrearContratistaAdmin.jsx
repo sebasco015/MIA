@@ -27,22 +27,14 @@ const ContenidoCrearContratistaAdmin = () => {
  
   const obtenerNit= async () => {
     try {
-      const response = await axios.get(`${env.host}/nit`);	
+      const response = await axios.get(`${env.host}/contratista/listar/`);	
       setNit(response.data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  /*const obtenerTipoDocumento= async () => {
-    try {
-      const response = await axios.get(`${env.host}/tipoDocumento`);	
-      setTipoDocumento(response.data);
-      } catch (err) {
-      console.log(err);
-      }
-    };*/
-
+  
     const obtenerZona= async () => {
       try {
         const response = await axios.get(`${env.host}/zona/listar`);
@@ -58,7 +50,7 @@ const ContenidoCrearContratistaAdmin = () => {
           const data = {
             unaZona: { 'idZona':unaZona },
             nombreZona,
-            nit,
+            nit: { 'idNit':unNit },
             represLegal,
             unDocumento,
             numeroContrato,
@@ -73,7 +65,7 @@ const ContenidoCrearContratistaAdmin = () => {
           
           };
 
-          await axios.post(`${env.host}/contratista`, data);
+          await axios.post(`http://localhost:8080/api/contratista/guardar`, data);
           e.target.reset();
           alert("Contratista creado correctamente");
         } catch (e) {
@@ -173,7 +165,6 @@ const ContenidoCrearContratistaAdmin = () => {
             type="date"
             id="huella_inputs"
             className="form-control" 
-            //placeholder="Nombres:*"
             onChange={e => setFehcaSuscripcion(e.target.value)}
           />
         </div>
@@ -182,8 +173,7 @@ const ContenidoCrearContratistaAdmin = () => {
           <input
             type="date"
             id="huella_inputs"
-            className="form-control"
-            //placeholder="Apellidos:*"
+            className="form-control"      
             onChange={e => setFechaActaInicio(e.target.value)}
           />
         </div>
@@ -255,7 +245,7 @@ const ContenidoCrearContratistaAdmin = () => {
           <button
             id="lim"
             type="button"
-            class="btn btn-danger"
+            className="btn btn-danger"
             onClick={ () => formRef.current()}
           >Limpiar</button>
           <button 

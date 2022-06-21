@@ -1,12 +1,19 @@
 import React from 'react';
 import './navegacionAdmin.css'
 import { Link } from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import { clearUser } from '../../redux/slice';
 
 const NavegacionAdmin = () => {
     const fecha = new Date();
     const hora = fecha.toLocaleDateString();
     const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    const exit = () => {
+        dispatch(clearUser);
+        window.location.reload();
+    }
 
     return (
         <div>
@@ -98,6 +105,11 @@ const NavegacionAdmin = () => {
                         <ul id='desple'>
                             <li id='boxli'> <Link className='menu_link' to="/Facturacion_admin">Facturacion</Link></li>
                         </ul>
+                    </li>
+                    <li id='item' onClick={exit}>
+                        <div className='menu_link'>
+                            Salir
+                        </div>
                     </li>
                 </ul>
             </header>

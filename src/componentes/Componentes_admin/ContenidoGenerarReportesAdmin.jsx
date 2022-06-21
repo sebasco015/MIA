@@ -9,7 +9,9 @@ const ContenidoGenerarReportesAdmin = () => {
     const [municipio, setMunicipio] = useState([]);
     const [institucion, setInstitucion] = useState([]);
     const [sede, setSede] = useState([]);
-   const [unMunicipio, setUnmunicipio] = useState(''); 
+    const [zona, setZona] = useState([]);
+    
+    
 
     const obtenerMunicipios = async () =>{
         try {
@@ -29,6 +31,16 @@ const ContenidoGenerarReportesAdmin = () => {
         }
       };
     
+      const obtenerZona= async () => {
+        try {
+          const response = await axios.get(`${env.host}/zona/listar`);
+          console.log(response.data);
+          setZona(response.data);
+          } catch (err) {
+          console.log(err);
+          }
+        };
+
       const obtenerSedes = async () => {
         try {
           const response = await axios.get(`${env.host}/sede/listar`);
@@ -44,6 +56,7 @@ const ContenidoGenerarReportesAdmin = () => {
             await obtenerMunicipios();
             await obtenerInstituciones();
             await obtenerSedes();
+            await obtenerZona();
         })()
     }, [])
    const radiobutton = [];
@@ -85,21 +98,33 @@ const ContenidoGenerarReportesAdmin = () => {
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Tipo Reporte:*</label>
                         <label id="label_checks"><input type="checkbox" id="checks" value='formatoMenPlanilla' onChange={cambioradiobuton}/>Formato Men-Planilla</label>
+                        <label id="label_checks"><input type="checkbox" id="checks" value='formatoMenPlanilla' onChange={cambioradiobuton}/>Consolidado Mensual Planilla</label>
                         <label id="label_checks">Selecccione Area:</label>
-                        <select class="selectpicker" title="Selecccione Area" multiple>
-                            <option value="rural">Rural</option>
-                            <option value="urbana">Urbana</option>
+                        <select className="selectpicker" title="Selecccione Area" multiple>
+                            <option key="A-1" value="rural">Rural</option>
+                            <option key="A-2" value="urbana">Urbana</option>
                         </select>
+                        <label id="label_checks">Zona</label>
+                            <select className="selectpicker" title='Selecccione zona/s' multiple>
+                                {zona && zona.map(zone =>
+                                <option key={`Z-${zone.id}`} value={zone.id}>{zone.nombre}</option>
+                                )}
+                            </select>
                         <label id="label_checks">Municipio</label>
-                        <select class="selectpicker" title="Selecccione Municipio/s" multiple>
-                        { municipio && municipio.map(municipios =>
-                         <option key={municipios.nombre} value={municipios.nombre}>{municipios.nombre}</option>
-                        )}
+                        <select className="selectpicker" title="Selecccione Municipio/s" multiple>
+                            { municipio && municipio.map(municipios =>
+                            <option key={`M-${municipios.idMunicipio}`} value={municipios.idMunicipio}>{municipios.nombre}</option>
+                            )}
                         </select>
                         
-                        <label id="label_checks"><input type="checkbox" id="checks" />Sede Educativa</label>
+                        <label id="label_checks">Sede Educativa</label>
+                        <select className="selectpicker" title="Selecccione Sede Educativa" multiple>
+                            { institucion && institucion.map(instituciones =>
+                                <option key={`S-${instituciones.idSede}`} value={instituciones.idInstitucion}>{instituciones.nombre}</option>
+                            )}
+                        </select>
                         <label id="label_checks"><input type="checkbox" id="checks" />Sexo(F o M)</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Consolidado Mensual Planilla</label>
+                        
                     </div>
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Reporte Tipo Alimentario:*</label>

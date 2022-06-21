@@ -102,7 +102,9 @@ const ContenidoBuscarContratistaAdmin = () => {
                                     <td>{contratista.costoAlmuerzo}</td>
                                     <td>{contratista.cantidadesDiarias}</td>
                                     <td>{contratista.diasAtender}</td>
-                                    
+                                    <td> <a href="editar_contratista_adimin">Editar</a>     |
+                                        <a href="eliminar_contratista_adimin"> Eliminar</a>
+                                    </td>                                    
                                 </tr>
                             ))}
                     </tbody>
