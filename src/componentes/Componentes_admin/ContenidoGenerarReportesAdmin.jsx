@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState, useRef} from "react";
 import { Link } from "react-router-dom";
 import './ContenidoGenerarReportesAdmin.css'
 import axios from "axios";
@@ -10,7 +10,7 @@ const ContenidoGenerarReportesAdmin = () => {
     const [institucion, setInstitucion] = useState([]);
     const [sede, setSede] = useState([]);
     const [zona, setZona] = useState([]);
-    
+    const mensual = useRef();
     
 
     const obtenerMunicipios = async () =>{
@@ -50,6 +50,27 @@ const ContenidoGenerarReportesAdmin = () => {
         }
       };
 
+      const getMensual = async () => {
+        try {
+            const resp = await axios({
+              url: `http://localhost:8080/web/export/planilla`,
+              method: 'GET',
+              responseType: 'blob'
+            });
+            const fileURL = window.URL.createObjectURL(new Blob([resp.data]));
+            mensual.current.href = fileURL;
+            mensual.current.download = 'plantilla mensual.xlsx';
+            mensual.current.click();
+          } catch (e) {
+              console.log(e);
+              alert('error al descargar el informe');
+          }
+      };
+      const handleSubmit = async e => {
+        e.preventDefault();
+        await getMensual();
+        
+    }
 
     useEffect(() => {
         (async () => {
@@ -69,6 +90,7 @@ const ContenidoGenerarReportesAdmin = () => {
    
         return (
             <div id="reportes_div">
+                <a ref={mensual} style={{display: 'none'}}></a>
                 <div id='reportes_divruta'>
                     <img id="reportes_iconos" src='/img/icono_inicio.png' alt='' />
                     <Link id="reportes_linkinicio" to="/inicio_admin">Inicio/</Link>
@@ -76,8 +98,7 @@ const ContenidoGenerarReportesAdmin = () => {
                     <label id='reportes_textrutas'>Reportes/</label>
                     <label id='reportes_textrutas'>Generar Reportes</label>
                 </div>
-               
-                <div id="reportes_form">
+                <div id="reportes_form" /*onSubmit={ handleSubmit}*/>
                     <div id="reportes_divinfomacion">
                         <label id="reportes_inputstext">Fecha Inicial:*</label>
                         <input id="reportes_inputstext" className="date" type="date"></input>
@@ -86,19 +107,22 @@ const ContenidoGenerarReportesAdmin = () => {
                         <label id="reportes_inputstext" >Fecha Final:*</label>
                         <input id="reportes_inputstext" className="date" type="date"></input>
                     </div>
-                    <div id="reportes_divinfomacion_prueba">
+                    <div id="reportes_divinfomacion">
                         <label id="reportes_inputstext">Reporte Grupos Poblacionales:</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" value='internos' onChange={cambioradiobuton}/>Internos</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" value='indigenas' onChange={cambioradiobuton}/>Indigenas</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" value='afroamericanos'onChange={cambioradiobuton}/>Afroamericanos</label>
-                        <label id="label_checks"><input type="checkbox" id="checks"value='victimasCA' onChange={cambioradiobuton} />Victimas Del Conflicto Armado</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" value='NEE' onChange={cambioradiobuton}/>NEE(Población Necesidades Especiales)</label>
-                        <label id="label_checks"><input type="checkbox" id="checks"value='Na' onChange={cambioradiobuton}/>Ninguna De Las Anteriores</label>
+                           <select className="selectpicker" id="label_checks" title="Selecccione el Grupo" multiple>
+                            <option key="RGP-1" value="internos">Internos</option>
+                            <option key="RGP-2" value="indigenas">Indigenas</option>
+                            <option key="RGP-3" value="afroamericanos">Afroamericanos</option>
+                            <option key="RGP-4" value="victimasCA">Victimas del Conflicto Armado</option>
+                            <option key="RGP-5" value="NEE">NEE(Población Necesidades Especiales)</option>
+                            <option key="RGP-6" value="Na">Ninguna de las Anteriores</option>
+                        </select>
                     </div>
+                    
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Tipo Reporte:*</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" value='formatoMenPlanilla' onChange={cambioradiobuton}/>Formato Men-Planilla</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" value='formatoMenPlanilla' onChange={cambioradiobuton}/>Consolidado Mensual Planilla</label>
+                        <label id="label_checks">Formato Men-Planilla</label>
+                        <a onClick={handleSubmit}>Consolidado Mensual Planilla</a>
                         <label id="label_checks">Selecccione Area:</label>
                         <select className="selectpicker" title="Selecccione Area" multiple>
                             <option key="A-1" value="rural">Rural</option>
@@ -107,7 +131,7 @@ const ContenidoGenerarReportesAdmin = () => {
                         <label id="label_checks">Zona</label>
                             <select className="selectpicker" title='Selecccione zona/s' multiple>
                                 {zona && zona.map(zone =>
-                                <option key={`Z-${zone.id}`} value={zone.id}>{zone.nombre}</option>
+                                <option key={`Z-${zone.idZona}`} value={zone.idZona}>{zone.nombre}</option>
                                 )}
                             </select>
                         <label id="label_checks">Municipio</label>
@@ -123,26 +147,40 @@ const ContenidoGenerarReportesAdmin = () => {
                                 <option key={`S-${instituciones.idSede}`} value={instituciones.idInstitucion}>{instituciones.nombre}</option>
                             )}
                         </select>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Sexo(F o M)</label>
+                        <label id="label_checks">Sexo</label>
+                        <select className="selectpicker" title="Seleccione Sexo" multiple>
+                            <option key="Se-1" value="M">Masculino</option>
+                            <option key="Se-2" value="F">Femenino</option>
+                        </select>
+
                         
                     </div>
-                    <div id="reportes_divinfomacion_prueba">
+                    <div id="reportes_divinfomacion">
                         <label id="reportes_inputstext">Reporte Tipo Alimentario:*</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Complemento Am Pm</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Almuerzo</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Ración Industrial</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Ración Transportada en Caliente</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />RPC(Ración Para Preparar En Casa)</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Bono</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Otro</label>
+                        <select className="selectpicker" title="Selecccion tipo Alimentario" multiple>
+                            <option key="TA-1" value="almuerzo">Almuerzo</option>
+                            <option key="TA-2" value="desayuno">Desayuno</option>
+                            <option key="TA-3" value="cena">Cena</option>
+                            <option key="TA-4" value="complementoAmPm">Complemento Am Pm</option>
+                            <option key="TA-5" value="racionIndustiral">Racion Industiral</option>
+                            <option key="TA-6" value="RTC">Ración Transportada en Caliente</option>
+                            <option key="TA-7" value="RPC">RPC(Ración para preparar en casa)</option>
+                            <option key="TA-8" value="bono">Bono</option>
+                            <option key="TA-9" value="otro">Otro</option>
+                        </select>
+                     
                     </div>
-                    <div id="reportes_divinfomacion_prueba">
+                    <div id="reportes_divinfomacion">
                         <label id="reportes_inputstext">Reporte Por Jornada:*</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Completa</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Mañana</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Tarde</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Única</label>
-                        <label id="label_checks"><input type="checkbox" id="checks" />Otra</label>
+                        <select className="selectpicker" title="Selecccione jornada" multiple>
+                            <option key="J-1" value="completa">Completa</option>
+                            <option key="J-2" value="mañana">Mañana</option>
+                            <option key="J-3" value="tarde">Tarde</option>
+                            <option key="J-4" value="unica">Unica</option>
+                            <option key="J-5" value="otra">Otra</option>
+
+                        </select>
+                        
                     </div>
                 </div>
                
@@ -171,10 +209,11 @@ const ContenidoGenerarReportesAdmin = () => {
                         </div>
                     </div>
                 </div>
-                <div id="busc">
-                    <button type="submit" className="btn btn-danger">Generar Reporte</button>
-                </div>
-
+                    <div id="busc">
+                        <button id="lim" type="button" onClick={handleSubmit} className="btn btn-danger">Generar Reporte</button>
+                    </div>
+               
+               
             </div>
         )
     }

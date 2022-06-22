@@ -30,7 +30,7 @@
 /*-Conteido de pagina-*/
 
 #reportes_form {
-    width: 90%;
+    width: 70%;
     margin: 0 auto;
     margin-top: 5%;
     display: grid;
@@ -40,7 +40,7 @@
 }
 
 #reportes_divinfomacion {
-    display: flex;
+    display: grid;
     width: 340px;
     height: 80px;
     align-items: center;
@@ -64,12 +64,12 @@
 
 
 #reportes_inputstext {
-    width: 300px;
+    width: fit-content;
 }
 
 #iconos_ger {
     width: fit-content;
-    margin: 0 auto;
+    margin: auto auto;
     display: grid;
     grid-template-columns: 150px 150px 150px;
     margin-top: 50px;
