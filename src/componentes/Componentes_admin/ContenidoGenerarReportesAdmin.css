@@ -41,8 +41,8 @@
 
 #reportes_divinfomacion {
     display: grid;
-    width: 340px;
-    height: 80px;
+    width: 330px;
+    height: 70px;
     align-items: center;
 }
 

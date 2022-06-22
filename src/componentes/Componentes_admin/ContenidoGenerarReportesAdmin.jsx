@@ -11,6 +11,7 @@ const ContenidoGenerarReportesAdmin = () => {
     const [sede, setSede] = useState([]);
     const [zona, setZona] = useState([]);
     const mensual = useRef();
+    const menPlanilla = useRef();
     
 
     const obtenerMunicipios = async () =>{
@@ -59,17 +60,41 @@ const ContenidoGenerarReportesAdmin = () => {
             });
             const fileURL = window.URL.createObjectURL(new Blob([resp.data]));
             mensual.current.href = fileURL;
-            mensual.current.download = 'plantilla mensual.xlsx';
+            mensual.current.download = 'Consolidado planilla mensual.xlsx';
             mensual.current.click();
           } catch (e) {
               console.log(e);
               alert('error al descargar el informe');
           }
       };
+
+      const getMenPlanilla = async () => {
+        try {
+            const resp1 = await axios({
+              url: `http://localhost:8080/web/export/certificado`,
+              method: 'GET',
+              responseType: 'blob'
+            });
+            const fileURL1 = window.URL.createObjectURL(new Blob([resp1.data]));
+            menPlanilla.current.href = fileURL1;
+            menPlanilla.current.download = 'Formato Men-Planilla.xlsx';
+            menPlanilla.current.click();
+          } catch (e) {
+              console.log(e);
+              alert('error al descargar el informe');
+          }
+      };
+
+
+      const handleSubmit1 = async e => {
+        e.preventDefault();
+        await getMenPlanilla();
+      }
+
       const handleSubmit = async e => {
         e.preventDefault();
         await getMensual();
-        
+       
     }
 
     useEffect(() => {
@@ -121,8 +146,8 @@ const ContenidoGenerarReportesAdmin = () => {
                     
                     <div id="reportes_divinfomacion_prueba">
                         <label id="reportes_inputstext">Tipo Reporte:*</label>
-                        <label id="label_checks">Formato Men-Planilla</label>
-                        <a onClick={handleSubmit}>Consolidado Mensual Planilla</a>
+                        <a class=" link_menu" onClick={handleSubmit1}>Formato Men-Planilla</a>
+                        <a class="link_menu" onClick={handleSubmit}>Consolidado Mensual Planilla</a>
                         <label id="label_checks">Selecccione Area:</label>
                         <select className="selectpicker" title="Selecccione Area" multiple>
                             <option key="A-1" value="rural">Rural</option>
@@ -150,7 +175,10 @@ const ContenidoGenerarReportesAdmin = () => {
                         <label id="label_checks">Sexo</label>
                         <select className="selectpicker" title="Seleccione Sexo" multiple>
                             <option key="Se-1" value="M">Masculino</option>
+                            <select className="selectpicker" title="Seleccione sexo" multiple>
                             <option key="Se-2" value="F">Femenino</option>
+                            <option key="Se-1" value="M">Masculino</option>
+                            </select>
                         </select>
 
                         
@@ -189,28 +217,28 @@ const ContenidoGenerarReportesAdmin = () => {
                         <div>
                             <img id="ico_ger" src='/img/icono_pdf.png' alt='' />
                             <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                <input className="form-check-input" type="checkbox" value="pdf" id="flexCheckDefault" onChange={cambioradiobuton}/>
                                 <label className="form-check-label" htmlFor="flexCheckDefault">PDF</label>
                             </div>
                         </div>
                         <div>
                             <img id="ico_ger" src='/img/icono_excel.png' alt='' />
                             <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                <input className="form-check-input" type="checkbox" value="excel" id="flexCheckDefault" onChange={cambioradiobuton}/>
                                 <label className="form-check-label" htmlFor="flexCheckDefault">Excel</label>
                             </div>
                         </div>
                         <div>
                             <img id="ico_ger" src='/img/icono_archivo_plano.png' alt='' />
                             <div className="form-check">
-                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                <input className="form-check-input" type="checkbox" value="aplano" id="flexCheckDefault" onChange={cambioradiobuton}/>
                                 <label className="form-check-label" htmlFor="flexCheckDefault">Archivo Plano</label>
                             </div>
                         </div>
                     </div>
                 </div>
                     <div id="busc">
-                        <button id="lim" type="button" onClick={handleSubmit} className="btn btn-danger">Generar Reporte</button>
+                        <button id="lim" type="button" onClick={handleSubmit1} className="btn btn-danger">Generar Reporte</button>
                     </div>
                
                
