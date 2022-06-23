@@ -8,7 +8,7 @@ const ContenidoGenerarReportesAdmin = () => {
    
     const [municipio, setMunicipio] = useState([]);
     const [institucion, setInstitucion] = useState([]);
-    const [sede, setSede] = useState([]);
+    const  setSede = useState([]);
     const [zona, setZona] = useState([]);
     const mensual = useRef();
     const menPlanilla = useRef();
@@ -116,6 +116,7 @@ const ContenidoGenerarReportesAdmin = () => {
         return (
             <div id="reportes_div">
                 <a ref={mensual} style={{display: 'none'}}></a>
+                <a ref={menPlanilla} style={{display: 'none'}}></a>
                 <div id='reportes_divruta'>
                     <img id="reportes_iconos" src='/img/icono_inicio.png' alt='' />
                     <Link id="reportes_linkinicio" to="/inicio_admin">Inicio/</Link>

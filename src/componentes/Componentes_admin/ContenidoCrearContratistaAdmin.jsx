@@ -123,8 +123,8 @@ const ContenidoCrearContratistaAdmin = () => {
             onChange={e => setUnNit(e.target.value)}
           >
             <option>Seleccione un nit de contratista</option>
-            {zona && zona.map(zone =>
-              <option key={zone.idZona} value={zone.idZona}>{zone.nombre}</option>
+            {nit && nit.map(nits =>
+              <option key={nits.idZona} value={nits.idZona}>{nits.nombre}</option>
             )}
           </select>      
         </div>

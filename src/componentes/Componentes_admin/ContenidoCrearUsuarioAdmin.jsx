@@ -23,15 +23,20 @@ const ContenidoCrearUsuarioAdmin = () => {
   const [ unMunicipio, setUnMunicipio ] = useState('');
   const [ direccion, setDireccion ] = useState('');
   const [ barrio, setBarrio ] = useState('');
-  const  unaPersona = useState('');
-  const lugarDeNacimiento = useState('');
-
+ 
   const obtenerRol= async () => {
     try {
       const response = await axios.get(`${env.host}/rol/listar`);	
       setRol(response.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const parseElement = async element => {
+    const value = JSON.parse(element.value);
+    if(element.name === "lug_nacimiento") {
+      setUnMunicipio({idMunicipio: value.idMunicipio, munNombre: value.nombre});
     }
   };
 
@@ -56,21 +61,24 @@ const ContenidoCrearUsuarioAdmin = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const data = {
-            apellido,
-            barrio,
-            direccion,
-            email,
-            fechaNacimiento,
-            lugarDeNacimiento: { 'idMunicipio':unMunicipio, 'munNombre':unMunicipio.nombre },
-            numeroDocumento,
-            nombre,
+          const fecha = fechaNacimiento.split('-');
+          const data = {               
             username,
-            unRol: { 'id': unRol },
-            //unTipoDocumento: { 'idTipoDocumento':unTipoDocumento },
-            unaPersona: {'unTipoDocumento': unTipoDocumento},
-            telefono,
-          
+            email,
+            unRol:
+             { 'id': unRol },   
+            unaPersona: {
+              unTipoDocumento:
+               { idTipoDocumento: parseInt(unTipoDocumento)},
+               numeroDocumento,
+               telefono,
+               nombre,
+               apellido,
+               fechaNacimiento: `${fecha[2]}-${fecha[1]}-${fecha[0]}`,
+               lugarDeNacimiento: unMunicipio,
+               barrio,
+              direccion,
+          },
           };
 
           await axios.post(`${env.host}/auth/registrar`, data);
@@ -204,11 +212,12 @@ const ContenidoCrearUsuarioAdmin = () => {
             className="form-select" 
             aria-label='default select example'
             id="huella_inputs"
-            onChange={e => setUnMunicipio(e.target.value)}
+            name="lug_nacimiento"
+            onChange={e => parseElement(e.target)}
             >
             <option>Seleccione municipio</option>
             {municipio && municipio.map(municipios =>
-              <option key={municipios.idMunicipio} value={municipios.idMunicipio}>{municipios.nombre}</option>
+              <option key={municipios.idMunicipio} value={JSON.stringify(municipios)}>{municipios.nombre}</option>
             )}
           </select>
         </div>

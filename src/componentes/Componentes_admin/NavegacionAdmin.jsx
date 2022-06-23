@@ -11,7 +11,7 @@ const NavegacionAdmin = () => {
     const dispatch = useDispatch();
 
     const exit = () => {
-        dispatch(clearUser);
+        dispatch(clearUser());
         window.location.reload();
     }
 
@@ -19,22 +19,17 @@ const NavegacionAdmin = () => {
         <div>
             <header id="headermenu">
                 <header id="titulos">
-                    <div id="circulos"><div id="circulo"> </div><div id="circulo"> </div><div id="circulo"> </div></div>
+                    <div id="circulos"><div id="circulo"></div><div id="circulo"> </div><div id="circulo"> </div></div>
                     <label></label>
-                    <div></div>
                 </header>
                 <div id="div_horas">
                     <div />
                     <div />
                     <div id="div_hora" >
-                        <input id="navegacion_fecha" defaultValue={hora} disabled />
-                        <img id="dimagen" src="/img/icono_usuario.png" alt="" />
-                        <ul id='desple'>
+                        <input id="navegacion_fecha" defaultValue={ hora } disabled />
+                        <img id="dimagen" src="/img/icono_usuario.png" alt="" />   
                         <label id="texto_admin">{ user.username }</label>
-                        <li id='boxli' onClick={exit}>
-                            Salir
-                    </li>
-                        </ul>
+                         <img id="imgflecha" onClick={exit} src='/img/logaut.png' />
                     </div>
                 </div>
                 <ul id="menu">

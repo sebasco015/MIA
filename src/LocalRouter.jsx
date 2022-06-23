@@ -2,6 +2,8 @@ import React from "react";
 import {useRoutes} from "react-router-dom";
 
 import Login from "./pages/Login";
+import RecuperarContrasena from "./pages/RecuperarContrasena";
+
 
 // Components Admin
 import InicioAdmin from "./pages/pages_admin/InicioAdmin";
@@ -36,7 +38,8 @@ const LocalRouter = () => {
     { path: 'Instituciones_admin', element: <InstitucionesAdmin /> },
     { path: '/buscar_estudiante_admin', element: <BuscarEstudianteAdmin /> },
     { path: '/Generar_Reportes_admin', element: <GenerarReportesAdmin /> },
-    { path: '/Facturacion_admin', element: <FacturacionAdmin />}
+    { path: '/Facturacion_admin', element: <FacturacionAdmin />},
+    { path: '/restablecer_contrasena', element: <RecuperarContrasena />}
   ]);
 };
 

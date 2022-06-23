@@ -99,7 +99,7 @@ const ContenidoLogin = () => {
             >visibility</span>
           </div>
           <div id="login_div_link">
-            <Link id="login_link_res" to="/restablecer_contraseña">Restablecer Contraseña</Link>
+            <Link id="login_link_res" to="/restablecer_contrasena">Restablecer Contraseña</Link>
           </div>
           <div id="login_div_boton">
             <CheckButton className="btn btn-success" id="login_boton_ingresar">Inciar Sección

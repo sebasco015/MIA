@@ -57,7 +57,7 @@ const ContenidoInstitucionesAdmin= () => {
                     <input
                         className="form-control inputBuscar"
                         value={busqueda}
-                        placeholder="Busqueda por Nombre o Numero de Documento"
+                        placeholder="Busqueda por DANE o Nombre Institucion"
                         onChange={handleChange}
                     />
                     <button className="btn btn-success">
