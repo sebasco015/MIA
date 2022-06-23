@@ -17,12 +17,14 @@ const ContenidoCrearUsuarioAdmin = () => {
   const [ unTipoDocumento, setUnTipoDocumento ] = useState('');
   const [ numeroDocumento, setNumeroDocumento ] = useState('');
   const [ telefono, setTelefono ] = useState('');
-  const [ nombres, setNombres ] = useState('');
-  const [ apellidos, setApellidos ] = useState('');
+  const [ nombre, setNombre ] = useState('');
+  const [ apellido, setApellido ] = useState('');
   const [ fechaNacimiento, setFechaNacimiento ] = useState('');
   const [ unMunicipio, setUnMunicipio ] = useState('');
   const [ direccion, setDireccion ] = useState('');
   const [ barrio, setBarrio ] = useState('');
+  const  unaPersona = useState('');
+  const lugarDeNacimiento = useState('');
 
   const obtenerRol= async () => {
     try {
@@ -55,22 +57,23 @@ const ContenidoCrearUsuarioAdmin = () => {
         e.preventDefault();
         try {
           const data = {
-            apellidos,
+            apellido,
             barrio,
             direccion,
             email,
             fechaNacimiento,
-            unMunicipio: { 'idMunicipio':unMunicipio },
+            lugarDeNacimiento: { 'idMunicipio':unMunicipio, 'munNombre':unMunicipio.nombre },
             numeroDocumento,
-            nombres,
+            nombre,
             username,
-            unRol: { 'idRol': unRol },
-            unTipoDocumento: { 'idTipoDocumento':unTipoDocumento },
+            unRol: { 'id': unRol },
+            //unTipoDocumento: { 'idTipoDocumento':unTipoDocumento },
+            unaPersona: {'unTipoDocumento': unTipoDocumento},
             telefono,
           
           };
 
-          await axios.post(`${env.host}/usuario`, data);
+          await axios.post(`${env.host}/auth/registrar`, data);
           e.target.reset();
           alert("Usuario creado correctamente");
         } catch (e) {
@@ -127,7 +130,7 @@ const ContenidoCrearUsuarioAdmin = () => {
           >
             <option>Seleccione un rol</option>
             {roles && roles.map(rol =>
-              <option key={rol.idRol} value={rol.idRol}>{rol.nombre}</option> 
+              <option key={rol.id} value={rol.id}>{rol.nombre}</option> 
             )} 
           </select>      
         </div>
@@ -172,7 +175,7 @@ const ContenidoCrearUsuarioAdmin = () => {
             id="huella_inputs"
             className="form-control" 
             placeholder="Nombres:*"
-            onChange={e => setNombres(e.target.value)}
+            onChange={e => setNombre(e.target.value)}
           />
         </div>
         <div>
@@ -182,7 +185,7 @@ const ContenidoCrearUsuarioAdmin = () => {
             id="huella_inputs"
             className="form-control"
             placeholder="Apellidos:*"
-            onChange={e => setApellidos(e.target.value)}
+            onChange={e => setApellido(e.target.value)}
           />
         </div>
         <div>

@@ -161,6 +161,7 @@ const ContenidoGenerarReportesAdmin = () => {
                             </select>
                         <label id="label_checks">Municipio</label>
                         <select className="selectpicker" title="Selecccione Municipio/s" multiple>
+                            
                             { municipio && municipio.map(municipios =>
                             <option key={`M-${municipios.idMunicipio}`} value={municipios.idMunicipio}>{municipios.nombre}</option>
                             )}

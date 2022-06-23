@@ -29,7 +29,12 @@ const NavegacionAdmin = () => {
                     <div id="div_hora" >
                         <input id="navegacion_fecha" defaultValue={hora} disabled />
                         <img id="dimagen" src="/img/icono_usuario.png" alt="" />
+                        <ul id='desple'>
                         <label id="texto_admin">{ user.username }</label>
+                        <li id='boxli' onClick={exit}>
+                            Salir
+                    </li>
+                        </ul>
                     </div>
                 </div>
                 <ul id="menu">
@@ -106,11 +111,7 @@ const NavegacionAdmin = () => {
                             <li id='boxli'> <Link className='menu_link' to="/Facturacion_admin">Facturacion</Link></li>
                         </ul>
                     </li>
-                    <li id='item' onClick={exit}>
-                        <div className='menu_link'>
-                            Salir
-                        </div>
-                    </li>
+  
                 </ul>
             </header>
         </div>
