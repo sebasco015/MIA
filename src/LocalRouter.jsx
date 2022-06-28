@@ -20,6 +20,7 @@ import BuscarEstudianteAdmin from "./pages/pages_admin/BuscarEstudianteAdmin";
 import InstitucionesAdmin from "./pages/pages_admin/InstitucionesAdmin";
 import GenerarReportesAdmin from "./pages/pages_admin/GenerarReportesAdmin";
 import FacturacionAdmin from './pages/pages_admin/FacturacionAdmin';
+import ActualizarUsuarioAdmin from "./pages/pages_admin/ActualizarUsuarioAdmin";
 
 
 const LocalRouter = () => {
@@ -39,7 +40,8 @@ const LocalRouter = () => {
     { path: '/buscar_estudiante_admin', element: <BuscarEstudianteAdmin /> },
     { path: '/Generar_Reportes_admin', element: <GenerarReportesAdmin /> },
     { path: '/Facturacion_admin', element: <FacturacionAdmin />},
-    { path: '/restablecer_contrasena', element: <RecuperarContrasena />}
+    { path: '/restablecer_contrasena', element: <RecuperarContrasena />},
+    { path: '/editar_usuario_admin', element: <ActualizarUsuarioAdmin />}
   ]);
 };
 

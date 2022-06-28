@@ -61,7 +61,7 @@ const ContenidoCrearUsuarioAdmin = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          const fecha = fechaNacimiento.split('-');
+          //const fecha = fechaNacimiento.split('-');
           const data = {               
             username,
             email,
@@ -74,7 +74,7 @@ const ContenidoCrearUsuarioAdmin = () => {
                telefono,
                nombre,
                apellido,
-               fechaNacimiento: `${fecha[2]}-${fecha[1]}-${fecha[0]}`,
+               fechaNacimiento,//: `${fecha[2]}-${fecha[1]}-${fecha[0]}`,
                lugarDeNacimiento: unMunicipio,
                barrio,
               direccion,
@@ -246,7 +246,7 @@ const ContenidoCrearUsuarioAdmin = () => {
           <button
             id="lim"
             type="button"
-            class="btn btn-danger"
+            className="btn btn-danger"
             onClick={ () => formRef.current()}
           >Limpiar</button>
           <button 

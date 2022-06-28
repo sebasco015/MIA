@@ -1,6 +1,7 @@
 import './Contenido_Instituciones_admin.css'
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import env from '../../env.json';
 import React, { useEffect, useState } from 'react';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,7 +14,7 @@ const ContenidoInstitucionesAdmin= () => {
     const [busqueda, setBusqueda] = useState("");
 
     const peticionGet = async () => {
-        await axios.get("http://localhost:8080/api/institucion")
+        await axios.get(`${env.host}/institucion`)
             .then(response => {
                 setinstituciones(response.data);
                 settablaInstituciones(response.data);

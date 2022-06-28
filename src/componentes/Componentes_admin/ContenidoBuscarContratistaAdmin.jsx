@@ -59,7 +59,7 @@ const ContenidoBuscarContratistaAdmin = () => {
                     <input
                         className="form-control inputBuscar"
                         value={busqueda}
-                        placeholder="Busqueda por Nombre o Numero de Documento"
+                        placeholder="Busqueda por nit, zona y representanteLegal"
                         onChange={handleChange}
                     />
                     <button className="btn btn-success">

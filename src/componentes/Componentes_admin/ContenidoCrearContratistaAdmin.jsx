@@ -9,59 +9,74 @@ const ContenidoCrearContratistaAdmin = () => {
   const formRef = useRef();
   
   const [nit , setNit ] = useState([]);
-  const [ zona, setZona ] = useState([]);
+  const [ zonas, setZonas ] = useState([]);
   const [ unNit , setUnNit ] = useState('');
-  const [ represLegal, setRepresLegal ] = useState('');
+  const [ representanteLegal, setRepresentanteLegal ] = useState('');
   const [ nombreZona, setNombreZona ] = useState('');
-  const [ unDocumento, setUnDocumento ] = useState('');
+  const [ numeroDocumento, setNumeroDocumento ] = useState('');
   const [ numeroContrato, setNumeroContrato ] = useState('');
   const [ fechaSuscripcion, setFehcaSuscripcion ] = useState(''); 
-  const [ fechaActaInicio, setFechaActaInicio ] = useState(''); 
+  const [ fechaInicio, setFechaInicio ] = useState(''); 
   const [ cantidadComplemtento, setCanidadComplemtento ] = useState('');
   const [ costoComplemento, setCostoComplemento ] = useState(''); 
   const [ unaZona, setUnaZona ] = useState('');
   const [ cantidadAlmuerzo, setCantidadAlmuerzo ] = useState(''); 
   const [ costoAlmuerzo, setCostoAlmuerzo ] = useState('');
-  const [ totalCantiDiarias, setTotalCantiDiarias ] = useState('');
-  const [ diasAtencion, setDiasAtencion ] = useState('');
+  const [ cantidadesDiarias, setCantidadesDiarias ] = useState('');
+  const [ diasAtender, setDiasAtender ] = useState('');
  
   const obtenerNit= async () => {
     try {
-      const response = await axios.get(`${env.host}/contratista/listar/`);	
+      const response = await axios.get(`${env.host}/persona/listar`);	
       setNit(response.data);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const parseElement1 = async element => {
+    const value = JSON.parse(element.value);
+    if(element.name === "nit"){
+      setUnNit({idPersona: value.idPersona, numeroDocumento: value.numeroDocumento});
+    }
+  };
   
+
     const obtenerZona= async () => {
       try {
         const response = await axios.get(`${env.host}/zona/listar`);
-        setZona(response.data);
+        setZonas(response.data);
         } catch (err) {
         console.log(err);
         }
       };
 
+      const parseElement = async element => {
+        const value = JSON.parse(element.value);
+        if(element.name === "id_zona"){
+          setUnaZona({id: value.id, nombre: value.nombre});
+        }
+      };
+      
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
           const data = {
-            unaZona: { 'idZona':unaZona },
+            idZona: unaZona,
             nombreZona,
-            nit: { 'idNit':unNit },
-            represLegal,
-            unDocumento,
+            nit: unNit.numeroDocumento,
+            representanteLegal,
+            numeroDocumento,
             numeroContrato,
             fechaSuscripcion,
-            fechaActaInicio,
+            fechaInicio,
             cantidadComplemtento,
             costoComplemento,
             cantidadAlmuerzo,
             costoAlmuerzo,
-            totalCantiDiarias,
-            diasAtencion,
+            cantidadesDiarias,
+            diasAtender,
+            idPersona: unNit
           
           };
 
@@ -97,10 +112,11 @@ const ContenidoCrearContratistaAdmin = () => {
             className="form-select"
             aria-label='default select example'
             id="huella_inputs"
-            onChange={e => setUnaZona(e.target.value)}>
-                <option>Seleccione una zona</option>
-                {zona && zona.map(zone =>
-              <option key={zone.idZona} value={zone.idZona}>{zone.nombre}</option>
+            name="id_zona"
+            onChange={e => parseElement(e.target)}>
+                <option key='zona-1' value={null}>Seleccione una zona</option>
+                {zonas && zonas.map(zona =>
+              <option key={zona.id} value={JSON.stringify(zona)}>{zona.nombre}</option>
             )}
             </select>
         </div>
@@ -120,11 +136,12 @@ const ContenidoCrearContratistaAdmin = () => {
             className="form-select"
             aria-label='default select example'
             id="huella_inputs"
-            onChange={e => setUnNit(e.target.value)}
+            name="nit"
+            onChange={e => parseElement1(e.target)}
           >
             <option>Seleccione un nit de contratista</option>
             {nit && nit.map(nits =>
-              <option key={nits.idZona} value={nits.idZona}>{nits.nombre}</option>
+              <option key={nits.idPersona} value={JSON.stringify(nits)}>{nits.numeroDocumento}</option>
             )}
           </select>      
         </div>
@@ -135,7 +152,7 @@ const ContenidoCrearContratistaAdmin = () => {
             className="form-control"
             id="huella_inputs"
             placeholder="Representante legal:*"
-            onChange={e => setRepresLegal(e.target.value)}
+            onChange={e => setRepresentanteLegal(e.target.value)}
             >
           </input>
         </div>
@@ -146,7 +163,7 @@ const ContenidoCrearContratistaAdmin = () => {
             id="huella_inputs"
             className="form-control"
             placeholder="Numero de documento:*"
-            onChange={e => setUnDocumento(e.target.value)}
+            onChange={e => setNumeroDocumento(e.target.value)}
           />
         </div>
         <div>
@@ -174,7 +191,7 @@ const ContenidoCrearContratistaAdmin = () => {
             type="date"
             id="huella_inputs"
             className="form-control"      
-            onChange={e => setFechaActaInicio(e.target.value)}
+            onChange={e => setFechaInicio(e.target.value)}
           />
         </div>
         <div>
@@ -225,7 +242,7 @@ const ContenidoCrearContratistaAdmin = () => {
             id="huella_inputs"
             className="form-control"
             placeholder="Cantidades Diarias:*"
-            onChange={e => setTotalCantiDiarias(e.target.value)}
+            onChange={e => setCantidadesDiarias(e.target.value)}
           />
         </div>
         <div>
@@ -235,7 +252,7 @@ const ContenidoCrearContratistaAdmin = () => {
             id="huella_inputs"
             className="form-control"
             placeholder="Dias Atender:*"
-            onChange={e => setDiasAtencion(e.target.value)}
+            onChange={e => setDiasAtender(e.target.value)}
           />
         </div>
         

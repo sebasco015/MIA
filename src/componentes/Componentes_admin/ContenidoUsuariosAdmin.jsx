@@ -5,12 +5,51 @@ import axios from "axios";
 import env from '../../env.json';
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 const ContenidoUsuariosAdmin = () => {
 
   const [users, setUsers] = useState([]);
+  const [tablaUsuarios, setTablaUsuarios] = useState([]);
+  const [busqueda, setBusqueda] = useState("");
 
-  const listarUsuarios = async () => {
+  const navigate = useNavigate();
+
+  const peticionGet = async () => {
+    try {
+    const response = await axios.get(`${env.host}/usuarios/listar`);
+      const data = response.data.map(el => {
+        el.roles = el.roles.map(ele => ele.nombre).join(',');
+
+        return el;
+      });
+      setUsers(data);
+      setTablaUsuarios(data);
+    } catch (e) {
+      alert("No hay usuarios en el sistema");
+    }
+    }
+
+    const handleChange = e => {
+      setBusqueda(e.target.value);
+      filtrar(e.target.value);
+  }
+
+  const filtrar = (terminoBusqueda) => {
+      var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+          if (elemento.roles.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+              || elemento.unaPersona.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+              || elemento.unaPersona.apellido.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+
+          ) {
+              return elemento;
+          }
+      });
+      setUsers(resultadosBusqueda);
+  }
+
+
+  /*const listarUsuarios = async () => {
     try {
       const response = await axios.get(`${env.host}/usuarios/listar`);
       const data = response.data.map(el => {
@@ -21,12 +60,10 @@ const ContenidoUsuariosAdmin = () => {
     } catch (e) {
       alert("No hay usuarios en el sistema");
     }
-  };
+  };*/
 
   useEffect(() => {
-    (async () => {
-      await listarUsuarios();
-    })();
+     peticionGet();
   }, [])
 
   return (
@@ -50,9 +87,9 @@ const ContenidoUsuariosAdmin = () => {
                     </button>
                     <input
                         className="form-control inputBuscar"
-                        //value={busqueda}
-                        placeholder="Busqueda por Nombre o Numero de Documento"
-                        //onChange={handleChange}
+                        value={busqueda}
+                        placeholder="Busqueda por Nombre, apellido o rol"
+                        onChange={handleChange}
                     />
                     <button className="btn btn-success">
                         <FontAwesomeIcon icon={faSearch} />
@@ -71,16 +108,20 @@ const ContenidoUsuariosAdmin = () => {
         </tr>
         </thead>
         <tbody>
-        {users.map(instituciones => (
-          <tr key={instituciones.id}>
-            <td>{instituciones.unaPersona.nombre}</td>
-            <td>{instituciones.unaPersona.apellido}</td>
-            <td>{instituciones.roles}</td>
-            <td>{instituciones.unaPersona.estado}</td>
+        {users.map(user => (
+          <tr key={user.id}>
+            <td>{user.unaPersona.nombre}</td>
+            <td>{user.unaPersona.apellido}</td>
+            <td>{user.roles}</td>
+            <td>{user.unaPersona.estado}</td>
             <td>
-              <a className="link_menu" href="editar_usuario_admin">Editar </a>
-               |
-              <a className="link_menu" href="eliminar_usuario_admin"> Eliminar</a>
+              <button
+                className="btn btn-primary btn-block"
+                onClick={() => navigate("/editar_usuario_admin", {state:{id:user.id}})}>Editar </button>
+              {"  "}
+              <button
+                className="btn btn-danger"
+                onClick={() => navigate("/eliminar_usuario_admin", {state:{id:user.id}})}> Eliminar</button>
               </td>
           </tr>
         ))}
