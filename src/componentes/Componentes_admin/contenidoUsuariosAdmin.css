@@ -33,9 +33,10 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: 33% 33% 33%;
-    margin-top: 60px;
     gap: 30px;
 }
+
+
 
 #usuarios_tabla{  
   width: fit-content;

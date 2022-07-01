@@ -1,5 +1,5 @@
 import  React, { useEffect, useRef, useState} from 'react'
-import './ContenidoContratistaAdmin.css'
+import './ContenidoCrearContratistaAdmin.css'
 import { Link } from "react-router-dom";
 import axios from "axios";
 import  env from "../../env.json";
@@ -8,9 +8,9 @@ import  env from "../../env.json";
 const ContenidoCrearContratistaAdmin = () => {
   const formRef = useRef();
   
-  const [nit , setNit ] = useState([]);
+  const [nit , setNit ] = useState('');
   const [ zonas, setZonas ] = useState([]);
-  const [ unNit , setUnNit ] = useState('');
+  const [ cantidadDesayuno, setCantidadDesayuno ] = useState('')
   const [ representanteLegal, setRepresentanteLegal ] = useState('');
   const [ nombreZona, setNombreZona ] = useState('');
   const [ numeroDocumento, setNumeroDocumento ] = useState('');
@@ -24,22 +24,9 @@ const ContenidoCrearContratistaAdmin = () => {
   const [ costoAlmuerzo, setCostoAlmuerzo ] = useState('');
   const [ cantidadesDiarias, setCantidadesDiarias ] = useState('');
   const [ diasAtender, setDiasAtender ] = useState('');
- 
-  const obtenerNit= async () => {
-    try {
-      const response = await axios.get(`${env.host}/persona/listar`);	
-      setNit(response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const parseElement1 = async element => {
-    const value = JSON.parse(element.value);
-    if(element.name === "nit"){
-      setUnNit({idPersona: value.idPersona, numeroDocumento: value.numeroDocumento});
-    }
-  };
+  const [ costoDesayuno, setCostoDesayuno ] = useState('');
+  const [ costoComida, setCostoComida ] = useState('');
+  const [ cantidadComida, setCantidadComida ] = useState('');
   
 
     const obtenerZona= async () => {
@@ -64,7 +51,7 @@ const ContenidoCrearContratistaAdmin = () => {
           const data = {
             idZona: unaZona,
             nombreZona,
-            nit: unNit.numeroDocumento,
+            nit,
             representanteLegal,
             numeroDocumento,
             numeroContrato,
@@ -76,8 +63,10 @@ const ContenidoCrearContratistaAdmin = () => {
             costoAlmuerzo,
             cantidadesDiarias,
             diasAtender,
-            idPersona: unNit
-          
+            costoDesayuno,
+            costoComida,
+            cantidadComida,
+            cantidadDesayuno     
           };
 
           await axios.post(`http://localhost:8080/api/contratista/guardar`, data);
@@ -91,30 +80,29 @@ const ContenidoCrearContratistaAdmin = () => {
 
       useEffect(() => {
         (async () => {
-          await obtenerNit();
           await obtenerZona();
         } )();
       }, []);
 
   return (
-    <div id='contratista_div'>
-      <div id='contratista_divruta'>
-        <img id="contratista_iconos" src='/img/icono_inicio.png' alt='' />
-        <Link id="contratista_linkinicio" to="/inicio_admin">Inicio/</Link>
-        <img id="contratista_iconos" src='/img/icono_reportes.png' alt='' />
-        <label id='contratista_textrutas'>Contratista/</label>
-        <label id='contratista_textrutas'>Registro Contratista</label>
+    <div id='Crearcon_div'>
+      <div id='Crearcon_divruta'>
+        <img id="Crearcon_iconos" src='/img/icono_inicio.png' alt='' />
+        <Link id="Crearcon_linkinicio" to="/inicio_admin">Inicio/</Link>
+        <img id="Crearcon_iconos" src='/img/icono_reportes.png' alt='' />
+        <label id='Crearcon_textrutas'>Contratista/</label>
+        <label id='Crearcon_textrutas'>Registro Contratista</label>
       </div>
-      <form id="contratista_form" onSubmit={ handleSubmit} ref={formRef}>
+      <form id="datoscon" onSubmit={ handleSubmit} ref={formRef}>
         <div>
-          <label>Zona:*</label>
+          <label>SED:*</label>
           <select
             className="form-select"
             aria-label='default select example'
-            id="huella_inputs"
+            id="Crearcon_inputs"
             name="id_zona"
             onChange={e => parseElement(e.target)}>
-                <option key='zona-1' value={null}>Seleccione una zona</option>
+                <option key='zona-1' value={null}>Seleccione una Secretaria* </option>
                 {zonas && zonas.map(zona =>
               <option key={zona.id} value={JSON.stringify(zona)}>{zona.nombre}</option>
             )}
@@ -131,26 +119,21 @@ const ContenidoCrearContratistaAdmin = () => {
           />
         </div>
         <div>
-          <label>Nit:*</label>
-          <select
-            className="form-select"
-            aria-label='default select example'
-            id="huella_inputs"
-            name="nit"
-            onChange={e => parseElement1(e.target)}
-          >
-            <option>Seleccione un nit de contratista</option>
-            {nit && nit.map(nits =>
-              <option key={nits.idPersona} value={JSON.stringify(nits)}>{nits.numeroDocumento}</option>
-            )}
-          </select>      
+          <label>Nit:</label>
+          <input
+            type="number"
+            id="Crearcon_inputs"
+            className="form-control"
+            placeholder="Numero de NIT:*"
+            onChange={e => setNit(e.target.value)}
+          />
         </div>
         <div>
           <label>Representante Legal:</label>
           <input
             type="text"
             className="form-control"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             placeholder="Representante legal:*"
             onChange={e => setRepresentanteLegal(e.target.value)}
             >
@@ -160,7 +143,7 @@ const ContenidoCrearContratistaAdmin = () => {
           <label>Cedula:</label>
           <input
             type="number"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="Numero de documento:*"
             onChange={e => setNumeroDocumento(e.target.value)}
@@ -170,7 +153,7 @@ const ContenidoCrearContratistaAdmin = () => {
           <label>N° Contrato:</label>
           <input
             type="text"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="Numero contrato:*"
             onChange={e => setNumeroContrato(e.target.value)}
@@ -180,7 +163,7 @@ const ContenidoCrearContratistaAdmin = () => {
           <label>Fecha fechaSuscripcion:*</label>
           <input
             type="date"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control" 
             onChange={e => setFehcaSuscripcion(e.target.value)}
           />
@@ -189,16 +172,17 @@ const ContenidoCrearContratistaAdmin = () => {
           <label>Fecha de Inicio:*</label>
           <input
             type="date"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"      
             onChange={e => setFechaInicio(e.target.value)}
           />
         </div>
+
         <div>
           <label>Cantidad C.AM - C.PM:</label>
           <input
             type="number"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="Cantidad de Complemento:*"
             onChange={e => setCanidadComplemtento(e.target.value)}
@@ -209,17 +193,39 @@ const ContenidoCrearContratistaAdmin = () => {
            <input
             type="number"
             className="form-control" 
-            id="huella_inputs"
+            id="Crearcon_inputs"
             placeholder="Costo de Complemento:*"
             onChange={e => setCostoComplemento(e.target.value)}
             >                 
           </input>
         </div>
+
+        <div>
+          <label>Cantidad Desayuno:</label>
+          <input
+            type="text"
+            id="Crearcon_inputs"
+            className="form-control"
+            placeholder="cantidad Desayuno:*"
+            onChange={e => setCantidadDesayuno(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Costo Desayuno:</label>
+          <input
+            type="text"
+            id="Crearcon_inputs"
+            className="form-control"
+            placeholder="Costo Desayuno:*"
+            onChange={e => setCostoDesayuno(e.target.value)}
+          />
+        </div>
+
         <div>
           <label>Cantidad Almuerzo:</label>
           <input
             type="text"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="cantidad Almuerzo:*"
             onChange={e => setCantidadAlmuerzo(e.target.value)}
@@ -229,17 +235,39 @@ const ContenidoCrearContratistaAdmin = () => {
           <label>Costo Almuerzo:</label>
           <input
             type="text"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="Costo Almuerzo:*"
             onChange={e => setCostoAlmuerzo(e.target.value)}
           />
         </div>
+
+        <div>
+          <label>Cantidad Comida:</label>
+          <input
+            type="text"
+            id="Crearcon_inputs"
+            className="form-control"
+            placeholder="Cantidad Comida:*"
+            onChange={e => setCantidadComida(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Costo Comida:</label>
+          <input
+            type="text"
+            id="Crearcon_inputs"
+            className="form-control"
+            placeholder="Costo Comida:*"
+            onChange={e => setCostoComida(e.target.value)}
+          />
+        </div>
+
         <div>
           <label>Total Cantidades Diarias:</label>
           <input
             type="number"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="Cantidades Diarias:*"
             onChange={e => setCantidadesDiarias(e.target.value)}
@@ -249,7 +277,7 @@ const ContenidoCrearContratistaAdmin = () => {
           <label>Dias Atender:</label>
           <input
             type="number"
-            id="huella_inputs"
+            id="Crearcon_inputs"
             className="form-control"
             placeholder="Dias Atender:*"
             onChange={e => setDiasAtender(e.target.value)}

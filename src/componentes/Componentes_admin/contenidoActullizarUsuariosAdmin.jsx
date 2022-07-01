@@ -66,7 +66,7 @@ function TicketMaster_Edit(props) {
 
       
       useEffect (() => {
-        console.log(location.state.id);
+        //console.log(location.state.id);
         axios.get(`${env.host}/usuarios/listar/` + location.state.id).then((response) => {
             setUsername (response.data.username);
             setEmail (response.data.email);
@@ -84,9 +84,9 @@ function TicketMaster_Edit(props) {
          });
       },[]);
 
-      //const fecha = fechaNacimiento.split('-');
+      
       const editData = () => {
-        axios.put(`${env.host}/usuarios/actualizar/` + location.state.id, {
+        axios.post(`${env.host}/usuarios/actualizar/` + location.state.id, {
             username,
             email,
             unRol:
@@ -98,13 +98,13 @@ function TicketMaster_Edit(props) {
                telefono,
                nombre,
                apellido,
-               fechaNacimiento,//: `${fecha[2]}-${fecha[1]}-${fecha[0]}`,
+               fechaNacimiento,
                lugarDeNacimiento: unMunicipio,
                barrio,
               direccion, 
             },
         });
-        navigate.push(`${env.host}/usuarios/listar/`);
+        navigate.push(`${env.host}/usuarios/actualizar/`);
     };
 
   
@@ -155,7 +155,7 @@ function TicketMaster_Edit(props) {
         <Link id="crearUsuario_linkinicio" to="/InicioAdmin">Inicio/</Link>
         <img id="crearUsuario_iconos" src='/img/icono_administrador.png' alt='' />
         <label id='crearUsuario_textrutas'>Usuario/</label>
-        <label id='crearUsuario_textrutas'>Registro Usuario</label>
+        <label id='crearUsuario_textrutas'>Actulizar Usuario</label>
       </div>
       <form id="crearUsuario_form" onSubmit={editData} >
         <div>
@@ -272,12 +272,12 @@ function TicketMaster_Edit(props) {
             aria-label='default select example'
             id="huella_inputs"
             name="lug_nacimiento"
-            value={unMunicipio. idMunicipio}
+            value={unMunicipio.idMunicipio}
             onChange={e => parseElement(e.target)}
             >
             <option>Seleccione municipio</option>
             {municipio && municipio.map(municipios =>
-              <option key={municipios.idMunicipio} value={JSON.stringify(municipios)}>{municipios.nombre}</option>
+              <option key={municipios.idMunicipio} value={municipios.idMunicipio}>{municipios.nombre}</option>
             )}
           </select>
         </div>

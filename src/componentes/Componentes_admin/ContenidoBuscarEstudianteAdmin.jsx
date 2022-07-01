@@ -2,7 +2,7 @@ import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 

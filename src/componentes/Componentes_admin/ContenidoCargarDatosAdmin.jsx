@@ -17,12 +17,7 @@ const ContenidoCambiarClaveAdmin = () => {
           <label htmlFor="exampleInputEmail1" id="datos_inputstext" >Tipo de Archivo:*</label>
           <select className="form-control" >
             <option>Tipo de Archivo:</option>
-            <option>.jpg</option>
-            <option>.png</option>
-            <option>.rar</option>
-            <option>.zip</option>
-            <option>Documento de word</option>
-            <option>.pdf</option>
+            <option>.xlsx</option>
           </select>
         </div>
         

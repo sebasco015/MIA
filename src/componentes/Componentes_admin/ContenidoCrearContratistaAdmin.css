@@ -1,0 +1,83 @@
+/*-Navengacion subtitulos-*/
+
+#crearcon_div{
+    height: 800px;
+}
+
+#Crearcon_divruta{
+    display: flex;
+    margin-bottom: -15px;
+    align-items: center;
+    margin: 10px;
+    display: flex;
+    gap: 7px;
+}
+
+#Crearcon_iconos{
+    height: 20px;
+    width: 20px;
+}
+
+#Crearcon_textrutas{
+    font-size: 18px;
+}
+
+#Crearcon_linkinicio{
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+}
+/*-Conteido de pagina-*/
+
+#datoscon{
+    width: 90%;
+    margin: 20pt auto;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows:  20% 20% 20% 20% 20% ;
+    min-height: 50%;
+}
+
+#Crearcon_divinfomacion{
+    display: flex;
+    width: 450px;
+    height: 80px;
+    align-items: center;
+}
+
+#ins{
+    margin: 5px;
+    width: auto;
+    border-color: gray;
+}
+
+#mun{
+    margin: 5px;
+    width: 210px;
+    border-color: gray;
+}
+
+#lim{
+    margin: 10px;
+    margin-top: 30px;
+}
+
+#reg{
+    width: 150px;
+}
+
+#Crearcon{
+    border: 1px solid black;
+    height: 150px;
+    margin-right: 10px;
+}
+#Crearcon_inputs{
+    background: white;
+    border-radius: 9px;
+    border: 1px solid black;
+    color: black;
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 260px;
+    border-color: gray;
+}

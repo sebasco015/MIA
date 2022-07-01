@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './contenidoUsuariosAdmin.css'
 import axios from "axios";
 import env from '../../env.json';
-import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {faSearch, faUserEdit, faTrash, faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
@@ -75,16 +75,17 @@ const ContenidoUsuariosAdmin = () => {
         <label id='usuarios_textrutas'>Administrador/</label>
         <label id='usuarios_textrutas'>Usuarios</label>
       </div>
+
       <div id="buscar_form">
+    
+      
                 <div id="buscar_divinfomacion" className="containerInput">
-                   <button
-                      id="button"
-                      type="button"
-                      className="btn btn-primary btn-block">
-                      <Link to="/crear_usuario_admin">
-                      Crear
-                      </Link>
+                <button
+                 className="btn btn-primary"
+                 onClick={() => navigate("/crear_usuario_admin")}>
+                      <FontAwesomeIcon icon={faAdd}/>
                     </button>
+                    
                     <input
                         className="form-control inputBuscar"
                         value={busqueda}
@@ -94,6 +95,7 @@ const ContenidoUsuariosAdmin = () => {
                     <button className="btn btn-success">
                         <FontAwesomeIcon icon={faSearch} />
                     </button>
+                
                 </div>
             </div>
       <div className="table-responsive">
@@ -117,11 +119,11 @@ const ContenidoUsuariosAdmin = () => {
             <td>
               <button
                 className="btn btn-primary btn-block"
-                onClick={() => navigate("/editar_usuario_admin", {state:{id:user.id}})}>Editar </button>
+                onClick={() => navigate("/editar_usuario_admin", {state:{id:user.id}})}><FontAwesomeIcon icon={faUserEdit} /> </button>
               {"  "}
               <button
                 className="btn btn-danger"
-                onClick={() => navigate("/eliminar_usuario_admin", {state:{id:user.id}})}> Eliminar</button>
+                onClick={() => navigate("/eliminar_usuario_admin", {state:{id:user.id}})}> <FontAwesomeIcon icon={faTrash} /></button>
               </td>
           </tr>
         ))}

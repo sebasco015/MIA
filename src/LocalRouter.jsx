@@ -22,9 +22,19 @@ import GenerarReportesAdmin from "./pages/pages_admin/GenerarReportesAdmin";
 import FacturacionAdmin from './pages/pages_admin/FacturacionAdmin';
 import ActualizarUsuarioAdmin from "./pages/pages_admin/ActualizarUsuarioAdmin";
 
+// Components Contratistas
+
+import InicioContratista from "./pages/pages_contratista/InicioContratista";
+import BuscarEstudianteContratista from "./pages/pages_contratista/BuscarEstudianteContratista";
+import CambiarClaveContratista from "./pages/pages_contratista/CambiarClaveContratista";
+import GenerarReportesContratista from "./pages/pages_contratista/GenerarReportesContratista";
+import FacturacionContratista from "./pages/pages_contratista/FacturacionContratista";
+import SistemaContratista from "./pages/pages_contratista/SistemaContratista";
+
 
 const LocalRouter = () => {
   return useRoutes([
+    // Components Admin
     { path: "/", element: <Login/> },
     { path: "inicio_admin", element: <InicioAdmin /> },
     { path: '/sistema_admin', element: <SistemaAdmin /> },
@@ -41,7 +51,15 @@ const LocalRouter = () => {
     { path: '/Generar_Reportes_admin', element: <GenerarReportesAdmin /> },
     { path: '/Facturacion_admin', element: <FacturacionAdmin />},
     { path: '/restablecer_contrasena', element: <RecuperarContrasena />},
-    { path: '/editar_usuario_admin', element: <ActualizarUsuarioAdmin />}
+    { path: '/editar_usuario_admin', element: <ActualizarUsuarioAdmin />},
+
+    //Components Contratista
+    { path: 'inicio_contratista', element: <InicioContratista/>},
+    { path: 'buscar_estudiante_contratista', element: <BuscarEstudianteContratista />},
+    { path: 'cambiar_clave_contratista', element: <CambiarClaveContratista />},
+    { path: 'generar_reportes_contratista', element: <GenerarReportesContratista />},
+    { path: 'facturacion_contratista', element: <FacturacionContratista />},
+    { path: 'sistema_contratista', element: <SistemaContratista />}
   ]);
 };
 

@@ -182,7 +182,7 @@ const ContenidoHuellaEstudianteNuevoAdmin = () => {
         <Link id="huella_linkinicio" to="/Inicio">Inicio/</Link>
         <img id="huella_iconos" src='/img/icono_administrador.png' alt='' />
         <label id='huella_textrutas'>Administrador/</label>
-        <label id='huella_textrutas'>Huella Estudiante Nuevo</label>
+        <label id='huella_textrutas'>Estudiante Nuevo</label>
       </div>
       <form id="datos" onSubmit={ handleSubmit } ref={formRef}>
         <div>

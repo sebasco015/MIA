@@ -30,11 +30,11 @@
 /*-Conteido de pagina-*/
 
 #reportes_form {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     margin-top: 5%;
     display: grid;
-    grid-template-columns: 30% 25% 25%;
+    grid-template-columns: 25% 25% 20%;
     grid-template-rows: 150px;
     gap: 150px;
 }

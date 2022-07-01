@@ -72,7 +72,7 @@ const ContenidoRestaurarContrasena = () => {
             />
           </div>
           <div className="form-group" id="login_passwordform">
-            <label id="inicio_labels">Contraseña</label>
+            <label id="inicio_labels">Email</label>
             <Input
               type="text"
               className="form-control"

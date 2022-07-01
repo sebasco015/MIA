@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState} from 'react'
 import './contenidoCrearUsuarioAdmin.css'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import  env from "../../env.json";
 
 
 const ContenidoCrearUsuarioAdmin = () => {
   const formRef = useRef();
+  const navigate = useNavigate();
 
   const [ roles, setRol ] = useState([]);
   const [ tipoDocumento, setTipoDocumento ] = useState([]);
@@ -247,8 +248,8 @@ const ContenidoCrearUsuarioAdmin = () => {
             id="lim"
             type="button"
             className="btn btn-danger"
-            onClick={ () => formRef.current()}
-          >Limpiar</button>
+            onClick={ () => navigate("/usuarios_admin")}
+          >Regresar</button>
           <button 
             id="lim"
             type="submit"

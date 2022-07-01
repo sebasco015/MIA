@@ -1,16 +1,19 @@
 import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const ContenidoBuscarContratistaAdmin = () => {
-
+    
     const [contratistas, setContratista] = useState([]);
     const [tablaContratista, setTablaContratista] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+
+  const navigate = useNavigate();
+
 
    const peticionGet = async () => {
         await axios.get("http://localhost:8080/api/contratista/listar")
@@ -102,8 +105,14 @@ const ContenidoBuscarContratistaAdmin = () => {
                                     <td>{contratista.costoAlmuerzo}</td>
                                     <td>{contratista.cantidadesDiarias}</td>
                                     <td>{contratista.diasAtender}</td>
-                                    <td> <a href="editar_contratista_adimin">Editar</a>     |
-                                        <a href="eliminar_contratista_adimin"> Eliminar</a>
+                                    <td> 
+                                        <button
+                                        className="btn btn-primary btn-block"
+                                        onClick={() => navigate("/editar_contratista_admin", {state:{id:contratista.id}})}>Editar </button>
+                                    {"  "}
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => navigate("/eliminar_contratista_admin", {state:{id:contratista.id}})}> Eliminar</button>
                                     </td>                                    
                                 </tr>
                             ))}
