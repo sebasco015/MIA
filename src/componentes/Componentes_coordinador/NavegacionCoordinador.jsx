@@ -1,15 +1,21 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import './Navegacion_coordinador.css'
 import { Link } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import { clearUser } from '../../redux/slice';
 
 
-export default function Navegacion_coordinador() {
+ const NavegacionCoordinador = () => {
 
-    let fecha = new Date();
-    console.log(fecha.toLocaleDateString());
+    const fecha = new Date();
     const hora = fecha.toLocaleDateString();
+    const user = useSelector(state => state.user);
+    const dispatch = useDispatch();
+
+    const exit = () => {
+        dispatch(clearUser());
+        window.location.reload();
+    }
 
     return (
         <div>
@@ -23,9 +29,10 @@ export default function Navegacion_coordinador() {
                     <div />
                     <div />
                     <div id="div_hora" >
-                        <input id="navegacion_fecha" type="text" defaultValue={hora}></input>
+                        <input id="navegacion_fecha" type="text" defaultValue={hora} disabled></input>
                         <img id="dimagen" src="/img/icono_usuario.png" alt="" />
-                        <label id="texto_admin">Coordinador</label>
+                        <label id="texto_admin">{user.username}</label>
+                        <img id="imgflecha" onClick={exit} src='/img/logaut.png' />
                     </div>
                 </div>
                 <ul id="menu">
@@ -53,3 +60,5 @@ export default function Navegacion_coordinador() {
         </div>
     )
 }
+
+export default NavegacionCoordinador; 

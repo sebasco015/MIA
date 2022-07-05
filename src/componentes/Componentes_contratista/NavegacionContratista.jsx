@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-pascal-case */
 import React from 'react';
 import './Navegacion_contratista.css'
 import { Link } from "react-router-dom";

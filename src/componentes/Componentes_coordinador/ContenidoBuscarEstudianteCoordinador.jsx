@@ -6,7 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
-export default function Contenido_Buscar_Estudiante_coordinador() {
+ const ContenidoBuscarEstudianteCoordinador = () => {
 
     const [usuarios, setUsuarios] = useState([]);
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
@@ -107,3 +107,5 @@ export default function Contenido_Buscar_Estudiante_coordinador() {
         </div>
     )
 }
+
+export default ContenidoBuscarEstudianteCoordinador;

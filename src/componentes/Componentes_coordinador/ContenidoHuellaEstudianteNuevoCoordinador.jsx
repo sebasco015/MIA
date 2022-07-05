@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Component, } from 'react'
 import axios from 'axios';
 
-export default class Contenido_Huella_Estudiante_Nuevo_coordinador extends Component {
+export default class ContenidoHuellaEstudianteNuevoCoordinador extends Component {
 
     //-------------Post para registro de estudiante----------------//
     handleSubmit = e => {
