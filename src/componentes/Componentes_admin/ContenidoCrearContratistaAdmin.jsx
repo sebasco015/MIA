@@ -27,7 +27,7 @@ const ContenidoCrearContratistaAdmin = () => {
   const [ costoDesayuno, setCostoDesayuno ] = useState('');
   const [ costoComida, setCostoComida ] = useState('');
   const [ cantidadComida, setCantidadComida ] = useState('');
-  
+  var d;
 
     const obtenerZona= async () => {
       try {
@@ -45,6 +45,15 @@ const ContenidoCrearContratistaAdmin = () => {
         }
       };
       
+    /*const input = document.getElementById('Crearcon_inputs1');
+    function carg(element) {
+      d=element.value;
+      if(d==1){
+        input.desabled=true;
+      }else{
+       }
+    }*/
+
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -94,8 +103,22 @@ const ContenidoCrearContratistaAdmin = () => {
         <label id='Crearcon_textrutas'>Registro Contratista</label>
       </div>
       <form id="datoscon" onSubmit={ handleSubmit} ref={formRef}>
-        <div>
+      <div>
           <label>SED:*</label>
+          <select
+            className="form-select"
+            aria-label='default select example'
+            id="Crearcon_inputs"
+            name="id_sed"
+            >
+                <option key='Sed-1' value={null}>Seleccione una Secretaria* </option>
+                <option key="Sed-2" value="1">Huila</option>
+                <option key="Sed-3" value="2">Neiva</option>
+                <option key="Sed-4" value="1">Pitalito</option>
+            </select>
+        </div>
+        <div>
+          <label>Zona:*</label>
           <select
             className="form-select"
             aria-label='default select example'

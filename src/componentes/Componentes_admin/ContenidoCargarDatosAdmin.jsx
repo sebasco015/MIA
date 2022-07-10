@@ -1,35 +1,28 @@
-import React, {useRef, useState} from "react";
+import React, { useState} from "react";
 import { Link } from "react-router-dom";
 import './contenidoCargarDatosAdmin.css'
-import env from '../env.json';
+import env from '../../env.json';
+import axios from "axios";
 
-const ContenidoCambiarClaveAdmin = () => {
+const ContenidoCargarDatosAdmin = () => {
   
   const [ type, setType] = useState("");
   const [ selectedFile, setSelectedFile ] = useState(null);
+ var bodyFormData = new FormData();
+  bodyFormData.append("type" , type);
+  bodyFormData.append("selectedFile" , selectedFile);
 
-  const FileUploader = ({onFileSelect}) => {
-    const fileInput = useRef(null)
-    const handleFileInput = (e) => {
-      onFileSelect(e.target.files[0])
-      if( file.size > 50024)
-      onFileSelectError({error: 'El tamaño del archivo excede las 50MB'});
-      else onFileSelectSuccess(file);
-    };
-  }
+  axios({
+    method: "POST",
+    url: `${env.host}/excel`,
+    data: bodyFormData,
+    headers: {"Content-Type": "multipart/form-data"},
+  }).then(function (response){
+    console.log(response);
+  }).catch(function (response){
+    console.log(response);
+  });
 
-const submitForm = () => {
-  const formData = new FormData();
-  formData.append("type", );
-  formData.append("file", selectedFile);
-
-  axios
-  .post(`${env.host}/excel`, formData)
-  .then((res) => {
-    alert("Archivo subiodo Correctamente!");
-  })
-  .catch((err) => alert("Error al subir el Archivo"));
-};
   return (
     <div id="datos_div">
       <div id='datos_divruta'>
@@ -44,7 +37,7 @@ const submitForm = () => {
           <label htmlFor="exampleInputEmail1" id="datos_inputstext" >Tipo de Archivo:*</label>
           <select className="form-control"
           value={type}
-          onchange={(e) => setType(e.target.value)}>
+          onChange={(e) => setType(e.target.value)}>
             <option>Tipo de Archivo:</option>
             <option value="pais">Pais</option>
             <option value="departamentos">Departamentos</option>
@@ -67,19 +60,16 @@ const submitForm = () => {
           />
         </div>
       </form>
-      <FileUploader
-          onFileSelectSuccess={(file) => setSelectedFile(file)}
-          onFileSelectError={({error}) => alert(error)}
-          />
+      
       <div id="datos_boton">
         <button 
            type="submit" 
            className="btn btn-danger"
-           onClick={submitForm}
+           onClick={bodyFormData.onSubmit}
         >Cargar Datos</button>
       </div>
     </div>
   );
 }
 
-export default ContenidoCambiarClaveAdmin;
+export default ContenidoCargarDatosAdmin;

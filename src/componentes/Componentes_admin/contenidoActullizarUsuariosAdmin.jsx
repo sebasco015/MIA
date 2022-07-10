@@ -86,7 +86,7 @@ function TicketMaster_Edit(props) {
 
       
       const editData = () => {
-        axios.post(`${env.host}/usuarios/actualizar/` + location.state.id, {
+        axios.put(`${env.host}/usuarios/actualizar/` + location.state.id, {
             username,
             email,
             unRol:

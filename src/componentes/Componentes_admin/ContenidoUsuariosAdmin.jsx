@@ -20,7 +20,7 @@ const ContenidoUsuariosAdmin = () => {
     const response = await axios.get(`${env.host}/usuarios/listar`);
       const data = response.data.map(el => {
         el.roles = el.roles.map(ele => ele.nombre).join(',');
-
+        
         return el;
       });
       setUsers(data);

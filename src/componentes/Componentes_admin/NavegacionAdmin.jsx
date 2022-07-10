@@ -65,11 +65,14 @@ const NavegacionAdmin = () => {
                         </div>
                         <ul id='desple'>
                             <li id='boxli'><Link className='menu_link' to="/crear_contratista_admin">Registro de Contratistas</Link></li>
-                            <li id='boxli'>Contratistas
-                                <ul id='desple2'>
-                                    <li id='boxli'><Link className='menu_link' to="/">huila</Link></li>
-                                </ul>
+                            <li id='boxli' >SED
+                               <ul id='desple2'>
+                                 <li id='boxli2'><Link className='menu_link' to="/crear_contratista_admin">Huila</Link></li>
+                                 <li id='boxli2'><Link className='menu_link' to="/crear_contratista_admin">Neiva</Link></li>
+                                 <li id='boxli2'><Link className='menu_link' to="/crear_contratista_admin">Pitalito</Link></li>
+                                </ul> 
                             </li>
+                            <li id='boxli' >Contratista</li>
                         </ul>
                     </li>
                     <li id='item'>

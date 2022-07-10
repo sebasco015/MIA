@@ -67,6 +67,13 @@
     width: fit-content;
 }
 
+#reportes_inputsdate {
+    width: fit-content;
+    position: relative;
+    right: -100pt;
+    top: -15pt;
+}
+
 #iconos_ger {
     width: fit-content;
     margin: auto auto;

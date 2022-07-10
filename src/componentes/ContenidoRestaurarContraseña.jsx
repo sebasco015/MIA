@@ -1,20 +1,17 @@
 import React, { useState} from 'react';
-//import { useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import Form from "react-validation/build/form";
 import CheckButton from "react-validation/build/button";
 import Input from "react-validation/build/input";
 import axios from 'axios';
-
 import {setUser} from "../redux/slice";
-
 import env from '../env.json';
-
 import './contenidoLogin.css';
 import '../pages/pages_admin/InicioAdmin';
 
 const ContenidoRestaurarContrasena = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
  
@@ -26,7 +23,7 @@ const ContenidoRestaurarContrasena = () => {
     try {
       const data = { username: username, email: email };
 
-      const res = await axios.post(`${env.host}/auth/recuperarcontrase`, data);
+      const res = await axios.put(`${env.host}/auth/recuperar`, data);
       dispatch(setUser({
         email: res.data.unUsuario.email,
         username: res.data.unUsuario.username
@@ -46,8 +43,7 @@ const ContenidoRestaurarContrasena = () => {
       );
     }
   };
-
-
+ 
   return (
     <div id="login_back">
       <div>.</div>
@@ -89,6 +85,14 @@ const ContenidoRestaurarContrasena = () => {
                     Restablecer contraseña
             </CheckButton>
           </div>
+          <div id="login_div_boton">
+          <button
+              className="btn btn-danger" 
+              id="login_boton_retroceder"
+              onClick = { () => navigate("/")}>
+                Regresar
+             </button>
+             </div>
         </Form>
       </div>
     </div>

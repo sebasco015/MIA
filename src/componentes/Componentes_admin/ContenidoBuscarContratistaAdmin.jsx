@@ -29,7 +29,7 @@ const ContenidoBuscarContratistaAdmin = () => {
     const handleChange = e => {
         setBusqueda(e.target.value);
         filtrar(e.target.value);
-    }
+    };
 
     const filtrar = (terminoBusqueda) => {
         var resultadosBusqueda = tablaContratista.filter((elemento) => {

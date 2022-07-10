@@ -81,3 +81,14 @@
     width: 260px;
     border-color: gray;
 }
+
+#Crearcon_inputs1{
+    background: white;
+    border-radius: 9px;
+    border: 1px solid black;
+    color: black;
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 260px;
+    border-color: gray; 
+}

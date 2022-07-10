@@ -77,6 +77,12 @@
   box-shadow: 4px 4px 6px 4px rgba(0, 0, 0, 0.2);
 }
 
+#login_boton_retroceder{
+  display: flex;
+  gap: 15px;
+  box-shadow: 4px 4px 6px 4px rgba(0, 0, 0, 0.2);
+}
+
 #login_div_link {
   margin-top: 15px;
   text-decoration-line: none;

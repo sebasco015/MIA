@@ -21,8 +21,8 @@ const optionsRgp = [
 
 const optionsRta = [
     { value: "almuerzo", label: "Almuerzo", key:"RTA-1"},
-    { value: "Desayuno", label: "Desayuno", key:"RTA-2"},
-    { value: "Cena", label: "Cena", key:"RTA-3"},
+    { value: "desayuno", label: "Desayuno", key:"RTA-2"},
+    { value: "comoida", label: "Comida", key:"RTA-3"},
     { value: "complementoAmPm", label: "Complemento Am Pm", key:"RTA-4"},
     { value: "racionIndustiral", label: "Racion Industrial", key:"RTA-5"},
     { value: "rtc", label: "Ración Transportada en Caliente", key:"RTA-6"},
@@ -40,6 +40,7 @@ const optionsJornada = [
 const optionsSexo = [
     { value: "M", label: "Masculino", key: "Se-1"},
     { value: "F", label: "Femenino", key: "Se-2"}
+    
 ];
 
 const ContenidoGenerarReportesAdmin = () => {
@@ -49,8 +50,11 @@ const ContenidoGenerarReportesAdmin = () => {
     const [institucion, setInstitucion] = useState([]);
     const [institucionData, setInstitucionData] = useState([]);
     const [sede, setSede] = useState([]);
+    const [sedeData, setSedeData] = useState([]);
     const [zonaData, setZonaData] = useState([]);
     const [zona, setZona] = useState([]);
+    const [departamento, setDepartamento] = useState([]);
+    const [ departamentoData, setDepartamentoData] = useState([]);
     const mensual = useRef();
     const menPlanilla = useRef();
     const [selectedOption, setSelectedOption] = useState(null);
@@ -69,6 +73,22 @@ const ContenidoGenerarReportesAdmin = () => {
             console.log(error);
         }
     }
+
+    const obtenerDepartamento = async () => {
+    try{
+        const response = await axios.get(`${env.host}/departamento/listar`)
+        console.log(response.data);
+        setDepartamentoData(response.data.map( el => ({
+            value: el.idDepartamento,
+            label: el.nombre,
+            key: el.idDepartamento
+        })))
+        setDepartamento(response.data);
+    }catch(err) {
+        console.log(err);
+    }
+};
+
 
     const obtenerInstituciones = async () => {
         try {
@@ -103,6 +123,12 @@ const ContenidoGenerarReportesAdmin = () => {
     const obtenerSedes = async () => {
         try {
             const response = await axios.get(`${env.host}/sede/listar`);
+            console.log(response.data);
+            setSedeData(response.data.map( el => ({
+                value: el.idSede,
+                label: el.nombre,
+                key: el.idSede
+            })));
             setSede(response.data);
         } catch (err) {
             console.log(err)
@@ -161,6 +187,7 @@ const ContenidoGenerarReportesAdmin = () => {
             await obtenerInstituciones();
             await obtenerSedes();
             await obtenerZona();
+            await obtenerDepartamento(); 
         })()
     }, [])
     const radiobutton = [];
@@ -183,15 +210,13 @@ const ContenidoGenerarReportesAdmin = () => {
                 <label id='reportes_textrutas'>Generar Reportes</label>
             </div>
             <div id="reportes_form" /*onSubmit={ handleSubmit}*/>
-                <div id="reportes_divinfomacion">
+                <div id="reportes_divinfomacion_prueba">
                     <label id="reportes_inputstext">Fecha Inicial:*</label>
-                    <input id="reportes_inputstext" className="date" type="date"></input>
-                </div>
-                <div id="reportes_divinfomacion">
-                    <label id="reportes_inputs" >Fecha Final:*</label>
-                    <input id="reportes_inputstext" className="date" type="date"></input>
-                </div>
-                <div id="reportes_divinfomacion">
+                    <input id="reportes_inputsdate" className="date" type="date"></input>
+                    <br/>
+                    <label id="reportes_inputstext" >Fecha Final:*</label>
+                    <input id="reportes_inputsdate" className="date" type="date"></input>
+
                     <label id="reportes_inputstext">Reporte Grupos Poblacionales:</label>
                     <Select
                         id='select-input'
@@ -203,23 +228,45 @@ const ContenidoGenerarReportesAdmin = () => {
                         placeholder="Seleccione Grupos Poblacionales"
                         closeMenuOnSelect={false}
                     />
-                </div>
-
-                <div id="reportes_divinfomacion_prueba">
-                    <label id="reportes_inputstext">Tipo Reporte:*</label>
-                    <a class=" link_menu" onClick={handleSubmit1}>Formato Men-Planilla</a>
-                    <a class="link_menu" onClick={handleSubmit}>Consolidado Mensual Planilla</a>
-                    <label id="label_checks">Selecccione Area:</label>
+                    <label id="reportes_inputstext">Reporte Tipo Alimentario:*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
                         isMulti
-                        options={optionsArea}
+                        options={optionsRta}
                         onChange={setSelectedOption}
-                        placeholder="Seleccione Area"
+                        placeholder="Seleccione tipo alimento"
                         closeMenuOnSelect={false}
                     />
-                    <label id="label_checks">Zona:*</label>
+                         <label id="reportes_inputstext">Reporte Por Jornada:*</label>
+                    <Select
+                        className="selectpicker"
+                        defaultValue={selectedOption}
+                        isMulti
+                        options={optionsJornada}
+                        onChange={setSelectedOption}
+                        placeholder="Seleccione Jornada/s"
+                        closeMenuOnSelect={false}
+                    />
+
+
+                </div>
+                <div id="reportes_divinfomacion">
+                </div>
+                <div id="reportes_divinfomacion_prueba">
+                    <label id="reportes_inputstext">Tipo Reporte:*</label>
+                    <a class=" link_menu" onClick={handleSubmit1}>Formato Men-Planilla</a>
+                    <a class="link_menu" onClick={handleSubmit}>Consolidado Mensual Planilla</a>
+                    <label id="label_checks">Seleccione Departamento:</label>
+                    <Select
+                        className="selectpicker"
+                        defaultValue={selectedOption}
+                        options={departamentoData}
+                        onChange={setSelectedOption}
+                        placeholder="Seleccione Departamento"
+                        closeMenuOnSelect={true}
+                    />
+                    <label id="label_checks">SED(Secretaria Educacion Departamental):*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
@@ -240,7 +287,7 @@ const ContenidoGenerarReportesAdmin = () => {
                         closeMenuOnSelect={false}
                     />
 
-                    <label id="label_checks">Sede Educativa:*</label>
+                    <label id="label_checks">Establecimiento Educativa:*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
@@ -250,44 +297,24 @@ const ContenidoGenerarReportesAdmin = () => {
                         placeholder="Seleccione Sede/s"
                         closeMenuOnSelect={false}
                     />
-                    <label id="label_checks">Sexo</label>
+                    <label id="label_checks">Sede:*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
                         isMulti
-                        options={optionsSexo}
+                        options={sedeData}
                         onChange={setSelectedOption}
-                        placeholder="Seleccione Sexo/s"
+                        placeholder="Seleccione sede"
                         closeMenuOnSelect={false}
                     />
-
-
                 </div>
-                <div id="reportes_divinfomacion">
-                    <label id="reportes_inputstext">Reporte Tipo Alimentario:*</label>
-                    <Select
-                        className="selectpicker"
-                        defaultValue={selectedOption}
-                        isMulti
-                        options={optionsRta}
-                        onChange={setSelectedOption}
-                        placeholder="Seleccione tipo alimento"
-                        closeMenuOnSelect={false}
-                    />
-
+                <div id="reportes_divinfomacion" >    
                 </div>
-                <div id="reportes_divinfomacion">
-                    <label id="reportes_inputstext">Reporte Por Jornada:*</label>
-                    <Select
-                        className="selectpicker"
-                        defaultValue={selectedOption}
-                        isMulti
-                        options={optionsJornada}
-                        onChange={setSelectedOption}
-                        placeholder="Seleccione Jornada/s"
-                        closeMenuOnSelect={false}
-                    />
-
+                <div id="reportes_divinfomacion" >     
+                </div>
+                <div id="reportes_divinfomacion" > 
+                </div>
+                <div id="reportes_divinfomacion" > 
                 </div>
             </div>
 

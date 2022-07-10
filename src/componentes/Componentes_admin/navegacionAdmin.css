@@ -109,17 +109,19 @@
 
 #menu #desple{
     display: none;
-    position: absolute;
-    min-width: 11.5%;
+    position: relative;
+    min-width: fit-content;
+    z-index: 1;
 }
 
-#menu #desple > #desple2{
-    content: " ";
-    display: block;
-    position: absolute;
-    right: 15pt;
-    
+#menu #desple #desple2{
+    display: inline-flex;
+    position: relative;
+    right: -70pt;
+    min-width: fit-content;
+    z-index: 1;
 }
+
 
 #menu #item a:hover{
     color: rgb(141, 137, 137);
@@ -132,10 +134,10 @@
     
 }
 
-#menu #item:hover > #desple2{
+#menu #item:hover #desple #desple2{
     background-color: #DA1E37;
     transition: 1.5s;
-    display: block; ;
+    display: inline-block;
     
 }
 
@@ -163,5 +165,8 @@
 }
 
 #boxli{
+    margin-left: -25pt;
+}
+#boxli2{
     margin-left: -25pt;
 }

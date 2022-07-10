@@ -1,8 +1,8 @@
 import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import { faSearch, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -11,6 +11,8 @@ const ContenidoBuscarEstudianteAdmin = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+
+    const navigate = useNavigate();
 
     const peticionGet = async () => {
         await axios.get("http://localhost:8080/api/beneficiario/listar")
@@ -101,6 +103,15 @@ const ContenidoBuscarEstudianteAdmin = () => {
                                     <td>{estudiante.fechaActual}</td>
                                     <td>{estudiante.tipoBeneficio.nombre}</td>
                                     <td>{estudiante.estado}</td>
+                                    <td> 
+                                        <button
+                                        className="btn btn-primary btn-block"
+                                        onClick={() => navigate("/editar_estudiante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}><FontAwesomeIcon icon={faEdit} /> </button>
+                                    {"  "}
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => navigate("/eliminar_estudidante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button>
+                                    </td>   
                                     
                                 </tr>
                             ))}
