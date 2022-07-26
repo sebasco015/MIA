@@ -66,7 +66,7 @@ function TicketMaster_Edit(props) {
 
       
       useEffect (() => {
-        //console.log(location.state.id);
+        console.log(location.state.id);
         axios.get(`${env.host}/usuarios/listar/` + location.state.id).then((response) => {
             setUsername (response.data.username);
             setEmail (response.data.email);
@@ -85,7 +85,8 @@ function TicketMaster_Edit(props) {
       },[]);
 
       
-      const editData = () => {
+      const editData = e => {
+        e.preventDefault();
         axios.put(`${env.host}/usuarios/actualizar/` + location.state.id, {
             username,
             email,
@@ -104,7 +105,7 @@ function TicketMaster_Edit(props) {
               direccion, 
             },
         });
-        navigate.push(`${env.host}/usuarios/actualizar/`);
+        navigate(`/usuarios_admin`);
     };
 
   

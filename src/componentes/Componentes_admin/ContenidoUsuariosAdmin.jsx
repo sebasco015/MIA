@@ -49,19 +49,6 @@ const ContenidoUsuariosAdmin = () => {
   }
 
 
-  /*const listarUsuarios = async () => {
-    try {
-      const response = await axios.get(`${env.host}/usuarios/listar`);
-      const data = response.data.map(el => {
-        el.roles = el.roles.map(ele => ele.nombre).join(',');
-        return el;
-      });
-      setUsers(data);
-    } catch (e) {
-      alert("No hay usuarios en el sistema");
-    }
-  };*/
-
   useEffect(() => {
      peticionGet();
   }, [])

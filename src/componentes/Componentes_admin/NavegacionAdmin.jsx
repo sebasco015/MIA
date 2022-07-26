@@ -1,19 +1,40 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './navegacionAdmin.css'
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { clearUser } from '../../redux/slice';
+import axios from 'axios';
+import  env from "../../env.json";
 
 const NavegacionAdmin = () => {
     const fecha = new Date();
     const hora = fecha.toLocaleDateString();
     const user = useSelector(state => state.user);
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); 
+    const [ zonas, setZonas ] = useState([]);
+    
+    const obtenerZona= async () => {
+        try {
+          const response = await axios.get(`${env.host}/zona/listar`);
+         const filtered = response.data.filter((elemento) => (
+            elemento.id !== 6 && elemento.id !== 7)
+         )
+          setZonas(filtered);
+          } catch (err) {
+          console.log(err);
+          }
+        };
+
 
     const exit = () => {
         dispatch(clearUser());
         window.location.reload();
     }
+
+    useEffect(() => {
+        obtenerZona();
+    },[] )
+ 
 
     return (
         <div>
@@ -49,7 +70,7 @@ const NavegacionAdmin = () => {
                     <li id='item'>
                         <div className='menu_link'>
                             Administrador
-                            <img id='imgflecha' src="/img/flecha_abajo.png" alt="" />
+                            <img id='imgflecha' src="/img/flecha_abajo.png"  alt="" />
                         </div>
                         <ul id='desple'>
                             <li id='boxli'><Link className='menu_link' to="/cambiar_clave_admin">Cambiar Clave</Link></li>
@@ -65,14 +86,23 @@ const NavegacionAdmin = () => {
                         </div>
                         <ul id='desple'>
                             <li id='boxli'><Link className='menu_link' to="/crear_contratista_admin">Registro de Contratistas</Link></li>
-                            <li id='boxli' >SED
+                            <li id='boxli' className='boxli-sed'> SED <img id='imgflecha1' src="/img/flecha_abajo.png" alt="" />
+                              
                                <ul id='desple2'>
-                                 <li id='boxli2'><Link className='menu_link' to="/crear_contratista_admin">Huila</Link></li>
-                                 <li id='boxli2'><Link className='menu_link' to="/crear_contratista_admin">Neiva</Link></li>
-                                 <li id='boxli2'><Link className='menu_link' to="/crear_contratista_admin">Pitalito</Link></li>
+                                 <li id='boxli2' className='boxli2-huila'> Huila <img id='imgflecha2' src='img/flecha_abajo.png' alt="" />
+                                    <ul id='desple3'>
+                                        {zonas.map( ({nombre_zona,id}) => (
+                                            <li id='boxli3' key={id}><Link className='menu_link' to={`/buscar_contratista_admin?idZona=${id}`}>{nombre_zona}</Link></li>
+                                        ))}
+                                    </ul>
+                                    
+                                 </li>
+                                 <li id='boxli2'><Link className='menu_link' to="/buscar_contratista_admin?idZona=6">Neiva</Link></li>
+                                 <li id='boxli2'><Link className='menu_link' to="/buscar_contratista_admin?idZona=7">Pitalito</Link></li>
                                 </ul> 
+                             
                             </li>
-                            <li id='boxli' >Contratista</li>
+                            
                         </ul>
                     </li>
                     <li id='item'>

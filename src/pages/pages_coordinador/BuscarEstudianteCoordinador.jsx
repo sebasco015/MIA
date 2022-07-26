@@ -4,7 +4,7 @@ import NavegacionCoordinador from '../../componentes/Componentes_coordinador/Nav
 import ContenidoBuscarEstudianteCoordinador from "../../componentes/Componentes_coordinador/ContenidoBuscarEstudianteCoordinador";
 import ValidateRolCoordinador from "../../componentes/Componentes_coordinador/ValidateRolCoordinador";
 
- const BuscarEstudianteCoorinador = () => (
+ const BuscarEstudianteCoordinador = () => (
       <>
         <ValidateRolCoordinador />
         <NavegacionCoordinador />
@@ -12,4 +12,4 @@ import ValidateRolCoordinador from "../../componentes/Componentes_coordinador/Va
       </>
     )
 
-export default BuscarEstudianteCoorinador;
+export default BuscarEstudianteCoordinador;

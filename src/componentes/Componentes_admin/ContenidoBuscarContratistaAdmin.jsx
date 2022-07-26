@@ -1,30 +1,39 @@
 import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faSearch, faTrash, faStreetView } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import env from '../../env.json';
 
 
 const ContenidoBuscarContratistaAdmin = () => {
     
     const [contratistas, setContratista] = useState([]);
+    const [ otroSi, setOtroSi] = useState([]);
     const [tablaContratista, setTablaContratista] = useState([]);
+    const [ tablaOtroSi, setTablaOtroSi] = useState([]);
     const [busqueda, setBusqueda] = useState("");
-
+   const [ seacrhParam ] = useSearchParams();
+    console.log(useSearchParams());
   const navigate = useNavigate();
 
 
    const peticionGet = async () => {
-        await axios.get("http://localhost:8080/api/contratista/listar")
+        const idZona = seacrhParam.get(`idZona`);
+        await axios.get(`http://localhost:8080/api/contratista/zona/${idZona}`)
             .then(response => {
                 setContratista(response.data);
                 setTablaContratista(response.data);
             }).catch(error => {
                 console.log(error);
-
             })
     }
+
+    
+       
+        
+    
 
     const handleChange = e => {
         setBusqueda(e.target.value);
@@ -43,10 +52,20 @@ const ContenidoBuscarContratistaAdmin = () => {
         setContratista(resultadosBusqueda);
     }
 
+const handleOtroSi = (nit) => () =>{
+    console.log(nit);
+    axios.get(`${env.host}/otroSi/contratista/${nit}`)
+    .then(response => {
+        setOtroSi(response.data);
+        setTablaOtroSi(response.data);
+    }).catch(err => {
+        console.log(err);
+    })
+} 
 
     useEffect(() => {
         peticionGet();
-    }, [])
+    }, [seacrhParam])
 
     return (
         <div id="buscar_div">
@@ -86,14 +105,14 @@ const ContenidoBuscarContratistaAdmin = () => {
                             <th scope="col">Costo Almuerzo</th>
                             <th scope="col">Total Cant. Diarias</th>
                             <th scope="col">Dias Atenicion</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Otro Si</th>
                         </tr>
                     </thead>
                     <tbody>
                         {contratistas &&
                             contratistas.map((contratista) => (
                                 <tr key={contratista.nit}>
-                                    <td>{contratista.idZona.nombre}</td>
+                                    <td>{contratista.idZona.nombre_zona}</td>
                                     <td>{contratista.nombreZona}</td>
                                     <td>{contratista.nit}</td>
                                     <td>{contratista.representanteLegal}</td>
@@ -104,21 +123,27 @@ const ContenidoBuscarContratistaAdmin = () => {
                                     <td>{contratista.cantidadAlmuerzo}</td>
                                     <td>{contratista.costoAlmuerzo}</td>
                                     <td>{contratista.cantidadesDiarias}</td>
-                                    <td>{contratista.diasAtender}</td>
+                                    <td> {contratista.diasAtender}</td>
                                     <td> 
+                                    <button
+                                        className="btn btn-success btn-block"
+                                        data-toggle="collapse"
+                                        onClick={ handleOtroSi(contratista.nit)}><FontAwesomeIcon icon={faStreetView} /></button>
+                                        {"  "}
                                         <button
                                         className="btn btn-primary btn-block"
-                                        onClick={() => navigate("/editar_contratista_admin", {state:{id:contratista.id}})}>Editar </button>
+                                        onClick={() => navigate("/otrosi_contratista_admin", {state:{nit:contratista.nit}})}><FontAwesomeIcon icon={faAdd} /></button>
                                     {"  "}
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => navigate("/eliminar_contratista_admin", {state:{id:contratista.id}})}> Eliminar</button>
+                                        onClick={() => navigate("/eliminar_contratista_admin", {state:{id:contratista.id}})}><FontAwesomeIcon icon={faTrash} /></button>
                                     </td>                                    
                                 </tr>
                             ))}
                     </tbody>
                 </table>
             </div>
+
         </div>
     )
 }

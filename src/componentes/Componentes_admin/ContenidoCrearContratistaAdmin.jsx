@@ -17,8 +17,10 @@ const ContenidoCrearContratistaAdmin = () => {
   const [ numeroContrato, setNumeroContrato ] = useState('');
   const [ fechaSuscripcion, setFehcaSuscripcion ] = useState(''); 
   const [ fechaInicio, setFechaInicio ] = useState(''); 
-  const [ cantidadComplemtento, setCanidadComplemtento ] = useState('');
-  const [ costoComplemento, setCostoComplemento ] = useState(''); 
+  const [ cantidadComplemtentoAM, setCanidadComplemtentoAM ] = useState('');
+  const [ costoComplementoAM, setCostoComplementoAM ] = useState('');
+  const [ cantidadComplemtentoPM, setCanidadComplemtentoPM ] = useState('');
+  const [ costoComplementoPM, setCostoComplementoPM ] = useState('');
   const [ unaZona, setUnaZona ] = useState('');
   const [ cantidadAlmuerzo, setCantidadAlmuerzo ] = useState(''); 
   const [ costoAlmuerzo, setCostoAlmuerzo ] = useState('');
@@ -66,8 +68,10 @@ const ContenidoCrearContratistaAdmin = () => {
             numeroContrato,
             fechaSuscripcion,
             fechaInicio,
-            cantidadComplemtento,
-            costoComplemento,
+            cantidadComplemtentoAM,
+            costoComplementoAM,
+            cantidadComplemtentoPM,
+            costoComplementoPM,
             cantidadAlmuerzo,
             costoAlmuerzo,
             cantidadesDiarias,
@@ -202,23 +206,45 @@ const ContenidoCrearContratistaAdmin = () => {
         </div>
 
         <div>
-          <label>Cantidad C.AM - C.PM:</label>
+          <label>Cantidad Complemento AM :</label>
           <input
             type="number"
             id="Crearcon_inputs"
             className="form-control"
-            placeholder="Cantidad de Complemento:*"
-            onChange={e => setCanidadComplemtento(e.target.value)}
+            placeholder="Cantidad de Complemento AM:*"
+            onChange={e => setCanidadComplemtentoAM(e.target.value)}
           />
         </div>
         <div>
-          <label>Costo de Complemento:</label>
+          <label>Costo de Complemento AM:</label>
            <input
             type="number"
             className="form-control" 
             id="Crearcon_inputs"
-            placeholder="Costo de Complemento:*"
-            onChange={e => setCostoComplemento(e.target.value)}
+            placeholder="Costo de Complemento AM:*"
+            onChange={e => setCostoComplementoAM(e.target.value)}
+            >                 
+          </input>
+        </div>
+
+        <div>
+          <label>Cantidad Complemento PM:</label>
+          <input
+            type="number"
+            id="Crearcon_inputs"
+            className="form-control"
+            placeholder="Cantidad de Complemento PM:*"
+            onChange={e => setCanidadComplemtentoPM(e.target.value)}
+          />
+        </div>
+        <div>
+          <label>Costo de Complemento PM:</label>
+           <input
+            type="number"
+            className="form-control" 
+            id="Crearcon_inputs"
+            placeholder="Costo de Complemento PM:*"
+            onChange={e => setCostoComplementoPM(e.target.value)}
             >                 
           </input>
         </div>

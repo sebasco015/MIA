@@ -46,29 +46,30 @@ const optionsSexo = [
 const ContenidoGenerarReportesAdmin = () => {
 
     const [municipio, setMunicipio] = useState([]);
-    const [municipioData, setMunicipioData] = useState([]);
     const [institucion, setInstitucion] = useState([]);
     const [institucionData, setInstitucionData] = useState([]);
     const [sede, setSede] = useState([]);
     const [sedeData, setSedeData] = useState([]);
-    const [zonaData, setZonaData] = useState([]);
+    const [secretaria, setSecretaria] = useState({});
     const [zona, setZona] = useState([]);
     const [departamento, setDepartamento] = useState([]);
     const [ departamentoData, setDepartamentoData] = useState([]);
     const mensual = useRef();
     const menPlanilla = useRef();
     const [selectedOption, setSelectedOption] = useState(null);
+    const [posision, setPosision] = useState(1);
 
 
-    const obtenerMunicipios = async () => {
+    const obtenerMunicipios = async (id) => {
         try {
-            const response = await axios.get(`${env.host}/municipios/listar`)
+            const response = await axios.get(`${env.host}/municipios/zona/${id}`);
             console.log(response.data);
-            setMunicipioData(response.data.map( el => ({
-                value: el.idMunicipio,
-                label: el.nombre
-            })))
-            setMunicipio(response.data);
+            const data = response.data.map(el => ({
+                 value: el.idMunicipio,
+                 label: el.nombre,
+                 key: el.idMunicipio
+            }))
+            setMunicipio({...municipio, dataApi: data});
         } catch (error) {
             console.log(error);
         }
@@ -83,7 +84,7 @@ const ContenidoGenerarReportesAdmin = () => {
             label: el.nombre,
             key: el.idDepartamento
         })))
-        setDepartamento(response.data);
+        //setDepartamento(response.data);
     }catch(err) {
         console.log(err);
     }
@@ -105,21 +106,40 @@ const ContenidoGenerarReportesAdmin = () => {
         }
     };
 
-    const obtenerZona = async () => {
+    const obtenerSecretaria = async (id) => {
         try {
-            const response = await axios.get(`${env.host}/zona/listar`);
+            const response = await axios.get(`${env.host}/secretaria/departamento/${id}`);
             console.log(response.data);
-            setZonaData( response.data.map(el => ({
+           const data = response.data.map(el => ({
                 value: el.id,
-                label: el.nombre,
+                label: el.nombreSecretaria,
                 key: el.id
-            })));
-            setZona(response.data);
+            }));
+            setSecretaria({...secretaria, dataApi: data});
+            
         } catch (err) {
             console.log(err);
+
         }
     };
+    
+    const obtenerZona = async (id) => {
+        try {
+            const response = await axios.get(`${env.host}/zona/secretaria/${id}`);
+            console.log(response.data);
+           const data = response.data.map(el => ({
+                value: el.id,
+                label: el.nombre_zona,
+                key: el.id
+            }));
+            setZona({...zona, dataApi: data});
+            
+        } catch (err) {
+            console.log(err);
 
+        }
+    };
+    
     const obtenerSedes = async () => {
         try {
             const response = await axios.get(`${env.host}/sede/listar`);
@@ -169,6 +189,36 @@ const ContenidoGenerarReportesAdmin = () => {
         }
     };
 
+    const valores = (current) => {
+    if (posision <= current)
+        setPosision(posision + 1); 
+    };
+
+    const changeDepartamento = async (e, current) => {
+        setSelectedOption(e.value);
+        valores(current);
+        obtenerSecretaria(e.value);
+        
+    };
+
+    const changeSecretaria = async (e, current) => {
+        setSecretaria({...secretaria, dataSelected: e})
+        valores(current);
+        obtenerZona(e.value);   
+    };
+
+    const changeZona = async (e, current) => {
+        setZona({...zona, dataSelected: e})
+        valores(current);
+        obtenerMunicipios(e.value);   
+    };
+    
+    
+    const changeMunicipio = async (e, current) => {
+        setMunicipio({...municipio, dataSelected: e})
+        valores(current);
+        obtenerMunicipios(e.value);   
+    };
 
     const handleSubmit1 = async e => {
         e.preventDefault();
@@ -186,7 +236,6 @@ const ContenidoGenerarReportesAdmin = () => {
             await obtenerMunicipios();
             await obtenerInstituciones();
             await obtenerSedes();
-            await obtenerZona();
             await obtenerDepartamento(); 
         })()
     }, [])
@@ -257,46 +306,64 @@ const ContenidoGenerarReportesAdmin = () => {
                     <label id="reportes_inputstext">Tipo Reporte:*</label>
                     <a class=" link_menu" onClick={handleSubmit1}>Formato Men-Planilla</a>
                     <a class="link_menu" onClick={handleSubmit}>Consolidado Mensual Planilla</a>
+                   {posision>= 1 && (<div>
                     <label id="label_checks">Seleccione Departamento:</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
                         options={departamentoData}
-                        onChange={setSelectedOption}
+                        onChange={e => {changeDepartamento(e, 1)}}
                         placeholder="Seleccione Departamento"
                         closeMenuOnSelect={true}
                     />
+                    </div>)}
+                    {posision>= 2 && (<div>
                     <label id="label_checks">SED(Secretaria Educacion Departamental):*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
-                        isMulti
-                        options={zonaData}
-                        onChange={setSelectedOption}
+                        options={secretaria.dataApi}
+                        onChange={e => changeSecretaria(e, 2)}
+                        placeholder="Seleccione Secretaria"
+                        closeMenuOnSelect={false}
+                    />
+                    </div>)}
+
+                    {posision>= 3 && (<div>
+                    <label id="label_checks">Zona:*</label>
+                    <Select
+                        className="selectpicker"
+                        defaultValue={selectedOption}
+                        options={zona.dataApi}
+                        onChange={e => changeZona(e, 3)}
                         placeholder="Seleccione Zona"
                         closeMenuOnSelect={false}
                     />
+                    </div>)}
+                    {posision>= 4 && (<div>
                     <label id="label_checks">Municipio:*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
-                        isMulti
-                        options={municipioData}
-                        onChange={setSelectedOption}
+                        options={municipio.dataApi}
+                        onChange={e => changeMunicipio(e, 4)}
                         placeholder="Seleccione Municipio/s"
                         closeMenuOnSelect={false}
                     />
-
+                    </div>)}
+                    {posision>= 5 && (<div>
                     <label id="label_checks">Establecimiento Educativa:*</label>
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
-                        isMulti
+                        
                         options={institucionData}
                         onChange={setSelectedOption}
                         placeholder="Seleccione Sede/s"
                         closeMenuOnSelect={false}
                     />
+                    </div>)}
+                    {posision>= 6 && (<div>
                     <label id="label_checks">Sede:*</label>
                     <Select
                         className="selectpicker"
@@ -307,6 +374,8 @@ const ContenidoGenerarReportesAdmin = () => {
                         placeholder="Seleccione sede"
                         closeMenuOnSelect={false}
                     />
+                    </div>)}
+
                 </div>
                 <div id="reportes_divinfomacion" >    
                 </div>

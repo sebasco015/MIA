@@ -1,27 +1,34 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import './contenidoCargarDatosAdmin.css'
 import env from '../../env.json';
 import axios from "axios";
 
 const ContenidoCargarDatosAdmin = () => {
-  
-  const [ type, setType] = useState("");
-  const [ selectedFile, setSelectedFile ] = useState(null);
- var bodyFormData = new FormData();
-  bodyFormData.append("type" , type);
-  bodyFormData.append("selectedFile" , selectedFile);
 
-  axios({
-    method: "POST",
-    url: `${env.host}/excel`,
-    data: bodyFormData,
-    headers: {"Content-Type": "multipart/form-data"},
-  }).then(function (response){
-    console.log(response);
-  }).catch(function (response){
-    console.log(response);
-  });
+  const [type, setType] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const onSubmit = async () => {
+    try {
+      const bodyFormData = new FormData();
+      bodyFormData.append("type", type);
+      bodyFormData.append("file", selectedFile);
+      const response = await axios({
+        method: "POST",
+        url: `${env.host}/excel`,
+        data: bodyFormData,
+        headers: { "content-type": "multipart/form-data" },
+      });
+
+      if(response.status === 200 || response.status === 201) alert("Archivo cargado correctamente");
+      else alert("Hubo un error porfavor verifique el archivo");
+      console.log(response);
+    } catch(response) {
+      console.log(response);
+      alert("Hubo un error porfavor verifique el archivo");
+    }
+  };  
 
   return (
     <div id="datos_div">
@@ -36,8 +43,8 @@ const ContenidoCargarDatosAdmin = () => {
         <div id="datos_divinfomacion">
           <label htmlFor="exampleInputEmail1" id="datos_inputstext" >Tipo de Archivo:*</label>
           <select className="form-control"
-          value={type}
-          onChange={(e) => setType(e.target.value)}>
+            value={type}
+            onChange={(e) => setType(e.target.value)}>
             <option>Tipo de Archivo:</option>
             <option value="pais">Pais</option>
             <option value="departamentos">Departamentos</option>
@@ -47,25 +54,24 @@ const ContenidoCargarDatosAdmin = () => {
             <option value="estudiantes">Estudiantes</option>
           </select>
         </div>
-        
+
         <div id="datos_divinfomacion">
           <label htmlFor="exampleInputEmail1" id="datos_inputstext" >Archivo:*</label>
-          <input 
-            id="cargue_archivo" 
-            type="file" 
-            className="form-control" 
-            aria-describedby="emailHelp" 
-            value={selectedFile}
+          <input
+            id="cargue_archivo"
+            type="file"
+            className="form-control"
+            aria-describedby="emailHelp"
             onChange={(e) => setSelectedFile(e.target.files[0])}
           />
         </div>
       </form>
-      
+
       <div id="datos_boton">
-        <button 
-           type="submit" 
-           className="btn btn-danger"
-           onClick={bodyFormData.onSubmit}
+        <button
+          type="submit"
+          className="btn btn-danger"
+          onClick={onSubmit}
         >Cargar Datos</button>
       </div>
     </div>

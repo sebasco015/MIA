@@ -1,5 +1,5 @@
 import React from 'react';
-import './Navegacion_coordinador.css'
+import './NavegacionCoordinador.css'
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import { clearUser } from '../../redux/slice';

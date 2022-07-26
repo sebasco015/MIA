@@ -4,7 +4,7 @@ import ValidateRolAdmin from "../../componentes/Componentes_admin/ValidateRolAdm
 import ContenidoBuscarContratistaAdmin from "../../componentes/Componentes_admin/ContenidoBuscarContratistaAdmin";
 
 
-const BucarContratistaAdmin = () => (
+const BucarContratistaAdmin = () => ( 
     <>
         <ValidateRolAdmin />
         <NavegacionAdmin />

@@ -1,16 +1,18 @@
-import './Contenido_Buscar_Estudiante_coordinador.css'
+import './ContenidoBuscarEstudianteCoordinador.css';
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from 'react';
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { faSearch, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
- const ContenidoBuscarEstudianteCoordinador = () => {
+const ContenidoBuscarEstudianteCoordinador = () => {
 
     const [usuarios, setUsuarios] = useState([]);
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+
+    const navigate = useNavigate();
 
     const peticionGet = async () => {
         await axios.get("http://localhost:8080/api/beneficiario/listar")
@@ -19,6 +21,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                 setTablaUsuarios(response.data);
             }).catch(error => {
                 console.log(error);
+
             })
     }
 
@@ -82,6 +85,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                             <th scope="col">Fecha de Registro</th>
                             <th scope="col">Tipo Beneficio</th>
                             <th scope="col">Estado Beneficio</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,9 +100,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                                     <td>{estudiante.unEstudiante.unaInstitucion.nombre}</td>
                                     <td>{estudiante.unEstudiante.unaSede.nombre}</td>
                                     <td>{estudiante.unEstudiante.grado}</td>
-                                    <td>{estudiante.fechaCreacion}</td>
+                                    <td>{estudiante.fechaActual}</td>
                                     <td>{estudiante.tipoBeneficio.nombre}</td>
                                     <td>{estudiante.estado}</td>
+                                    <td> 
+                                        <button
+                                        className="btn btn-primary btn-block"
+                                        onClick={() => navigate("/editar_estudiante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}><FontAwesomeIcon icon={faEdit} /> </button>
+                                    {"  "}
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => navigate("/eliminar_estudidante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button>
+                                    </td>   
+                                    
                                 </tr>
                             ))}
                     </tbody>
