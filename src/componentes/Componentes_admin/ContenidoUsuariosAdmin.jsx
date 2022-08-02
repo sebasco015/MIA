@@ -60,7 +60,7 @@ const ContenidoUsuariosAdmin = () => {
         <Link id="usuarios_linkinicio" to="/Inicio">Inicio/</Link>
         <img id="usuarios_iconos" src='/img/icono_administrador.png' alt='' />
         <label id='usuarios_textrutas'>Administrador/</label>
-        <label id='usuarios_textrutas'>Usuarios</label>
+        <label id='usuarios_textrutas'>Roles y Perfiles</label>
       </div>
 
       <div id="buscar_form">

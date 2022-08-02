@@ -2,6 +2,7 @@ import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
+
 import { faAdd, faSearch, faTrash, faStreetView } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import env from '../../env.json';
@@ -14,14 +15,14 @@ const ContenidoBuscarContratistaAdmin = () => {
     const [tablaContratista, setTablaContratista] = useState([]);
     const [ tablaOtroSi, setTablaOtroSi] = useState([]);
     const [busqueda, setBusqueda] = useState("");
-   const [ seacrhParam ] = useSearchParams();
+    const [ seacrhParam ] = useSearchParams();
     console.log(useSearchParams());
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
 
    const peticionGet = async () => {
         const idZona = seacrhParam.get(`idZona`);
-        await axios.get(`http://localhost:8080/api/contratista/zona/${idZona}`)
+        await axios.get(`${env.host}/contratista/zona/${idZona}`)
             .then(response => {
                 setContratista(response.data);
                 setTablaContratista(response.data);
@@ -29,11 +30,6 @@ const ContenidoBuscarContratistaAdmin = () => {
                 console.log(error);
             })
     }
-
-    
-       
-        
-    
 
     const handleChange = e => {
         setBusqueda(e.target.value);
@@ -52,7 +48,7 @@ const ContenidoBuscarContratistaAdmin = () => {
         setContratista(resultadosBusqueda);
     }
 
-const handleOtroSi = (nit) => () =>{
+const handleOtroSi = (nit) => () => {
     console.log(nit);
     axios.get(`${env.host}/otroSi/contratista/${nit}`)
     .then(response => {
@@ -73,7 +69,7 @@ const handleOtroSi = (nit) => () =>{
                 <img id="buscar_iconos" src='/img/icono_inicio.png' alt='' />
                 <Link id="buscar_linkinicio" to="/Inicio">Inicio/</Link>
                 <img id="buscar_iconos" src='/img/icono_estudiantes.png' alt='' />
-                <label id='buscar_textrutas'>Contratita/</label>
+                <label id='buscar_textrutas'>Contratista/</label>
                 <label id='buscar_textrutas'>Buscar Contratista</label>
             </div>
             <div id="buscar_form">
@@ -125,7 +121,7 @@ const handleOtroSi = (nit) => () =>{
                                     <td>{contratista.cantidadesDiarias}</td>
                                     <td> {contratista.diasAtender}</td>
                                     <td> 
-                                    <button
+                                    <button 
                                         className="btn btn-success btn-block"
                                         data-toggle="collapse"
                                         onClick={ handleOtroSi(contratista.nit)}><FontAwesomeIcon icon={faStreetView} /></button>

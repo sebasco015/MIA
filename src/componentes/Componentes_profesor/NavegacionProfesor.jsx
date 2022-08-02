@@ -46,7 +46,7 @@ const NavegacionProfesor = () => {
                             <li id='boxli'><Link className='menu_link' to="/Sistema_profesor">Sistema</Link></li>
                         </ul>
                     </li>
-                    <li id='item'><a href='#' className='menu_link'>Administrador<img id='imgflecha' src="/img/flecha_abajo.png" alt="" /></a>
+                    <li id='item'><a href='#' className='menu_link'>Administrar<img id='imgflecha' src="/img/flecha_abajo.png" alt="" /></a>
                         <ul id='desple'>
                             <li id='boxli'><Link className='menu_link' to="/Cambiar_Clave_profesor">Cambiar Clave</Link></li>
                             <li id='boxli'><Link className='menu_link' to="/Huella_Estudiante_Nuevo_profesor">Huella Estudiante Nuevo</Link></li>

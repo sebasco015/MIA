@@ -15,18 +15,18 @@ const ContenidoRestaurarContrasena = () => {
   const dispatch = useDispatch();
 
  
-  const [username, setUsername] = useState('');
+  
   const [email, setEmail] = useState('');
 
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const data = { username: username, email: email };
+      const data = { email: email };
 
       const res = await axios.put(`${env.host}/auth/recuperar`, data);
       dispatch(setUser({
         email: res.data.unUsuario.email,
-        username: res.data.unUsuario.username
+        
       }));
     } catch (err) {
       console.log(err);
@@ -56,23 +56,12 @@ const ContenidoRestaurarContrasena = () => {
         </div>
 
         <Form onSubmit={handleSubmit} id="login_usform">
-          <div className="form-group">
-            <label id="inicio_labels">Usuario</label>
-            <Input
-              type="text"
-              className="form-control"
-              placeholder="Usuario"
-              autoComplete="username"
-              onChange={e => setUsername(e.target.value)}
-              validations={[required]}
-            />
-          </div>
           <div className="form-group" id="login_passwordform">
             <label id="inicio_labels">Email</label>
             <Input
               type="text"
               className="form-control"
-              placeholder="Email"
+              placeholder="Ingrese Email"
               autoComplete="email"
               onChange={e => setEmail(e.target.value)}
               validations={[required]}

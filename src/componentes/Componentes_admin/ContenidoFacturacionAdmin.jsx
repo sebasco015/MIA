@@ -154,7 +154,7 @@ const ContenidoFacturacionAdmin = () => {
                                 <th scope="col">$Valor Total</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>{/*
                             <tr>
                                 <th scope="row">Zona1</th>
                                 <th scope="col"></th>
@@ -196,7 +196,7 @@ const ContenidoFacturacionAdmin = () => {
                                 <th scope="col"></th>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>

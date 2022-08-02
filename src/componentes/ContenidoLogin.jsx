@@ -72,11 +72,11 @@ const ContenidoLogin = () => {
         </div>
         <Form onSubmit={handleSubmit} id="login_usform">
           <div className="form-group">
-            <label id="inicio_labels">Usuario</label>
+            <label id="inicio_labels">Usuario/Email</label>
             <Input
               type="text"
               className="form-control"
-              placeholder="Usuario"
+              placeholder="Digite Usuario o Email"
               autoComplete="username"
               onChange={e => setUsernameOrEmail(e.target.value)}
               validations={[required]}
@@ -87,7 +87,7 @@ const ContenidoLogin = () => {
             <Input
               type={showPassword ? "text" : "password"}
               className="form-control"
-              placeholder="Contraseña"
+              placeholder="Digite Contraseña"
               autoComplete="current-password"
               onChange={e => setPassword(e.target.value)}
               validations={[required]}
@@ -102,7 +102,7 @@ const ContenidoLogin = () => {
             <Link id="login_link_res" to="/restablecer_contrasena">Restablecer Contraseña</Link>
           </div>
           <div id="login_div_boton">
-            <CheckButton className="btn btn-success" id="login_boton_ingresar">Inciar Sección
+            <CheckButton className="btn btn-success" id="login_boton_ingresar">Iniciar Sesión
               <span className="material-icons">login</span>
             </CheckButton>
           </div>

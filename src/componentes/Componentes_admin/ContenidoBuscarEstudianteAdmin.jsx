@@ -85,7 +85,6 @@ const ContenidoBuscarEstudianteAdmin = () => {
                             <th scope="col">Fecha de Registro</th>
                             <th scope="col">Tipo Beneficio</th>
                             <th scope="col">Estado Beneficio</th>
-                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,14 +102,14 @@ const ContenidoBuscarEstudianteAdmin = () => {
                                     <td>{estudiante.fechaActual}</td>
                                     <td>{estudiante.tipoBeneficio.nombre}</td>
                                     <td>{estudiante.estado}</td>
-                                    <td> 
+                                    <td> {/*
                                         <button
                                         className="btn btn-primary btn-block"
                                         onClick={() => navigate("/editar_estudiante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}><FontAwesomeIcon icon={faEdit} /> </button>
                                     {"  "}
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => navigate("/eliminar_estudidante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button>
+                            onClick={() => navigate("/eliminar_estudidante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button> */}
                                     </td>   
                                     
                                 </tr>
