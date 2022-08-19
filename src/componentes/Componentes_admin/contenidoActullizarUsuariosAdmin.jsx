@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import './contenidoCrearUsuarioAdmin.css'
 import { Link, useNavigate, useLocation  } from "react-router-dom";
 import axios from "axios";
@@ -8,7 +8,6 @@ import  env from "../../env.json";
 
   
 function TicketMaster_Edit(props) {
-  const formRef = useRef();
   const [ roles, setRol ] = useState([]);
   const [ tipoDocumento, setTipoDocumento ] = useState([]);
   const [ municipio, setMunicipio ] = useState([]);
@@ -24,7 +23,6 @@ function TicketMaster_Edit(props) {
   const [ unMunicipio, setUnMunicipio ] = useState('');
   const [ direccion, setDireccion ] = useState('');
   const [ barrio, setBarrio ] = useState('');
-  const lugarDeNacimiento = useState('');
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -109,37 +107,7 @@ function TicketMaster_Edit(props) {
     };
 
   
-   /*const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-          const fecha = fechaNacimiento.split('-');
-          const data = {               
-            username,
-            email,
-            unRol:
-             { 'id': unRol },   
-            unaPersona: {
-              unTipoDocumento:
-               { idTipoDocumento: parseInt(unTipoDocumento)},
-               numeroDocumento,
-               telefono,
-               nombre,
-               apellido,
-               fechaNacimiento: `${fecha[2]}-${fecha[1]}-${fecha[0]}`,
-               lugarDeNacimiento: unMunicipio,
-               barrio,
-              direccion,
-          },
-          };
-
-          await axios.post(`${env.host}/auth/registrar`, data);
-          e.target.reset();
-          alert("Usuario actualizado correctamente");
-        } catch (e) {
-          console.log(e);
-          alert("Error al actualizar el usuario");
-        }
-      }*/
+   
 
       useEffect(() => {
         (async () => {

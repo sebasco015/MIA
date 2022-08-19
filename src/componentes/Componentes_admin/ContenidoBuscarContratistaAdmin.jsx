@@ -2,24 +2,23 @@ import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-
 import { faAdd, faSearch, faTrash, faStreetView } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import env from '../../env.json';
 
 
 const ContenidoBuscarContratistaAdmin = () => {
-    
+
     const [contratistas, setContratista] = useState([]);
     const [ otroSi, setOtroSi] = useState([]);
     const [tablaContratista, setTablaContratista] = useState([]);
-    const [ tablaOtroSi, setTablaOtroSi] = useState([]);
     const [busqueda, setBusqueda] = useState("");
     const [ seacrhParam ] = useSearchParams();
     console.log(useSearchParams());
     const navigate = useNavigate();
+    const [showSubTable, setShowSubTable] = useState(false);
 
-
+    
    const peticionGet = async () => {
         const idZona = seacrhParam.get(`idZona`);
         await axios.get(`${env.host}/contratista/zona/${idZona}`)
@@ -37,7 +36,7 @@ const ContenidoBuscarContratistaAdmin = () => {
     };
 
     const filtrar = (terminoBusqueda) => {
-        var resultadosBusqueda = tablaContratista.filter((elemento) => {
+        let resultadosBusqueda = tablaContratista.filter((elemento) => {
             if (elemento.nit.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.idZona.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.representanteLegal.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
@@ -49,11 +48,11 @@ const ContenidoBuscarContratistaAdmin = () => {
     }
 
 const handleOtroSi = (nit) => () => {
+    setShowSubTable(!showSubTable);
     console.log(nit);
     axios.get(`${env.host}/otroSi/contratista/${nit}`)
     .then(response => {
         setOtroSi(response.data);
-        setTablaOtroSi(response.data);
     }).catch(err => {
         console.log(err);
     })
@@ -85,7 +84,8 @@ const handleOtroSi = (nit) => () => {
                     </button>
                 </div>
             </div>
-            <div className="table-responsive">
+            <div className="collapsible">
+                
                 <table id="buscar_tabla" className="table tabvle-sm table-bordered">
                     <thead>
                         <tr>
@@ -94,11 +94,11 @@ const handleOtroSi = (nit) => () => {
                             <th scope="col">NIT</th>
                             <th scope="col">Representante Legal</th>
                             <th scope="col">Cedula</th>
-                            <th scope="col">N° Contrato</th>
-                            <th scope="col">Cant. Complemento</th>
+                            <th spe="col">Cant. Complemento</th>
                             <th scope="col">Costo Complemento</th>
                             <th scope="col">Cant. Almuerzo</th>
-                            <th scope="col">Costo Almuerzo</th>
+                            <th cope="col">N° Contrato</th>
+                            <th scoscope="col">Costo Almuerzo</th>
                             <th scope="col">Total Cant. Diarias</th>
                             <th scope="col">Dias Atenicion</th>
                             <th scope="col">Otro Si</th>
@@ -124,9 +124,12 @@ const handleOtroSi = (nit) => () => {
                                     <button 
                                         className="btn btn-success btn-block"
                                         data-toggle="collapse"
-                                        onClick={ handleOtroSi(contratista.nit)}><FontAwesomeIcon icon={faStreetView} /></button>
-                                        {"  "}
-                                        <button
+                                        onClick={handleOtroSi(contratista.nit)}
+                                    >
+                                        <FontAwesomeIcon icon={faStreetView} />
+                                    </button>
+                                    {"  "}
+                                    <button
                                         className="btn btn-primary btn-block"
                                         onClick={() => navigate("/otrosi_contratista_admin", {state:{nit:contratista.nit}})}><FontAwesomeIcon icon={faAdd} /></button>
                                     {"  "}
@@ -138,7 +141,52 @@ const handleOtroSi = (nit) => () => {
                             ))}
                     </tbody>
                 </table>
+             
             </div>
+
+            {showSubTable && (
+                <div className="table-responsive">
+                    <table id="buscar_tabla" className="table tabvle-sm table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Zona</th>
+                                <th scope="col">Nombre Zona</th>
+                                <th scope="col">NIT</th>
+                                <th scope="col">Representante Legal</th>
+                                <th scope="col">Cedula</th>
+                                <th spe="col">Cant. Complemento</th>
+                                <th scope="col">Costo Complemento</th>
+                                <th scope="col">Cant. Almuerzo</th>
+                                <th cope="col">N° Contrato</th>
+                                <th scoscope="col">Costo Almuerzo</th>
+                                <th scope="col">Total Cant. Diarias</th>
+                                <th scope="col">Dias Atenicion</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {otroSi &&
+                                otroSi.map((otro) => (
+                                    <tr key={otro.idContratista.nit}>
+                                        <td>{otro.idContratista.idZona.nombre_zona}</td>
+                                        <td>{otro.idContratista.nombreZona}</td>
+                                        <td>{otro.idContratista.nit}</td>
+                                        <td>{otro.idContratista.representanteLegal}</td>
+                                        <td>{otro.idContratista.numeroDocumento}</td>
+                                        <td>{otro.idContratista.numeroContrato}</td>
+                                        <td>{otro.cantidadComplemento}</td>
+                                        <td>{otro.costoComplemento}</td>
+                                        <td>{otro.cantidadAlmuerzo}</td>
+                                        <td>{otro.costoAlmuerzo}</td>
+                                        
+                                        <td> {otro.diasAtender}</td>
+                                                                            
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
         </div>
     )

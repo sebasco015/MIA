@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './contenidoUsuariosAdmin.css'
 import axios from "axios";
 import env from '../../env.json';
 import {faSearch, faUserEdit, faTrash, faAdd} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom";
+
 
 const ContenidoUsuariosAdmin = () => {
 
@@ -36,7 +36,7 @@ const ContenidoUsuariosAdmin = () => {
   }
 
   const filtrar = (terminoBusqueda) => {
-      var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+      let resultadosBusqueda = tablaUsuarios.filter((elemento) => {
           if (elemento.roles.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
               || elemento.unaPersona.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
               || elemento.unaPersona.apellido.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())

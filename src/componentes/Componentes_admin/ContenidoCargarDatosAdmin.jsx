@@ -46,7 +46,9 @@ const ContenidoCargarDatosAdmin = () => {
             value={type}
             onChange={(e) => setType(e.target.value)}>
             <option>Tipo de Archivo:</option>
-            <option value="pais">Pais</option>
+            <option value="beneficiarios">Beneficiarios</option>
+            <option value="etnia">Etnia</option>
+            <option value="resguardo">Resguardo</option>
             <option value="departamentos">Departamentos</option>
             <option value="municipios">Municipios</option>
             <option value="instituciones">Instituciones</option>

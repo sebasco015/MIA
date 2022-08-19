@@ -27,7 +27,7 @@ const ContenidoOtrosiAdmin = () => {
  const [ fechaInicioOtro, setFechaInicioOtro] = useState('');
  const [ diasAtender, setDiasAtender] = useState('');
  const [ nit, setNit] = useState('');
- const idContratista = useState('');
+ 
 
  const navigate = useNavigate();
  const location = useLocation();
@@ -69,8 +69,8 @@ const ContenidoOtrosiAdmin = () => {
         await axios.post(`${env.host}/otroSi/guardar`, data);
         e.target.reset();
         alert("Otro si Guardado Correctamente")
-        } catch (e) {
-             console.log();
+        } catch (error) {
+             console.log(error);
         }
         navigate(`/buscar_contratista_admin`)
     };
@@ -133,24 +133,24 @@ const ContenidoOtrosiAdmin = () => {
         </div>
 
         <div>
-          <label>Cantidad Complemento AM:</label>
+          <label>Cantidad Complemento PM:</label>
           <input
             type="number"
             id="Crearcon_inputs"
             className="form-control"
-            placeholder="Cantidad de Complemento AM:*"
-            onChange={e => setCanidadComplemtentoAM(e.target.value)}
+            placeholder="Cantidad de Complemento PM:*"
+            onChange={e => setCanidadComplemtentoPM(e.target.value)}
             required
           />
         </div>
         <div>
-          <label>Costo de Complemento AM:</label>
+          <label>Costo de Complemento PM:</label>
            <input
             type="number"
             className="form-control" 
             id="Crearcon_inputs"
-            placeholder="Costo de Complemento AM:*"
-            onChange={e => setCostoComplementoAM(e.target.value)}
+            placeholder="Costo de Complemento PM:*"
+            onChange={e => setCostoComplementoPM(e.target.value)}
             required
             >                 
           </input>

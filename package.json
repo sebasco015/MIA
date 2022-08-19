@@ -22,6 +22,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.1",
     "react-calendar": "^3.6.0",
+    "react-collapsed": "^3.3.2",
     "react-data-table-component": "^7.4.7",
     "react-dom": "^17.0.2",
     "react-option": "^0.1.2",

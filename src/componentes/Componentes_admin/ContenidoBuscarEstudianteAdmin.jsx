@@ -2,8 +2,10 @@ import './Contenido_Buscar_Estudiante_admin.css';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import { faSearch, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import  env from "../../env.json";
+
 
 
 const ContenidoBuscarEstudianteAdmin = () => {
@@ -12,11 +14,12 @@ const ContenidoBuscarEstudianteAdmin = () => {
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState("");
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const peticionGet = async () => {
-        await axios.get("http://localhost:8080/api/beneficiario/listar")
+        await axios.get(`${env.host}/estudiante/listar`)
             .then(response => {
+                console.log(response.data);
                 setUsuarios(response.data);
                 setTablaUsuarios(response.data);
             }).catch(error => {
@@ -31,11 +34,11 @@ const ContenidoBuscarEstudianteAdmin = () => {
     }
 
     const filtrar = (terminoBusqueda) => {
-        var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
-            if (elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.nombre1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.apellido1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.numeroDocumento.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+        let resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+            if (elemento.consSede.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.nombre1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.apellido1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.numeroDocumento.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ) {
                 return elemento;
             }
@@ -90,18 +93,18 @@ const ContenidoBuscarEstudianteAdmin = () => {
                     <tbody>
                         {usuarios &&
                             usuarios.map((estudiante) => (
-                                <tr key={estudiante.unEstudiante.idEstudiante}>
-                                    <td>{estudiante.unEstudiante.unTipoDocumento.nombre}</td>
-                                    <td>{estudiante.unEstudiante.numeroDocumento}</td>
-                                    <td>{estudiante.unEstudiante.nombre1 + " " + estudiante.unEstudiante.nombre2}</td>
-                                    <td>{estudiante.unEstudiante.apellido1 + " " + estudiante.unEstudiante.apellido2}</td>
-                                    <td>{estudiante.unEstudiante.fechaNacimiento}</td>
-                                    <td>{estudiante.unEstudiante.unaInstitucion.nombre}</td>
-                                    <td>{estudiante.unEstudiante.unaSede.nombre}</td>
-                                    <td>{estudiante.unEstudiante.grado}</td>
-                                    <td>{estudiante.fechaActual}</td>
-                                    <td>{estudiante.tipoBeneficio.nombre}</td>
-                                    <td>{estudiante.estado}</td>
+                                <tr key={estudiante.numeroDocumento}>
+                                    {/* <td>{estudiante.idTipoDocumento.nombre}</td> */}
+                                    <td>{estudiante.numeroDocumento}</td>
+                                    <td>{estudiante.nombre1 + " " + estudiante.nombre2}</td>
+                                    <td>{estudiante.apellido1 + " " + estudiante.apellido2}</td>
+                                    <td>{estudiante.fechaNacimiento}</td>
+                                    <td>{estudiante.consSede.unaInstitucion.nombre}</td>
+                                    <td>{estudiante.consSede.nombre}</td>
+                                    <td>{estudiante.grupo}</td>
+                                    <td>{estudiante.anoInf}</td>
+                                    {/* <td>{estudiante.tipoBeneficio.nombre}</td>
+                                    <td>{estudiante.estado}</td> */}
                                     <td> {/*
                                         <button
                                         className="btn btn-primary btn-block"

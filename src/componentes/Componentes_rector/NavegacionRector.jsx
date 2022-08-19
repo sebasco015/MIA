@@ -33,7 +33,7 @@ const NavegacionRector =() => {
                         <input id="navegacion_fecha_rector" type="text" defaultValue={hora} disabled />
                         <img id="dimagen_rector" src="/img/icono_usuario.png" alt="" />
                         <label id="texto_admin_rector">{user.username}</label>
-                        <img id="imgflecha" onClick={exit} src='/img/logaut.png' />
+                        <img alt='some value' id="imgflecha" onClick={exit} src='/img/logaut.png' />
                     </div>
                 </div>
                 <ul id="menu">

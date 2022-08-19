@@ -29,31 +29,16 @@ const optionsRta = [
     { value: "RPC", label: "RPC(Ración para preparar en casa)", key:"RTA-7"},
     { value: "bono", label: "Bono", key:"RTA-8"}
 ];
-const optionsJornada = [
-    { value: "completa", label: "Completa", key:"RJ-1"},
-    { value: "mañana", label: "Mañana", key:"RJ-2"},
-    { value: "Tarde", label: "Tarde", key:"RJ-3"},
-    { value: "unica", label: "Unica", key:"RJ-4"},
-    { value: "otra", label: "Otra", key:"RJ-5"}
-];
-
-const optionsSexo = [
-    { value: "M", label: "Masculino", key: "Se-1"},
-    { value: "F", label: "Femenino", key: "Se-2"}
-    
-];
 
 const ContenidoGenerarReportesAdmin = () => {
 
     const [municipio, setMunicipio] = useState([]);
     const [institucion, setInstitucion] = useState([]);
-    const [institucionData, setInstitucionData] = useState([]);
     const [sede, setSede] = useState([]);
-    const [sedeData, setSedeData] = useState([]);
     const [secretaria, setSecretaria] = useState({});
     const [zona, setZona] = useState([]);
+    const [jornada, setJornada] = useState([]);
     const [departamento, setDepartamento] = useState([]);
-    const [ departamentoData, setDepartamentoData] = useState([]);
     const mensual = useRef();
     const menPlanilla = useRef();
     const [selectedOption, setSelectedOption] = useState(null);
@@ -65,9 +50,9 @@ const ContenidoGenerarReportesAdmin = () => {
             const response = await axios.get(`${env.host}/municipios/zona/${id}`);
             console.log(response.data);
             const data = response.data.map(el => ({
-                 value: el.idMunicipio,
+                 value: el.codigo,
                  label: el.nombre,
-                 key: el.idMunicipio
+                 key: el.codigo
             }))
             setMunicipio({...municipio, dataApi: data});
         } catch (error) {
@@ -79,10 +64,10 @@ const ContenidoGenerarReportesAdmin = () => {
     try{
         const response = await axios.get(`${env.host}/departamento/listar`)
         console.log(response.data);
-        setDepartamentoData(response.data.map( el => ({
-            value: el.idDepartamento,
+        setDepartamento(response.data.map( el => ({
+            value: el.codigo,
             label: el.nombre,
-            key: el.idDepartamento
+            key: el.codigo
         })))
         //setDepartamento(response.data);
     }catch(err) {
@@ -91,16 +76,17 @@ const ContenidoGenerarReportesAdmin = () => {
 };
 
 
-    const obtenerInstituciones = async () => {
+    const obtenerInstituciones = async (id) => {
         try {
-            const response = await axios.get(`${env.host}/institucion`);
+            const response = await axios.get(`${env.host}/institucion/municipio/${id}`);
             console.log(response.data);
-            setInstitucionData(response.data.map( el => ({
-                value: el.idSede,
+            setInstitucion(response.data)
+            const data = response.data.map(el => ({
+                value: el.codDane,
                 label: el.nombre,
-                key: el.idSede
-            })))
-            setInstitucion(response.data);
+                key: el.codDane
+            }));
+            setInstitucion({...institucion, dataApi: data});
         } catch (err) {
             console.log(err);
         }
@@ -140,16 +126,17 @@ const ContenidoGenerarReportesAdmin = () => {
         }
     };
     
-    const obtenerSedes = async () => {
+    const obtenerSedes = async (id) => {
         try {
-            const response = await axios.get(`${env.host}/sede/listar`);
+            const response = await axios.get(`${env.host}/sede/institucion/${id}`);
             console.log(response.data);
-            setSedeData(response.data.map( el => ({
-                value: el.idSede,
+            setSede(response.data)
+            const data = response.data.map(el => ({
+                value: el.coonsecutivo,
                 label: el.nombre,
-                key: el.idSede
-            })));
-            setSede(response.data);
+                key: el.consecutivo
+            }));
+            setSede({...sede, dataApi: data});
         } catch (err) {
             console.log(err)
         }
@@ -169,6 +156,21 @@ const ContenidoGenerarReportesAdmin = () => {
         } catch (e) {
             console.log(e);
             alert('error al descargar el informe');
+        }
+    };
+
+    const obtenerJornada = async () => {
+        try{
+            const response = await axios.get(`${env.host}/jornada/listar`)
+            console.log(response.data);
+            setJornada(response.data.map( el => ({
+                value: el.codigo,
+                label: el.nombre,
+                key: el.codigo
+            })))
+            //setDepartamento(response.data);
+        }catch(err) {
+            console.log(err);
         }
     };
 
@@ -217,7 +219,19 @@ const ContenidoGenerarReportesAdmin = () => {
     const changeMunicipio = async (e, current) => {
         setMunicipio({...municipio, dataSelected: e})
         valores(current);
-        obtenerMunicipios(e.value);   
+        obtenerInstituciones(e.value);   
+    };
+
+    const changeInstitucion = async (e, current) => {
+        setInstitucion({...institucion, dataSelected: e})
+        valores(current);
+        obtenerSedes(e.value);   
+    };
+
+    const changeSede = async (e, current) => {
+        setSede({...sede, dataSelected: e})
+        valores(current);
+        // obtenerSedes(e.value);   
     };
 
     const handleSubmit1 = async e => {
@@ -230,13 +244,14 @@ const ContenidoGenerarReportesAdmin = () => {
         await getMensual();
 
     }
+    const changeJornada = async (e) => {
+        setSelectedOption(e.value);
+    }
 
     useEffect(() => {
         (async () => {
-            await obtenerMunicipios();
-            await obtenerInstituciones();
-            await obtenerSedes();
             await obtenerDepartamento(); 
+            await obtenerJornada();
         })()
     }, [])
     const radiobutton = [];
@@ -292,8 +307,8 @@ const ContenidoGenerarReportesAdmin = () => {
                         className="selectpicker"
                         defaultValue={selectedOption}
                         isMulti
-                        options={optionsJornada}
-                        onChange={setSelectedOption}
+                        options={jornada}
+                        onChange={e => {changeJornada(e)}}
                         placeholder="Seleccione Jornada/s"
                         closeMenuOnSelect={false}
                     />
@@ -311,7 +326,7 @@ const ContenidoGenerarReportesAdmin = () => {
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
-                        options={departamentoData}
+                        options={departamento}
                         onChange={e => {changeDepartamento(e, 1)}}
                         placeholder="Seleccione Departamento"
                         closeMenuOnSelect={true}
@@ -325,7 +340,7 @@ const ContenidoGenerarReportesAdmin = () => {
                         options={secretaria.dataApi}
                         onChange={e => changeSecretaria(e, 2)}
                         placeholder="Seleccione Secretaria"
-                        closeMenuOnSelect={false}
+                        closeMenuOnSelect={true}
                     />
                     </div>)}
 
@@ -337,7 +352,7 @@ const ContenidoGenerarReportesAdmin = () => {
                         options={zona.dataApi}
                         onChange={e => changeZona(e, 3)}
                         placeholder="Seleccione Zona"
-                        closeMenuOnSelect={false}
+                        closeMenuOnSelect={true}
                     />
                     </div>)}
                     {posision>= 4 && (<div>
@@ -348,19 +363,18 @@ const ContenidoGenerarReportesAdmin = () => {
                         options={municipio.dataApi}
                         onChange={e => changeMunicipio(e, 4)}
                         placeholder="Seleccione Municipio/s"
-                        closeMenuOnSelect={false}
+                        closeMenuOnSelect={true}
                     />
                     </div>)}
                     {posision>= 5 && (<div>
                     <label id="label_checks">Establecimiento Educativa:*</label>
                     <Select
                         className="selectpicker"
-                        defaultValue={selectedOption}
-                        
-                        options={institucionData}
-                        onChange={setSelectedOption}
-                        placeholder="Seleccione Sede/s"
-                        closeMenuOnSelect={false}
+                        defaultValue={selectedOption}   
+                        options={institucion.dataApi}
+                        onChange={e => changeInstitucion(e, 5)}
+                        placeholder="Seleccione Institucion"
+                        closeMenuOnSelect={true}
                     />
                     </div>)}
                     {posision>= 6 && (<div>
@@ -368,11 +382,10 @@ const ContenidoGenerarReportesAdmin = () => {
                     <Select
                         className="selectpicker"
                         defaultValue={selectedOption}
-                        isMulti
-                        options={sedeData}
-                        onChange={setSelectedOption}
+                        options={sede.dataApi}
+                        onChange={e => changeSede(e, 6)}
                         placeholder="Seleccione sede"
-                        closeMenuOnSelect={false}
+                        closeMenuOnSelect={true}
                     />
                     </div>)}
 

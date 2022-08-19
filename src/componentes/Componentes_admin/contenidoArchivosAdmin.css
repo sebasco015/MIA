@@ -28,11 +28,14 @@
 }
 /*-Conteido de pagina-*/
 #archivos_selector{
-    width: fit-content;
+    width: 85%;
+    max-width: 400px;
+    min-width: fit-content;
     margin: 0 auto; 
     margin-top: 50px;
-    display: grid;
-    grid-template-columns: 50% 50%;
+    /* display: flex; */
+    flex-direction:column; 
+    /* grid-template-columns: 50% 50%; */
 }
 
 #archivos_tema{
@@ -47,5 +50,7 @@
     color: rgb(8, 8, 8);
     font-size: 18px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 250px;
+    width: 80%;
+    max-width: fit-content;
+    min-width: 200px;
 }

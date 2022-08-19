@@ -1,7 +1,14 @@
 /*-Navengacion subtitulos-*/
 
 #crearcon_div{
-    height: 800px;
+    height: 90%;
+}
+
+#Crearcon_form{
+    width: 90%;
+    max-width:1800px;
+    padding-left:10%;
+    min-width: auto;
 }
 
 #Crearcon_divruta{
@@ -71,24 +78,9 @@
     height: 150px;
     margin-right: 10px;
 }
-#Crearcon_inputs{
-    background: white;
-    border-radius: 9px;
-    border: 1px solid black;
-    color: black;
-    font-size: 18px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 260px;
-    border-color: gray;
+
+#Crearcon_btn{
+    padding-left: 43%;
 }
 
-#Crearcon_inputs1{
-    background: white;
-    border-radius: 9px;
-    border: 1px solid black;
-    color: black;
-    font-size: 18px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 260px;
-    border-color: gray; 
-}
+

@@ -28,24 +28,16 @@
 /*-Conteido de pagina-*/
 
 #crearUsuario_form{
-  width: fit-content;
+  width: 90%;
+  max-width: 1400px;
+  min-width: auto;
   margin: 20px auto;
-  display: grid;
+  /* display: grid;
   grid-template-columns: 33% 33% 33%;
   margin-top: 60px;
-  gap: 25px;
+  gap: 25px; */
   
   
-}
-#huella_inputs{
-  background: white;
-  border-radius: 9px;
-  border: 1px solid black;
-  color: black;
-  font-size: 18px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  width: 260px;
-  border-color: gray;
 }
 
 #lim{

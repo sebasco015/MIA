@@ -16,6 +16,7 @@ const ContenidoInstitucionesAdmin= () => {
     const peticionGet = async () => {
         await axios.get(`${env.host}/institucion`)
             .then(response => {
+                console.log(response.data);
                 setinstituciones(response.data);
                 settablaInstituciones(response.data);
             }).catch(error => {
@@ -32,6 +33,7 @@ const ContenidoInstitucionesAdmin= () => {
         var resultadosBusqueda = tablaInstituciones.filter((elemento) => {
             if (elemento.codDane.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.idMunicipio.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ) {
                 return elemento;
             }
@@ -72,9 +74,9 @@ const ContenidoInstitucionesAdmin= () => {
                         <tr>
                             <th scope="col">Código DANE</th>
                             <th scope="col">Nombre Institución</th>
+                            <th scope="col">Naturaleza</th>
+                            <th scope="col">Municipio Institucion</th>
                             <th scope="col">Rector Institución</th>
-                            <th scope="col">Cantidad Sedes</th>
-                            <th scope="col">Ver Institución</th>
                             <th scope="col">Ver Sedes</th>
                         </tr>
                     </thead>
@@ -84,7 +86,15 @@ const ContenidoInstitucionesAdmin= () => {
                                 <tr key={institucion.idInstitucion}>
                                     <td>{institucion.codDane}</td>
                                     <td>{institucion.nombre}</td>
-                                    <td>{institucion.rector.unaPersona.nombre + " " + institucion.rector.unaPersona.apellido}</td>
+                                    <td>{institucion.naturaleza}</td>
+                                    <td>{institucion.idMunicipio.nombre}</td>
+                                    <td>
+                                        {
+                                            (institucion.rector && institucion.rector.unaPersona.nombre) &&
+                                                institucion.rector.unaPersona.nombre+" "+institucion.rector.unaPersona.apellido
+                                        }
+                                    </td>
+                                    
                                 </tr>
                             ))}
                     </tbody>

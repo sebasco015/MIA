@@ -26,6 +26,7 @@ const ContenidoLogin = () => {
     e.preventDefault();
     try {
       const data = { usernameOrEmail: usernameOrEmail, password: password };
+      
 
       const res = await axios.post(`${env.host}/auth/iniciarSesion`, data);
       dispatch(setUser({
@@ -37,6 +38,7 @@ const ContenidoLogin = () => {
         password: res.data.unUsuario.password,
         username: res.data.unUsuario.username
       }));
+      console.log(res.data);
     } catch (err) {
       console.log(err);
       alert('Usuario o Contraseña Incorrectos')
