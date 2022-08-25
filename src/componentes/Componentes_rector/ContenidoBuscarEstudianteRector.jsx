@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { faSearch, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import env from '../../env.json'
+import { useSelector } from 'react-redux';
 
 
 const ContenidoBuscarEstudianteRector = () => {
@@ -11,18 +13,22 @@ const ContenidoBuscarEstudianteRector = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+    const user = useSelector(state => state.user);
 
     const navigate = useNavigate();
 
     const peticionGet = async () => {
-        await axios.get("http://localhost:8080/api/beneficiario/listar")
-            .then(response => {
-                setUsuarios(response.data);
-                setTablaUsuarios(response.data);
-            }).catch(error => {
+        try{
+         const response = await axios.get(`${env.host}/estudiante/rector/${user.id}`)
+         console.log(response.data);
+            const filtered = await response.data.filter((elemento) => (
+                elemento.grado.codigo !== 21 && elemento.grado.codigo !== 22 && elemento.grado.codigo !== 23 && elemento.grado.codigo !== 24 && elemento.grado.codigo !== 25 && elemento.grado.codigo !== 26 && elemento.grado.codigo !== 99)
+            )
+                setUsuarios(filtered);
+                setTablaUsuarios(filtered);
+            } catch(error) {
                 console.log(error);
-
-            })
+            }
     }
 
     const handleChange = e => {
@@ -31,11 +37,13 @@ const ContenidoBuscarEstudianteRector = () => {
     }
 
     const filtrar = (terminoBusqueda) => {
-        var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
-            if (elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.nombre1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.apellido1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.numeroDocumento.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+        let resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+            if (elemento.consecutivo.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.nombre1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.apellido1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.numeroDocumento.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.grupo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+
             ) {
                 return elemento;
             }
@@ -43,10 +51,9 @@ const ContenidoBuscarEstudianteRector = () => {
         setUsuarios(resultadosBusqueda);
     }
 
-
     useEffect(() => {
-        peticionGet();
-    }, [])
+        peticionGet(user.id);
+    }, [user])
 
     return (
         <div id="buscar_div">
@@ -83,34 +90,34 @@ const ContenidoBuscarEstudianteRector = () => {
                             <th scope="col">Sede</th>
                             <th scope="col">Grado</th>
                             <th scope="col">Fecha de Registro</th>
-                            <th scope="col">Tipo Beneficio</th>
-                            <th scope="col">Estado Beneficio</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuarios &&
                             usuarios.map((estudiante) => (
-                                <tr key={estudiante.unEstudiante.idEstudiante}>
-                                    <td>{estudiante.unEstudiante.unTipoDocumento.nombre}</td>
-                                    <td>{estudiante.unEstudiante.numeroDocumento}</td>
-                                    <td>{estudiante.unEstudiante.nombre1 + " " + estudiante.unEstudiante.nombre2}</td>
-                                    <td>{estudiante.unEstudiante.apellido1 + " " + estudiante.unEstudiante.apellido2}</td>
-                                    <td>{estudiante.unEstudiante.fechaNacimiento}</td>
-                                    <td>{estudiante.unEstudiante.unaInstitucion.nombre}</td>
-                                    <td>{estudiante.unEstudiante.unaSede.nombre}</td>
-                                    <td>{estudiante.unEstudiante.grado}</td>
-                                    <td>{estudiante.fechaActual}</td>
-                                    <td>{estudiante.tipoBeneficio.nombre}</td>
-                                    <td>{estudiante.estado}</td>
+                                <tr key={estudiante.idEstudiante}>
+                                     <td>{
+                                           (estudiante.idTipoDocumento && estudiante.idTipoDocumento.corto) &&
+                                                estudiante.idTipoDocumento.corto
+                                        }
+                                    </td>
+                                    <td>{estudiante.numeroDocumento}</td>
+                                    <td>{estudiante.nombre1 + " " + estudiante.nombre2}</td>
+                                    <td>{estudiante.apellido1 + " " + estudiante.apellido2}</td>
+                                    <td>{estudiante.fechaNacimiento}</td>
+                                    <td>{estudiante.institucion}</td>
+                                    <td>{estudiante.consecutivo.nombre}</td>
+                                    <td>{estudiante.grupo}</td>
+                                    <td>{estudiante.anoInf}</td>
                                     <td> 
                                         <button
                                         className="btn btn-primary btn-block"
-                                        onClick={() => navigate("/editar_estudiante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}><FontAwesomeIcon icon={faEdit} /> </button>
+                                        onClick={() => navigate("/editar_estudiante_rector", {state:{id:estudiante.idEstudiante}})}><FontAwesomeIcon icon={faEdit} /> </button>
                                     {"  "}
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => navigate("/eliminar_estudidante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button>
+                                        onClick={() => navigate("/eliminar_estudidante_rector", {state:{id:estudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button>
                                     </td>   
                                     
                                 </tr>

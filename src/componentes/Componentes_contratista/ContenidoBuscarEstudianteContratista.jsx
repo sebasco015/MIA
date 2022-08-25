@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import React,{ useEffect, useState } from 'react';
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector } from "react-redux"
+import env from "../../env.json"
 
 
  const ContenidoBuscarEstudianteContratista =() => {
@@ -11,16 +13,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
     const [usuarios, setUsuarios] = useState([]);
     const [tablaUsuarios, setTablaUsuarios] = useState([]);
     const [busqueda, setBusqueda] = useState("");
+    const user = useSelector(state => state.user);
 
     const peticionGet = async () => {
-        await axios.get("http://localhost:8080/api/beneficiario/listar")
-            .then(response => {
-                setUsuarios(response.data);
-                setTablaUsuarios(response.data);
-            }).catch(error => {
+       try{
+         const response = await axios.get(`${env.host}/estudiante/contratista/${user.id}`)
+            const filtered = await response.data.filter((element) => (
+            element.grado.codigo !== 21 && element.grado.codigo !== 22 && element.grado.codigo !==23 && element.grado.codigo !== 24 && element.grado.codigo !== 25 && element.grado.codigo !== 26 && element.grado.codigo !== 99 )
+            )
+            console.log(filtered);
+                setUsuarios(filtered);
+                setTablaUsuarios(filtered);
+            } catch (error) {
                 console.log(error);
-            })
-    }
+            }
+    };
 
     const handleChange = e => {
         setBusqueda(e.target.value);
@@ -28,11 +35,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
     }
 
     const filtrar = (terminoBusqueda) => {
-        var resultadosBusqueda = tablaUsuarios.filter((elemento) => {
-            if (elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.nombre1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.apellido1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
-                || elemento.unEstudiante.numeroDocumento.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+        let resultadosBusqueda = tablaUsuarios.filter((elemento) => {
+            if (elemento.grupo.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.nombre1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.apellido1.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.consecutivo.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.institucion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+                || elemento.numeroDocumento.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
             ) {
                 return elemento;
             }
@@ -42,8 +51,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
     useEffect(() => {
-        peticionGet();
-    }, [])
+        peticionGet(user.id);
+    }, [user])
 
     return (
         <div id="buscar_div">
@@ -80,25 +89,25 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
                             <th scope="col">Sede</th>
                             <th scope="col">Grado</th>
                             <th scope="col">Fecha de Registro</th>
-                            <th scope="col">Tipo Beneficio</th>
-                            <th scope="col">Estado Beneficio</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuarios &&
                             usuarios.map((estudiante) => (
-                                <tr key={estudiante.unEstudiante.idEstudiante}>
-                                    <td>{estudiante.unEstudiante.unTipoDocumento.nombre}</td>
-                                    <td>{estudiante.unEstudiante.numeroDocumento}</td>
-                                    <td>{estudiante.unEstudiante.nombre1 + " " + estudiante.unEstudiante.nombre2}</td>
-                                    <td>{estudiante.unEstudiante.apellido1 + " " + estudiante.unEstudiante.apellido2}</td>
-                                    <td>{estudiante.unEstudiante.fechaNacimiento}</td>
-                                    <td>{estudiante.unEstudiante.unaInstitucion.nombre}</td>
-                                    <td>{estudiante.unEstudiante.unaSede.nombre}</td>
-                                    <td>{estudiante.unEstudiante.grado}</td>
-                                    <td>{estudiante.fechaCreacion}</td>
-                                    <td>{estudiante.tipoBeneficio.nombre}</td>
-                                    <td>{estudiante.estado}</td>
+                                <tr key={estudiante.idEstudiante}>
+                                    <td>{
+                                           (estudiante.idTipoDocumento && estudiante.idTipoDocumento.corto) &&
+                                                estudiante.idTipoDocumento.corto
+                                        }
+                                    </td>
+                                    <td>{estudiante.numeroDocumento}</td>
+                                    <td>{estudiante.nombre1 + " " + estudiante.nombre2}</td>
+                                    <td>{estudiante.apellido1 + " " + estudiante.apellido2}</td>
+                                    <td>{estudiante.fechaNacimiento}</td>
+                                    <td>{estudiante.institucion}</td>
+                                    <td>{estudiante.consecutivo.nombre}</td>
+                                    <td>{estudiante.grupo}</td>
+                                    <td>{estudiante.anoInf}</td>
                                 </tr>
                             ))}
                     </tbody>

@@ -30,7 +30,7 @@ const ContenidoInstitucionesAdmin= () => {
     }
 
     const filtrar = (terminoBusqueda) => {
-        var resultadosBusqueda = tablaInstituciones.filter((elemento) => {
+        let resultadosBusqueda = tablaInstituciones.filter((elemento) => {
             if (elemento.codDane.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
                 || elemento.idMunicipio.nombre.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())

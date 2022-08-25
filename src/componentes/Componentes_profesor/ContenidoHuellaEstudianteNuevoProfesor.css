@@ -1,9 +1,14 @@
 /*-Navengacion subtitulos-*/
 
 #huella_div{
-    height: 800px;
+    height: 90%;
 }
-
+#est_form{
+    width: 90%;
+    max-width:1800px;
+    padding-left:10%;
+    min-width: auto;
+}
 #huella_divruta{
     display: flex;
     margin-bottom: -15px;
@@ -30,11 +35,11 @@
 /*-Conteido de pagina-*/
 
 #datos{
-    width: fit-content;
-    margin: 0 auto;
+    width: 90%;
+    margin: 20px auto;
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows:  20% 20% 20% 20% 20% 20%;
+    grid-template-rows:  60pt 60pt 60pt 60pt 60pt;
     min-height: 50%;
 }
 
@@ -72,13 +77,6 @@
     margin-right: 10px;
 }
 
-#huella_inputs{
-    background: white;
-    border-radius: 9px;
-    border: 1px solid black;
-    color: black;
-    font-size: 18px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    width: 260px;
-    border-color: gray;
+#divbutton{
+    padding-left: 43%;
 }

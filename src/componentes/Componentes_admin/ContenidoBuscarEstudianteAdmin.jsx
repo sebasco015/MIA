@@ -17,16 +17,19 @@ const ContenidoBuscarEstudianteAdmin = () => {
     // const navigate = useNavigate();
 
     const peticionGet = async () => {
-        await axios.get(`${env.host}/estudiante/listar`)
-            .then(response => {
-                console.log(response.data);
-                setUsuarios(response.data);
-                setTablaUsuarios(response.data);
-            }).catch(error => {
+       try { 
+        const response = await axios.get(`${env.host}/estudiante/listar`);
+        console.log(response.data);
+        const filtered = response.data.filter((elemento) => (
+            elemento.grado.codigo !== 21 && elemento.grado.codigo !== 22 && elemento.grado.codigo !== 23 && elemento.grado.codigo !== 24 && elemento.grado.codigo !== 25 && elemento.grado.codigo !== 26 && elemento.grado.codigo !== 99)
+            )
+            
+            setUsuarios(filtered);
+            setTablaUsuarios(filtered);
+            } catch(error) {
                 console.log(error);
-
-            })
-    }
+            }
+    };
 
     const handleChange = e => {
         setBusqueda(e.target.value);
@@ -86,35 +89,26 @@ const ContenidoBuscarEstudianteAdmin = () => {
                             <th scope="col">Sede</th>
                             <th scope="col">Grado</th>
                             <th scope="col">Fecha de Registro</th>
-                            <th scope="col">Tipo Beneficio</th>
-                            <th scope="col">Estado Beneficio</th>
                         </tr>
                     </thead>
                     <tbody>
                         {usuarios &&
                             usuarios.map((estudiante) => (
                                 <tr key={estudiante.numeroDocumento}>
-                                    {/* <td>{estudiante.idTipoDocumento.nombre}</td> */}
+                                    <td>{
+                                           (estudiante.idTipoDocumento && estudiante.idTipoDocumento.corto) &&
+                                                estudiante.idTipoDocumento.corto
+                                        }
+                                    </td>
                                     <td>{estudiante.numeroDocumento}</td>
                                     <td>{estudiante.nombre1 + " " + estudiante.nombre2}</td>
                                     <td>{estudiante.apellido1 + " " + estudiante.apellido2}</td>
                                     <td>{estudiante.fechaNacimiento}</td>
-                                    <td>{estudiante.consSede.unaInstitucion.nombre}</td>
-                                    <td>{estudiante.consSede.nombre}</td>
+                                    <td>{estudiante.institucion}</td>
+                                    <td>{estudiante.consecutivo.nombre}</td>
                                     <td>{estudiante.grupo}</td>
                                     <td>{estudiante.anoInf}</td>
-                                    {/* <td>{estudiante.tipoBeneficio.nombre}</td>
-                                    <td>{estudiante.estado}</td> */}
-                                    <td> {/*
-                                        <button
-                                        className="btn btn-primary btn-block"
-                                        onClick={() => navigate("/editar_estudiante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}><FontAwesomeIcon icon={faEdit} /> </button>
-                                    {"  "}
-                                    <button
-                                        className="btn btn-danger"
-                            onClick={() => navigate("/eliminar_estudidante_admin", {state:{id:estudiante.unEstudiante.idEstudiante}})}> <FontAwesomeIcon icon={faTrash} /></button> */}
-                                    </td>   
-                                    
+   
                                 </tr>
                             ))}
                     </tbody>
